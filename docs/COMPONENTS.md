@@ -10,15 +10,16 @@ The heart of the system, handling data processing, feature engineering, and ML i
 
 ### Subcomponents
 
-| Directory       | Purpose                      | Key Technologies               |
-|-----------------|------------------------------|--------------------------------|
-| `core/`         | Shared infrastructure        | Pub/Sub, Redis, State Mgmt     |
-| `data_pipeline/`| Data ingestion & processing  | REST APIs, Pandas              |
-| `features/`     | Feature engineering engine   | NumPy, Custom DSL              |
-| `ML/`           | Model training & inference   | LightGBM, Scikit-learn         |
-| `ml_pipelines/` | Pipeline orchestration       | Custom framework               |
-| `functions/`    | Cloud Run deployments        | FastAPI, Docker                |
-| `utils/`        | Shared utilities             | Logging, Config, I/O           |
+
+| Directory        | Purpose                     | Key Technologies           |
+| ---------------- | --------------------------- | -------------------------- |
+| `core/`          | Shared infrastructure       | Pub/Sub, Redis, State Mgmt |
+| `data_pipeline/` | Data ingestion & processing | REST APIs, Pandas          |
+| `features/`      | Feature engineering engine  | NumPy, Custom DSL          |
+| `ML/`            | Model training & inference  | LightGBM, Scikit-learn     |
+| `ml_pipelines/`  | Pipeline orchestration      | Custom framework           |
+| `functions/`     | Cloud Run deployments       | FastAPI, Docker            |
+| `utils/`         | Shared utilities            | Logging, Config, I/O       |
 
 ### Key Capabilities
 
@@ -47,38 +48,42 @@ A separate, highly-optimized service for order execution and position management
 │  │  • Priority  │    │  • Hyperliquid    │  • Hyperliquid        │
 │  │    queue     │    │              │    │              │        │
 │  └──────────────┘    └──────────────┘    └──────────────┘        │
-│           │                  │                   │                │
-│           └──────────────────┼───────────────────┘                │
-│                              ▼                                    │
-│                    ┌──────────────┐                               │
-│                    │ Risk Manager │                               │
-│                    │              │                               │
-│                    │ • Position   │                               │
-│                    │   limits     │                               │
-│                    │ • Drawdown   │                               │
-│                    │   controls   │                               │
-│                    │ • Exposure   │                               │
-│                    │   checks     │                               │
-│                    └──────────────┘                               │
+│           │                  │                   │               │
+│           └──────────────────┼───────────────────┘               │
+│                              ▼                                   │
+│                    ┌──────────────┐                              │
+│                    │ Risk Manager │                              │
+│                    │              │                              │
+│                    │ • Position   │                              │
+│                    │   limits     │                              │
+│                    │ • Drawdown   │                              │
+│                    │   controls   │                              │
+│                    │ • Exposure   │                              │
+│                    │   checks     │                              │
+│                    └──────────────┘                              │
 │                                                                  │
 └──────────────────────────────────────────────────────────────────┘
 ```
 
 ### Subcomponents
 
-| Directory           | Purpose                              |
-|---------------------|--------------------------------------|
-| `src/core/`         | Configuration, models, base classes  |
-| `src/dispatcher/`   | Signal routing and prioritization    |
-| `src/execution/`    | Venue-specific execution logic       |
-| `src/workers/`      | Background processing workers        |
-| `external-watchdog/`| Health monitoring service            |
+
+| Directory            | Purpose                             |
+| -------------------- | ----------------------------------- |
+| `src/core/`          | Configuration, models, base classes |
+| `src/dispatcher/`    | Signal routing and prioritization   |
+| `src/execution/`     | Venue-specific execution logic      |
+| `src/workers/`       | Background processing workers       |
+| `external-watchdog/` | Health monitoring service           |
 
 ### Features
 
 - **Multi-venue support**: MT5, Binance, Hyperliquid
-- **Risk controls**: Pre-trade validation, position limits
-- **Notifications**: Telegram integration for trade alerts
+- **Multi-account management**: Parallel account execution with SQL state
+- **Dashboard sync**: Real-time communication with operations dashboard
+- **Configuration**: Dynamic config updates without restart
+- **Risk controls**: Pre-trade validation, position limits, drawdown gates
+- **Notifications**: Telegram integration for trade alerts and status
 - **Resilience**: Automatic reconnection, state recovery
 
 ---
@@ -96,11 +101,12 @@ RESTful API serving the operations dashboard.
 
 ### API Categories
 
-| Router                  | Endpoints                      |
-|-------------------------|--------------------------------|
-| `auth.py`               | Login, logout, token refresh   |
-| `dashboard.py`          | Positions, trades, P&L         |
-| `dashboard_snippets.py` | Widget data, summaries         |
+
+| Router                  | Endpoints                    |
+| ----------------------- | ---------------------------- |
+| `auth.py`               | Login, logout, token refresh |
+| `dashboard.py`          | Positions, trades, P&L       |
+| `dashboard_snippets.py` | Widget data, summaries       |
 
 ### Key Features
 
@@ -123,14 +129,15 @@ Modern web application for monitoring and operations.
 
 ### Page Structure
 
-| Route                  | Purpose                |
-|------------------------|------------------------|
-| `/`                    | Landing page           |
-| `/dashboard`           | Overview               |
-| `/dashboard/analytics` | Performance analytics  |
-| `/dashboard/execution` | Trade execution view   |
-| `/dashboard/logs`      | System logs            |
-| `/dashboard/settings`  | Configuration          |
+
+| Route                  | Purpose               |
+| ---------------------- | --------------------- |
+| `/`                    | Landing page          |
+| `/dashboard`           | Overview              |
+| `/dashboard/analytics` | Performance analytics |
+| `/dashboard/execution` | Trade execution view  |
+| `/dashboard/logs`      | System logs           |
+| `/dashboard/settings`  | Configuration         |
 
 ### UI Components
 
@@ -148,12 +155,13 @@ Centralized configuration management with environment-specific overrides.
 
 ### Configuration Categories
 
-| Directory      | Purpose                           |
-|----------------|-----------------------------------|
-| `ml/`          | Model parameters, data loader     |
-| `production/`  | Production-specific settings      |
-| `backtesting/` | Backtest configurations           |
-| `cloudbuild/`  | CI/CD pipeline configurations     |
+
+| Directory      | Purpose                        |
+| -------------- | ------------------------------ |
+| `ml/`          | Model parameters, data loader  |
+| `production/`  | Production-specific settings   |
+| `backtesting/` | Backtest configurations        |
+| `cloudbuild/`  | Container build configurations |
 
 ### Configuration Pattern
 
@@ -194,13 +202,15 @@ Airflow DAGs for scheduled processing and workflow management.
 ### Dockerfiles
 
 Multiple Dockerfiles for different services:
+
 - `Dockerfile` - Main platform
 - `Dockerfile.final-gate` - ML inference service
 - `Dockerfile.dashboard-api` - Backend API
 
 ### Cloud Build
 
-CI/CD configurations for automated deployments:
+Container build configurations:
+
 - `cloudbuild-*.yaml` - Service-specific pipelines
 - Multi-stage builds with testing
 

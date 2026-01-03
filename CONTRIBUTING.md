@@ -14,7 +14,7 @@ We are not accepting external contributions to this repository at this time. Thi
 
 If you're interested in working with us or have collaboration proposals, please reach out:
 
-- **Email**: careers@disuza.com
+- **Email**: contact@disuza.com
 - **Website**: https://disuza.com
 
 ## Questions

@@ -6,9 +6,10 @@ This is a portfolio repository and does not contain production code. However, if
 
 **Please do NOT create a public GitHub issue for security vulnerabilities.**
 
-Instead, please send an email to: **security@disuza.com**
+Instead, please send an email to: **contact@disuza.com**
 
 Include the following information:
+
 - Description of the vulnerability
 - Steps to reproduce
 - Potential impact
@@ -19,6 +20,7 @@ We will acknowledge receipt within 48 hours and provide a detailed response with
 ## Scope
 
 This security policy applies to:
+
 - This public portfolio repository
 - The public website at disuza.com
 

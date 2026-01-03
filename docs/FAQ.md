@@ -21,16 +21,18 @@ This repository serves as a portfolio showcase to demonstrate technical capabili
 ### What technologies are used?
 
 The platform is built with:
+
 - **Backend**: Python 3.12+, FastAPI, asyncio
 - **ML**: LightGBM, Pandas, NumPy, Scikit-learn
 - **Frontend**: Next.js 14, React 18, TypeScript, TailwindCSS
-- **Orchestration**: Apache Airflow (Cloud Composer)
-- **Infrastructure**: Google Cloud Platform (Cloud Run, Cloud SQL, Pub/Sub, etc.)
+- **Orchestration**: Apache Airflow (Cloud Composer), Cloud Scheduler
+- **Infrastructure**: GCP (Cloud Run, Compute Engine, Cloud SQL, Memorystore, Vertex AI, etc.)
 - **DevOps**: Docker, Cloud Build
 
 ### Why Python for trading?
 
 Python offers:
+
 1. Rich ecosystem for data science and ML
 2. Excellent async support for concurrent operations
 3. Fast development iteration
@@ -42,6 +44,7 @@ For compute-intensive operations, we use optimizations like NumPy vectorization.
 ### Why GCP over AWS/Azure?
 
 GCP was chosen for:
+
 - Excellent managed services (Cloud Run, Cloud Composer)
 - Competitive pricing for our workload profile
 - Cloud Composer provides managed Apache Airflow
@@ -53,6 +56,7 @@ The architecture is largely cloud-agnostic and could be migrated if needed.
 ### How do you handle data ingestion?
 
 We use REST API connections to exchange and data provider endpoints:
+
 - Scheduled data pulls via Airflow DAGs
 - API rate limit management
 - Schema validation and normalization
@@ -61,6 +65,7 @@ We use REST API connections to exchange and data provider endpoints:
 ### How do you ensure ML model quality?
 
 Our model validation includes:
+
 - Walk-forward cross-validation
 - Out-of-sample testing on held-out periods
 - Regime-aware performance analysis
@@ -74,6 +79,7 @@ Our model validation includes:
 ### Why use Apache Airflow?
 
 Airflow (via Cloud Composer) provides:
+
 1. Visual DAG management and monitoring
 2. Retry policies and failure handling
 3. Scheduling with complex dependencies
@@ -83,6 +89,7 @@ Airflow (via Cloud Composer) provides:
 ### Why microservices?
 
 The trading platform benefits from microservices because:
+
 1. Independent scaling of components (execution needs different resources than ML)
 2. Fault isolation (ML crash doesn't affect execution)
 3. Technology flexibility (can use different tools per service)
@@ -97,6 +104,7 @@ The trading platform benefits from microservices because:
 ### How do you handle failures?
 
 Every component is designed with failure in mind:
+
 - Health checks and auto-restart
 - Circuit breakers for downstream dependencies
 - Retry logic with exponential backoff
@@ -114,8 +122,9 @@ No. We operate on a pipeline-based architecture with scheduled data processing. 
 ### What exchanges/venues are supported?
 
 The execution engine supports:
+
 - **MetaTrader 5** (via broker connections)
-- **Binance** (spot and futures)
+- **Binance Global** (futures)
 - **Hyperliquid** (perpetuals)
 
 The architecture allows adding new venues through a standardized interface.
@@ -123,6 +132,7 @@ The architecture allows adding new venues through a standardized interface.
 ### How are risks managed?
 
 Risk management operates at multiple levels:
+
 1. **Pre-trade**: Position limits, exposure checks
 2. **Active**: Drawdown monitoring, P&L alerts
 3. **Post-trade**: Fill analysis, slippage tracking
@@ -143,10 +153,11 @@ Risk management operates at multiple levels:
 ### How are secrets managed?
 
 All secrets are stored in GCP Secret Manager:
+
 - Never committed to code
 - Accessed at runtime via service account
 - Rotated regularly
-- Audited access
+- Access via service accounts
 
 ### How is data protected?
 
@@ -154,7 +165,7 @@ All secrets are stored in GCP Secret Manager:
 - Encryption in transit (TLS 1.3)
 - Service account isolation
 - IAM for access control
-- Audit logging enabled
+- IAM access control
 
 ---
 
@@ -163,11 +174,11 @@ All secrets are stored in GCP Secret Manager:
 ### How is the system monitored?
 
 We use GCP's native observability stack:
+
 - **Cloud Logging**: Structured logs from all services
 - **Cloud Monitoring**: Custom metrics and dashboards
 - **Alerts**: Telegram integration for notifications
 - **Airflow UI**: DAG monitoring and task status
-- **Alerts**: Telegram integration
 
 ### What's the deployment process?
 
@@ -183,6 +194,7 @@ We use GCP's native observability stack:
 ### How often do you deploy?
 
 We follow continuous deployment principles:
+
 - Multiple deploys per day for non-critical changes
 - Careful rollout for trading logic changes
 - Feature flags for gradual rollout
@@ -194,7 +206,7 @@ We follow continuous deployment principles:
 
 ### Are you hiring?
 
-For current opportunities, please email: careers@disuza.com
+For current opportunities, please email: contact@disuza.com
 
 ### Can I contribute to this repository?
 

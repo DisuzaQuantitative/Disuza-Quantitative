@@ -116,14 +116,13 @@ Market Data Sources              Orchestration & Processing                 Exec
 
 ### GCP Services Utilized
 
-- **Orchestration**: Cloud Composer (Managed Apache Airflow)
-- **Compute**: Cloud Run (containerized services)
-- **Data**: Cloud SQL (PostgreSQL), Cloud Storage (GCS)
+- **Orchestration**: Cloud Composer (Managed Apache Airflow), Cloud Scheduler
+- **Compute**: Cloud Run, Compute Engine (Windows Server for MT5 Execution)
+- **Data**: Cloud SQL (PostgreSQL), Cloud Storage (GCS), Memorystore (Redis)
 - **Messaging**: Pub/Sub for pipeline communication
-- **ML Platform**: Vertex AI for hyperparameter tuning
+- **ML Platform**: Vertex AI (Training & Hyperparameter Tuning)
 - **Security**: Secret Manager, Firestore
-- **Monitoring**: Cloud Monitoring
-- **CI/CD**: Cloud Build with multi-stage deployments
+- **CI/CD**: Cloud Build, Artifact Registry
 
 ### Development Practices
 
@@ -151,9 +150,11 @@ Market Data Sources              Orchestration & Processing                 Exec
 *Multi-venue order execution with intelligent routing and risk controls*
 
 - Unified interface for multiple exchange protocols (REST APIs)
+- Multi-account parallel execution with SQL state management
+- Real-time dashboard communication and configuration sync
 - Position and exposure management across venues
 - P&L tracking and drawdown monitoring
-- Telegram integration for trade notifications
+- Telegram notifications for trade alerts and system status
 
 ### 3. Data Pipeline
 
@@ -177,30 +178,18 @@ Market Data Sources              Orchestration & Processing                 Exec
 
 ## Infrastructure
 
-### Production Environment
+### Deployment
 
-```yaml
-Region: Multi-region (Primary: us-central1)
-Availability: 99.9%+ SLA target
-Scaling: Automatic based on workload
-Recovery: Automated failover with health checks
-```
+- **Region**: europe-west4 (GCP) with europe-west1 redundancy
+- **Execution Engine**: Compute Engine Windows Server (MT5)
+- **Services**: Cloud Run containerized deployments
+- **Orchestration**: Cloud Composer managed Airflow
 
-### Security Posture
+### Security
 
 - Secrets management via GCP Secret Manager
-- Service-to-service authentication with IAM
-- Encrypted data at rest and in transit
-- Network isolation with VPC and private endpoints
-- Audit logging for compliance
-
-### CI/CD Pipeline
-
-```
-Code Push → Cloud Build Trigger → Test Suite → Container Build → 
-Deploy to Staging → Integration Tests → Production Deployment → 
-Health Verification → Traffic Migration
-```
+- Service accounts for authentication
+- Encrypted credentials storage
 
 ---
 
@@ -215,7 +204,7 @@ disuza-quantitative/
 │   ├── features/                 # Feature engineering engine
 │   ├── ML/                       # Model training & inference
 │   ├── ml_pipelines/             # Pipeline orchestration
-│   ├── functions/                # Cloud Function deployments
+│   ├── functions/                # Cloud Run service deployments
 │   └── utils/                    # Shared utilities
 │
 ├── trading-execution-engine/     # Order execution system
@@ -240,21 +229,20 @@ disuza-quantitative/
 │   └── backtesting/              # Backtest parameters
 │
 ├── dags/                         # Airflow DAGs (pipeline orchestration)
+│   ├── scripts/                  # DAG helper scripts & job submissions
+│   └── pipelines/                # Pipeline definitions
 │
 └── docs/                         # Technical documentation
 ```
 
 ---
 
-## Performance Characteristics
+## System Capabilities
 
-
-| Metric           | Target    | Description                                    |
-| ---------------- | --------- | ---------------------------------------------- |
-| Pipeline Latency | <5min     | Time from data ingestion to execution decision |
-| Uptime           | 99.9%+    | System availability during market hours        |
-| Recovery Time    | <60s      | Automatic recovery from component failures     |
-| Data Freshness   | Scheduled | Configurable polling intervals                 |
+- **Fault Tolerance**: Automatic retry with exponential backoff, graceful degradation
+- **Observability**: Structured logging, Cloud Monitoring metrics, Telegram alerts
+- **Scalability**: Stateless services, horizontal scaling via Cloud Run
+- **Reliability**: DAG-based orchestration with dependency tracking
 
 ---
 

@@ -1,218 +1,79 @@
-# Skills & Competencies Demonstrated
+# Skills & Technologies Used
 
-> This document outlines the technical skills and competencies demonstrated through the Disuza Quantitative platform.
-
----
-
-## Software Engineering
-
-### System Design
-- ✅ Distributed systems architecture
-- ✅ Pipeline-driven workflows
-- ✅ API design (REST)
-- ✅ Database schema design
-- ✅ Caching strategies
-- ✅ Message queue patterns
-
-### Programming
-- ✅ Python (advanced async, type hints, decorators, context managers)
-- ✅ TypeScript (strict mode, generics, utility types)
-- ✅ SQL (complex queries, window functions, CTEs)
-- ✅ Shell scripting (bash, automation)
-
-### Code Quality
-- ✅ Clean code principles
-- ✅ SOLID design patterns
-- ✅ Comprehensive documentation
-- ✅ Test-driven development
-- ✅ Code review practices
+> Technologies and concepts applied in building the Disuza Quantitative platform.
 
 ---
 
-## Machine Learning Engineering
+## Machine Learning
 
-### Model Development
-- ✅ Gradient boosting (LightGBM, XGBoost)
-- ✅ Ensemble methods
-- ✅ Hyperparameter optimization
-- ✅ Cross-validation strategies
-- ✅ Feature engineering
-
-### ML Operations
-- ✅ Model versioning and registry
-- ✅ A/B testing frameworks
-- ✅ Model monitoring and drift detection
-- ✅ Feature stores
-- ✅ Experiment tracking
-
-### Production ML
-- ✅ Batch inference pipelines
-- ✅ Model serving at scale
-- ✅ Scheduled prediction systems
-- ✅ Model performance monitoring
+- **LightGBM** - Quantile regression models for price prediction
+- **K-Means Clustering** - Macro regime classification
+- **Ensemble Methods** - Hierarchical gating with specialized experts
+- **Hyperparameter Tuning** - Vertex AI Vizier optimization
+- **Feature Engineering** - Technical, on-chain, and macro features
+- **Walk-Forward Validation** - Time-series cross-validation
 
 ---
 
-## Cloud & Infrastructure
+## Cloud Infrastructure (GCP)
 
-### Google Cloud Platform
-- ✅ Cloud Composer (Managed Apache Airflow)
-- ✅ Cloud Run (serverless containers)
-- ✅ Firestore (document database)
-- ✅ Cloud SQL (managed PostgreSQL)
-- ✅ Pub/Sub (messaging)
-- ✅ Cloud Storage (object storage)
-- ✅ Secret Manager (secrets)
-- ✅ Cloud Build (CI/CD)
-- ✅ Cloud Logging & Monitoring
-- ✅ IAM (identity & access)
-- ✅ Vertex AI (ML platform)
-- ✅ Vertex AI (ML platform)
-
-### DevOps
-- ✅ Docker containerization
-- ✅ CI/CD pipeline design
-- ✅ Infrastructure as code
-- ✅ GitOps workflows
-- ✅ Blue-green deployments
-
-### Reliability Engineering
-- ✅ High availability design
-- ✅ Disaster recovery planning
-- ✅ Incident response procedures
-- ✅ SLO/SLI definition
-- ✅ Chaos engineering principles
+- **Cloud Composer** - Managed Apache Airflow for pipeline orchestration
+- **Cloud Run** - Containerized inference and API services
+- **Compute Engine** - Windows Server for MT5 execution
+- **Cloud SQL** - PostgreSQL for operational data
+- **Memorystore** - Redis caching
+- **Pub/Sub** - Event-driven messaging
+- **Cloud Storage** - Model artifacts and datasets
+- **Firestore** - Execution engine state
+- **Secret Manager** - Credentials management
+- **Vertex AI** - ML training and hyperparameter optimization
 
 ---
 
-## Data Engineering
+## Backend Development
 
-### Data Pipelines
-- ✅ Apache Airflow DAG design
-- ✅ Batch processing workflows
-- ✅ ETL/ELT pipelines
-- ✅ Data validation and quality
-- ✅ Schema evolution
-
-### Databases
-- ✅ PostgreSQL (advanced features)
-- ✅ Redis (caching, pub/sub)
-- ✅ Time-series data handling
-- ✅ Database optimization
-- ✅ Connection pooling
-
-### Data Modeling
-- ✅ Dimensional modeling
-- ✅ Slowly changing dimensions
-- ✅ Point-in-time correctness
-- ✅ Data lineage tracking
+- **Python 3.12** - Primary language
+- **FastAPI** - REST API services
+- **Apache Airflow** - DAG-based workflow orchestration
+- **Pydantic** - Data validation
+- **PostgreSQL** - Relational database
+- **Redis** - Caching and rate limiting
 
 ---
 
-## Full-Stack Development
+## Frontend Development
 
-### Backend
-- ✅ FastAPI (async Python)
-- ✅ RESTful API design
-- ✅ Authentication (JWT, OAuth)
-- ✅ Rate limiting
-- ✅ API versioning
-
-### Frontend
-- ✅ React 18 (hooks, context, suspense)
-- ✅ Next.js 14 (App Router, SSR, ISR)
-- ✅ TypeScript (strict mode)
-- ✅ TailwindCSS
-- ✅ Responsive design
-
-### APIs
-- ✅ OpenAPI/Swagger documentation
-- ✅ REST API design
-- ✅ API security (CORS, CSRF)
+- **Next.js 14** - React framework with App Router
+- **TypeScript** - Type-safe frontend code
+- **TailwindCSS** - Styling
+- **Vercel** - Frontend deployment ( for dev )
 
 ---
 
-## Financial Engineering
+## DevOps
 
-### Market Microstructure
-- ✅ Order book dynamics
-- ✅ Market making concepts
-- ✅ Execution algorithms
-- ✅ Transaction cost analysis
-- ✅ Slippage modeling
-
-### Risk Management
-- ✅ Position sizing
-- ✅ Drawdown controls
-- ✅ Exposure management
-- ✅ Value at Risk (VaR) concepts
-- ✅ Correlation analysis
-
-### Quantitative Analysis
-- ✅ Time series analysis
-- ✅ Statistical testing
-- ✅ Backtesting methodologies
-- ✅ Performance attribution
-- ✅ Regime detection
+- **Docker** - Containerization
+- **Cloud Build** - CI/CD pipelines
+- **Artifact Registry** - Container image storage
 
 ---
 
-## Security
+## Financial Concepts Applied
 
-### Application Security
-- ✅ OWASP Top 10 awareness
-- ✅ Input validation
-- ✅ SQL injection prevention
-- ✅ XSS prevention
-- ✅ Secure authentication
-
-### Infrastructure Security
-- ✅ Network segmentation
-- ✅ Encryption (at rest, in transit)
-- ✅ Secret management
-- ✅ Least privilege access
-- ✅ Audit logging
-
-### Operational Security
-- ✅ Key rotation
-- ✅ Access reviews
-- ✅ Incident response
-- ✅ Security monitoring
+- **Quantile-based backtesting** - Strategy validation
+- **Position sizing** - Risk-adjusted allocation
+- **Drawdown controls** - Capital preservation
+- **Regime detection** - Market state classification
 
 ---
 
-## Soft Skills
+## Development Approach
 
-### Problem Solving
-- ✅ Complex system debugging
-- ✅ Root cause analysis
-- ✅ Performance optimization
-- ✅ Trade-off evaluation
-
-### Communication
-- ✅ Technical documentation
-- ✅ Architecture diagrams
-- ✅ Code comments
-- ✅ API documentation
-
-### Project Management
-- ✅ Task prioritization
-- ✅ Iterative development
-- ✅ Technical debt management
-- ✅ Milestone planning
+- **AI-Augmented Development** - Cursor + Claude for accelerated implementation
+- **Iterative Refinement** - Validating and debugging AI-generated code
+- **Architectural Ownership** - Design decisions and system integration
+- **Continuous Learning** - Understanding every component built
 
 ---
 
-## Certifications & Learning
-
-### Relevant Areas of Expertise
-- Cloud Architecture
-- Machine Learning Systems
-- Financial Markets
-- Distributed Systems
-- Data Engineering
-- Workflow Orchestration
-
----
-
-*This skills matrix reflects capabilities demonstrated through the development of this trading platform.*
+*Built with the assistance of AI coding tools.*
