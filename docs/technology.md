@@ -63,8 +63,6 @@ Disuza's orchestration is **event-driven**, not DAG-driven:
   (kill-switch trips, orphan detection, deploy outcomes). Email is the
   fallback.
 
-## Observability tooling, by concern
-
 | Concern | Tool |
 | --- | --- |
 | Log aggregation | Cloud Logging |
