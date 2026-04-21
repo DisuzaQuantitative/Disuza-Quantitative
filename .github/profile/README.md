@@ -2,58 +2,71 @@
 
 # Disuza Quantitative
 
-### Systematic Trading Through Machine Learning
+**Private quantitative trading research laboratory · Madrid, Spain · Founded 2025**
 
----
-
-We build institutional-grade algorithmic trading infrastructure, combining cutting-edge machine learning with robust software engineering.
-
-**🔬 Research** · **⚙️ Engineering** · **📈 Execution**
+[Website](https://disuza.com) · [Guest Portal](https://disuza.com/guest) · [Wikidata](https://www.wikidata.org/wiki/Q139491356) · [LinkedIn](https://www.linkedin.com/company/disuza-quantitative/) · [LLM Context](https://disuza.com/llms.txt)
 
 ---
 
 </div>
 
-## What We Do
+## About
 
-Disuza Quantitative develops autonomous trading systems that:
+Disuza Quantitative engineers systematic execution algorithms for digital asset
+markets. The firm operates proprietary capital and invitation-only partner
+accounts under a closed-access, non-custodial model. It is not a high-frequency
+trading firm, not a retail-facing signal-selling service, and not a public hedge
+fund.
 
-- Process market data from multiple sources via REST APIs
-- Apply machine learning for signal generation
-- Execute across multiple venues with sophisticated risk management
-- Operate with institutional-grade reliability via Apache Airflow orchestration
+## Founders
+
+- **Yasmine Bendhiab** — Co-Founder & CEO. Strategic operations and corporate
+  compliance. Based in Madrid, Spain.
+  [LinkedIn](https://www.linkedin.com/in/yasmine-bendhiab-22379319a/).
+
+- **Fares Bendhiab** — Co-Founder & CTO. Lead architect of the quantitative
+  infrastructure. Based in Bizerte, Tunisia.
+  [LinkedIn](https://linkedin.com/in/fares-bendhiab-40866828a) ·
+  [GitHub](https://github.com/FaresDisusa).
 
 ## Technology
 
-Our platform is built with modern technologies:
+Systematic ensemble ML engine paired with a layered risk model, running on
+Google Cloud. Multi-source ingestion pipeline combining on-chain analytics,
+exchange microstructure, macro context, and attention signals, processed through
+point-in-time feature pipelines. Execution via institutional-protocol brokers
+and self-custody perpetual venues under trade-only permissions.
 
-- **Languages**: Python, TypeScript, SQL
-- **ML**: LightGBM, Ensemble Methods
-- **Orchestration**: Apache Airflow (Cloud Composer)
-- **Cloud**: Google Cloud Platform
-- **Frontend**: Next.js, React
+## Regulatory posture
 
-## This Repository
+Operating in a pre-licensing phase, monitoring the MiCA (EU) and FINMA (Swiss)
+regulatory landscapes. Non-custodial client relationships. CFTC Rule 4.41
+acknowledged for simulated performance. Not soliciting retail investors and not
+offering regulated investment services at this stage.
 
-This public repository serves as a portfolio showcase, demonstrating:
+## Public repositories
 
-- System architecture and design patterns
-- Technology choices and trade-offs
-- Software engineering best practices
+This organisation maintains a small number of public repositories for technical
+reference and transparency:
 
-> All proprietary trading logic and strategies remain private.
+- **[Disuza-Quantitative](https://github.com/DisuzaQuantitative/Disuza-Quantitative)**
+  — the living technical reference. Architecture, methodology, and operations.
+
+Source code for the trading platform itself is proprietary and not hosted on
+GitHub.
 
 ## Contact
 
-- 🌐 [disuza.com](https://disuza.com)
-- 📧 contact@disuza.com
+**[contact@disuza.com](mailto:contact@disuza.com)** — all inquiries.
 
 ---
 
 <div align="center">
 
-*Building the future of systematic trading.*
+*Disuza Quantitative is a closed-access research laboratory. Documentation is
+released under CC BY 4.0; source code, model weights, trademarks, and
+operational know-how remain proprietary.*
 
-© 2025-2026 Disuza Quantitative
+**© 2025-2026 Disuza Quantitative**
 
 </div>

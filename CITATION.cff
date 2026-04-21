@@ -1,0 +1,31 @@
+cff-version: 1.2.0
+message: "If you cite or reference this documentation, please use the metadata below."
+title: "Disuza Quantitative — Public Technical Reference"
+abstract: >-
+  Living technical reference for Disuza Quantitative, a private
+  quantitative crypto trading research laboratory based in Madrid, Spain.
+  Covers architecture, methodology, data pipelines, execution venues,
+  risk framework, and regulatory posture. Source code and model weights
+  are proprietary and not included in this repository.
+type: "misc"
+authors:
+  - name: "Disuza Quantitative"
+    website: "https://disuza.com"
+    address: "Madrid, Spain"
+url: "https://github.com/DisuzaQuantitative/Disuza-Quantitative"
+repository-code: "https://github.com/DisuzaQuantitative/Disuza-Quantitative"
+identifiers:
+  - type: other
+    value: "https://www.wikidata.org/wiki/Q139491356"
+    description: "Wikidata entity"
+keywords:
+  - "quantitative trading"
+  - "systematic trading"
+  - "algorithmic trading"
+  - "machine learning"
+  - "digital assets"
+  - "risk management"
+  - "financial technology"
+license: "CC-BY-4.0"
+version: "3.0.0"
+date-released: "2026-04-20"

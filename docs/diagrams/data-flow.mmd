@@ -1,0 +1,43 @@
+%% Disuza Quantitative — Data Flow (PIT pipelines)
+%% Version 3 · 2026-04-20
+
+graph LR
+  subgraph "Source classes"
+    S1[On-chain analytics]
+    S2[Exchange microstructure]
+    S3[Macro context]
+    S4[Attention signals]
+  end
+
+  CLOCK[Cloud Scheduler<br/>ingestion cadence]
+  COLLECT[Data collector<br/>Cloud Run service]
+  SNAP[Point-in-time<br/>snapshot]
+  VALID{Schema<br/>validator}
+  LKG[Last-known-good<br/>fallback]
+  CACHE[(Raw cache<br/>Cloud Storage)]
+  MANIFEST[Manifest hash<br/>+ BigQuery lineage]
+  PIT[PIT feature pipeline<br/>retroactive-revision guardrails]
+  FSTORE[(Feature store)]
+  INFER[Ensemble ML inference]
+
+  CLOCK --> COLLECT
+  S1 --> COLLECT
+  S2 --> COLLECT
+  S3 --> COLLECT
+  S4 --> COLLECT
+  COLLECT --> SNAP
+  SNAP --> VALID
+  VALID -->|pass| CACHE
+  VALID -->|fail| LKG
+  LKG --> CACHE
+  CACHE --> MANIFEST
+  MANIFEST --> PIT
+  PIT --> FSTORE
+  FSTORE --> INFER
+
+  classDef source fill:#fef8e7,stroke:#aa8800,stroke-width:1px
+  classDef store fill:#e8f8e8,stroke:#338833,stroke-width:1px
+  classDef validator fill:#f8e8e8,stroke:#883333,stroke-width:1px
+  class S1,S2,S3,S4 source
+  class CACHE,FSTORE store
+  class VALID,LKG validator
