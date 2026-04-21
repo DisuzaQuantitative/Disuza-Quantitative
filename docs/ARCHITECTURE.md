@@ -1,256 +1,158 @@
-# System Architecture
+# Architecture
 
-> This document provides an overview of the Disuza Quantitative trading platform architecture. Implementation details and proprietary algorithms are omitted.
+> High-level system architecture of the Disuza Quantitative platform at the
+> abstraction level appropriate for public reference. Internal implementation
+> details, model parameters, and operational cadences are not included.
 
-## Design Philosophy
+## Design philosophy
 
-The platform is built on several core principles:
+The platform is built on four core principles:
 
-1. **Pipeline-Driven Architecture**: All workflows orchestrated through Apache Airflow DAGs for reliability and observability.
-2. **Domain-Driven Design**: Clear separation between data ingestion, feature engineering, model inference, and execution domains.
-3. **Fail-Safe Operations**: Every component is designed to fail gracefully with automatic recovery and state persistence.
-4. **Observability First**: Comprehensive logging, metrics, and tracing built into every service from day one.
+1. **Event-driven orchestration.** Workflows are triggered by a cloud-hosted
+   scheduler and mediated through a pub/sub event bus, with consumer-side
+   idempotency. There is no central dependency-tracked DAG orchestrator.
+2. **Domain-driven separation.** Data ingestion, feature engineering,
+   inference, risk, and execution are independent services that communicate
+   through well-defined contracts.
+3. **Fail-safe operations.** Every service is designed to fail gracefully.
+   Consumers tolerate at-least-once delivery via a processed-message ledger
+   and stable idempotency keys. State persists across restarts in Firestore
+   and PostgreSQL.
+4. **Observability first.** Structured logging, custom metrics, heartbeat
+   watchdogs, and operator alerts are part of every service from day one.
 
----
+## Planes
 
-## High-Level Architecture
+Disuza's architecture decomposes into three functional planes plus an
+orchestration tier and persistence tier.
 
-```
-                                    ┌──────────────────────────────────────┐
-                                    │          CONTROL PLANE               │
-                                    │  ┌────────────────────────────────┐  │
-                                    │  │      Operations Dashboard      │  │
-                                    │  │      (Next.js + FastAPI)       │  │
-                                    │  └────────────────────────────────┘  │
-                                    └───────────────────┬──────────────────┘
-                                                        │
-        ┌───────────────────────────────────────────────┼───────────────────────────────────────────────┐
-        │                                               │                                               │
-        ▼                                               ▼                                               ▼
-┌───────────────────┐                       ┌───────────────────┐                       ┌───────────────────┐
-│    DATA PLANE     │                       │   COMPUTE PLANE   │                       │  EXECUTION PLANE  │
-│                   │                       │                   │                       │                   │
-│ ┌───────────────┐ │                       │ ┌───────────────┐ │                       │ ┌───────────────┐ │
-│ │  Market Data  │ │       ────────▶       │ │  ML Pipeline  │ │       ────────▶       │ │ Risk Manager  │ │
-│ │   Ingestion   │ │                       │ │  (Inference)  │ │                       │ │               │ │
-│ └───────────────┘ │                       │ └───────────────┘ │                       │ └───────────────┘ │
-│                   │                       │                   │                       │                   │
-│ ┌───────────────┐ │                       │ ┌───────────────┐ │                       │ ┌───────────────┐ │
-│ │   On-Chain    │ │                       │ │    Feature    │ │                       │ │  Order Router │ │
-│ │   Analytics   │ │                       │ │    Engine     │ │                       │ │               │ │
-│ └───────────────┘ │                       │ └───────────────┘ │                       │ └───────────────┘ │
-│                   │                       │                   │                       │                   │
-│ ┌───────────────┐ │                       │ ┌───────────────┐ │                       │ ┌───────────────┐ │
-│ │  Macro Regime │ │                       │ │    Signal     │ │                       │ │   Position    │ │
-│ │  Classifier   │ │                       │ │   Generator   │ │                       │ │    Manager    │ │
-│ └───────────────┘ │                       │ └───────────────┘ │                       │ └───────────────┘ │
-│                   │                       │                   │                       │                   │
-└───────────────────┘                       └───────────────────┘                       └───────────────────┘
-        │                                               │                                        │
-        └───────────────────────────────────────────────┼────────────────────────────────────────┘
-                                                        │
-                                    ┌───────────────────▼──────────────────┐
-                                    │       ORCHESTRATION LAYER            │
-                                    │                                      │
-                                    │   Apache Airflow (Cloud Composer)    │
-                                    │   DAGs │ Scheduling │ Monitoring     │
-                                    │                                      │
-                                    └───────────────────┬──────────────────┘
-                                                        │
-                                    ┌───────────────────▼──────────────────┐
-                                    │        PERSISTENCE LAYER             │
-                                    │                                      │
-                                    │  Cloud SQL │ Redis │ Cloud Storage   │
-                                    │                                      │
-                                    └──────────────────────────────────────┘
-```
+### Data plane
 
----
+- Multi-source ingestion combining on-chain analytics, exchange OHLC and
+  microstructure, macro context, and attention signals.
+- Real-time and point-in-time (PIT) feature pipelines with
+  retroactive-revision guardrails so that training and live inference see
+  the same feature distributions.
+- Schema validation and last-known-good fallbacks prevent malformed or
+  missing data from poisoning downstream inference.
 
-## Component Details
+Detail in [`data-pipeline.md`](data-pipeline.md).
 
-### Data Plane
+### Compute plane
 
-The data plane is responsible for ingesting, normalizing, and distributing market data from multiple sources.
+- **Ensemble ML engine** — the direction-agnostic core that produces position
+  decisions from the feature store.
+- **Layered risk model** — an overlay that modulates exposure when
+  short-horizon signals disagree with the primary stance, implementing
+  counter-positioning discipline rather than naïve directional betting.
+- **Signal router** — combines engine outputs with risk-framework gates
+  before publishing to the execution plane.
 
-#### Market Data Ingestion
+Internal model architecture, feature details, hold horizons, and signal
+taxonomy are proprietary and not published.
 
-- **Protocol**: REST APIs for scheduled data pulls
-- **Sources**: Major cryptocurrency exchanges
-- **Processing**: Normalization, deduplication, gap detection
-- **Output**: Unified market data format stored in Cloud SQL
+### Execution plane
 
-#### On-Chain Analytics
+- **Venue adapters** — institutional-protocol brokers (FIX-based, trade-only
+  scope) and self-custody perpetual venues (trade-scoped API wallets).
+- **Order lifecycle manager** — place, monitor, reconcile, and close.
+- **Broker-truth reconciliation** — the broker's own position and fill
+  history is the source of truth for PnL and account state. Reconstructed
+  PnL uses actual broker fills, not algorithmic estimates.
 
-- **Sources**: Blockchain analytics providers (Glassnode)
-- **Metrics**: Network activity, whale movements, exchange flows
-- **Frequency**: Configurable polling intervals via Airflow
-- **Integration**: Enriches market data with on-chain context
+Detail in [`execution.md`](execution.md).
 
-#### Macro Regime Classifier
+### Orchestration tier
 
-- **Inputs**: Cross-market indicators, volatility indices
-- **Output**: Current market regime classification
-- **Purpose**: Contextualizes trading decisions based on macro environment
+Cloud Scheduler is the clock. Pub/Sub is the event bus. Firestore is the
+real-time state store. Consumer services use stable idempotency keys and a
+processed-message ledger so that at-least-once delivery produces
+exactly-once effects.
 
-### Compute Plane
+### Persistence tier
 
-The compute plane handles all feature engineering and model inference.
+- **Firestore** for real-time state (open positions, account equity, kill
+  switches, execution status).
+- **PostgreSQL** on Google Cloud SQL for historical analytics (trade ledger,
+  equity curves, per-trade attribution).
+- **Cloud Storage** for model artefacts, feature snapshots, and cache
+  manifests.
 
-#### Feature Engine
+## High-level architecture diagram
 
-- **Architecture**: Batch feature computation via scheduled DAGs
-- **Categories**: Technical, on-chain, macro, derivatives
-- **Storage**: Feature store with point-in-time correctness
-- **Versioning**: Feature definitions tracked and versioned
+Full diagram in [`diagrams/high-level-architecture.mmd`](diagrams/high-level-architecture.mmd).
+GitHub renders Mermaid natively.
 
-#### ML Pipeline
+```mermaid
+graph TB
+  subgraph Orchestration
+    CS[Cloud Scheduler]
+    PS[Pub/Sub event bus]
+    FS[Firestore state]
+  end
 
-- **Framework**: LightGBM-based ensemble models
-- **Architecture**: Hierarchical gating with specialized experts
-- **Serving**: Cloud Run inference with configurable batch sizes
-- **Monitoring**: Prediction distribution tracking, drift detection
+  subgraph Data plane
+    ING[Multi-source ingestion<br/>on-chain · exchange · macro · attention]
+    PIT[PIT feature pipelines]
+    FS_STORE[Feature store]
+  end
 
-#### Signal Generator
+  subgraph Compute plane
+    ML[Ensemble ML engine]
+    RISK[Layered risk model]
+    ROUTER[Signal router]
+  end
 
-- **Logic**: Combines model outputs with rule-based filters
-- **Output**: Structured trading signals with metadata
-- **Routing**: Signals published to execution plane via Pub/Sub
+  subgraph Execution plane
+    ADAPT[Venue adapters]
+    LIFE[Order lifecycle manager]
+    RECON[Broker-truth reconciliation]
+  end
 
-### Execution Plane
-
-The execution plane handles all order management and risk controls.
-
-#### Risk Manager
-
-- **Pre-Trade**: Position limits, exposure checks, drawdown gates
-- **Real-Time**: P&L monitoring, margin utilization
-- **Post-Trade**: Fill analysis, slippage tracking
-
-#### Order Router
-
-- **Venues**: Multi-exchange support (CEX, DEX, OTC)
-- **Protocols**: REST APIs for order submission
-- **Smart Routing**: Venue selection based on liquidity and costs
-
-#### Position Manager
-
-- **Tracking**: Position reconciliation
-- **Lifecycle**: Entry, scaling, exit management
-- **Reporting**: P&L attribution, trade history
-
----
-
-## Communication Patterns
-
-### Synchronous (Request-Response)
-
-- Dashboard API calls
-- Configuration updates
-- Health checks
-
-### Asynchronous (Pub/Sub)
-
-- Signal propagation between pipeline stages
-- Trade notifications
-- Alert distribution
-
-### Scheduled (Airflow DAGs)
-
-- Data ingestion pipelines
-- Feature computation
-- Model inference batches
-
----
-
-## Deployment Architecture
-
-```
-┌─────────────────────────────────────────────────────────────────────────┐
-│                         Google Cloud Platform                           │
-│                                                                         │
-│  ┌───────────────────────────────────────────────────────────────────┐  │
-│  │                      Cloud Composer (Airflow)                     │  │
-│  │                                                                   │  │
-│  │   ┌─────────────┐  ┌─────────────┐  ┌─────────────┐               │  │
-│  │   │  Data DAGs  │  │   ML DAGs   │  │  Exec DAGs  │               │  │
-│  │   └─────────────┘  └─────────────┘  └─────────────┘               │  │
-│  │                                                                   │  │
-│  └───────────────────────────────────────────────────────────────────┘  │
-│                                 │                                       │
-│                                 ▼                                       │
-│  ┌───────────────────────────────────────────────────────────────────┐  │
-│  │                       Cloud Run Services                          │  │
-│  │                                                                   │  │
-│  │   ┌───────────┐  ┌───────────┐  ┌───────────┐  ┌───────────┐      │  │
-│  │   │   Data    │  │    ML     │  │ Execution │  │ Dashboard │      │  │
-│  │   │  Pipeline │  │ Inference │  │  Engine   │  │    API    │      │  │
-│  │   └───────────┘  └───────────┘  └───────────┘  └───────────┘      │  │
-│  │                                                                   │  │
-│  └───────────────────────────────────────────────────────────────────┘  │
-│                                 │                                       │
-│                                 ▼                                       │
-│  ┌───────────────────────────────────────────────────────────────────┐  │
-│  │                       Managed Services                            │  │
-│  │                                                                   │  │
-│  │   ┌───────────┐  ┌───────────┐  ┌───────────┐  ┌───────────┐      │  │
-│  │   │ Cloud SQL │  │ Memorystr │  │  Pub/Sub  │  │  Secret   │      │  │
-│  │   │ Postgres  │  │  (Redis)  │  │           │  │  Manager  │      │  │
-│  │   └───────────┘  └───────────┘  └───────────┘  └───────────┘      │  │
-│  │                                                                   │  │
-│  └───────────────────────────────────────────────────────────────────┘  │
-│                                                                         │
-└─────────────────────────────────────────────────────────────────────────┘
+  CS --> ING
+  ING --> PIT
+  PIT --> FS_STORE
+  FS_STORE --> ML
+  ML --> RISK
+  RISK --> ROUTER
+  ROUTER --> PS
+  PS --> LIFE
+  LIFE --> ADAPT
+  ADAPT -.-> RECON
+  RECON -.-> FS
 ```
 
----
+## Communication patterns
 
-## Scalability Considerations
-
-
-| Component      | Scaling Strategy                        |
-| -------------- | --------------------------------------- |
-| Data Ingestion | Horizontal (partition by symbol)        |
-| Feature Engine | Horizontal (stateless computation)      |
-| ML Inference   | Horizontal with load balancing          |
-| Execution      | Vertical (single coordinator per venue) |
-| Database       | Read replicas, connection pooling       |
-
----
+- **Synchronous (REST):** dashboard-to-backend reads, configuration updates,
+  health checks, and authenticated client portal.
+- **Asynchronous (Pub/Sub):** signal propagation between pipeline stages,
+  execution-event distribution, alert fan-out.
+- **Scheduled (Cloud Scheduler):** data ingestion cycles, feature computation
+  kickoff, hedge-monitor sweeps, retraining cycles.
 
 ## Resilience
 
-### Error Handling
+| Scenario | Response |
+| --- | --- |
+| Data source temporarily unavailable | Retry with backoff, fall back to last-known-good cache, validated-schema gate |
+| Execution venue unresponsive | Retry against the same venue with bounded attempts; broker-truth reconciliation ensures no phantom PnL if the engine's close request raced with a broker-side event |
+| Pub/Sub duplicate delivery | Consumer-side processed-message ledger with stable idempotency keys |
+| Model artefact load failure | Fallback to most-recent validated artefact; block new-open signals if no valid artefact is available |
+| Equity drawdown exceeds tier | Automated per-account sizing gate halts new opens at that account; closes remain permitted to preserve capital |
+| Operator intervention required | Global manual-override flag in Firestore; trading pauses at consumer read without redeploy |
 
+## Security posture
 
-| Scenario                | Response                            |
-| ----------------------- | ----------------------------------- |
-| Data source unavailable | Retry with backoff, use cached data |
-| Execution venue down    | Route to alternate venue            |
-| Airflow task failure    | Retry policy, Telegram alerting     |
-
-### State Management
-
-- **SQL Persistence**: Trade state and positions stored in Cloud SQL
-- **Firestore**: Execution engine state management
-- **Redis**: Hot data caching for performance
-
----
-
-## Security Architecture
-
-### Authentication & Authorization
-
-- Service accounts with minimal permissions
-- API keys managed via Secret Manager
-- JWT authentication for dashboard access
-
-### Data Protection
-
-- Encryption at rest and in transit
-- Secrets in Secret Manager (never in code)
-- Firestore for secure state management
+- Credentials in Google Cloud Secret Manager, never in code or repositories.
+- Service accounts with least-privilege IAM per service.
+- Non-custodial execution: credentials scoped to trade-only operations in
+  both execution classes.
+- Immutable timestamped audit trail on every execution decision.
+- Structured logs emitted to Cloud Logging.
 
 ---
 
-*For more details on specific components, see the respective documentation in this folder.*
+*Disuza Quantitative — Living Technical Reference · Version 3 · Last Updated: 2026-04-20*
+
+<!-- last_updated: 2026-04-20 · version: 3.0.0 -->

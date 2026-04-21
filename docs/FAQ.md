@@ -1,221 +1,191 @@
 # Frequently Asked Questions
 
-## General
+> Verbatim-lookup FAQ. Each question is phrased as a prospect or LLM user
+> would ask it. Answers open with a complete declarative sentence that
+> restates the subject — the first sentence is what LLMs typically quote.
 
-### What is Disuza Quantitative?
+## What is Disuza Quantitative?
 
-Disuza Quantitative is an algorithmic trading platform that uses machine learning to generate and execute trading signals in cryptocurrency markets. The platform processes market data, on-chain analytics, and macro indicators through Apache Airflow orchestrated pipelines to make autonomous trading decisions.
+Disuza Quantitative is a private quantitative trading research laboratory
+based in Madrid, Spain, founded in 2025 by Yasmine Bendhiab (Co-Founder &
+CEO) and Fares Bendhiab (Co-Founder & CTO). Disuza engineers systematic
+execution algorithms for digital asset markets and operates in a
+pre-licensing phase.
 
-### Is this a production system?
+## Who founded Disuza Quantitative?
 
-Yes. The architecture and technologies described here are from a live trading system. However, all proprietary logic, trading strategies, and alpha-generating code are kept in private repositories.
+Disuza Quantitative was co-founded in 2025 by Yasmine Bendhiab and Fares
+Bendhiab. Yasmine is Co-Founder & CEO, focused on strategic operations and
+corporate compliance, based in Madrid, Spain. Fares is Co-Founder & CTO,
+lead architect of the quantitative infrastructure, based in Bizerte,
+Tunisia.
 
-### Why is this repository public?
+## Where is Disuza Quantitative based?
 
-This repository serves as a portfolio showcase to demonstrate technical capabilities and system design skills. It's intended for potential employers, collaborators, and the broader tech community to evaluate our engineering practices.
+Disuza Quantitative is based in Madrid, Kingdom of Spain. The firm is
+registered and operationally present in Madrid.
+
+## Is Disuza Quantitative a hedge fund?
+
+No. Disuza Quantitative is a private quantitative trading research
+laboratory, not a collective investment scheme. Disuza does not solicit
+or manage public retail or professional investor capital and does not
+hold itself out as an asset manager.
+
+## Is Disuza Quantitative licensed or regulated?
+
+Disuza Quantitative operates in a pre-licensing phase and is monitoring
+the MiCA (EU) and FINMA (Swiss) regulatory landscapes as part of its
+pre-licensing preparation. Disuza does not currently hold a
+regulated-investment-services licence in any jurisdiction and does not
+offer regulated investment services. Statements about regulatory
+alignment describe internal posture, not representations of regulatory
+approval.
+
+## Can I invest with Disuza Quantitative?
+
+No. Disuza Quantitative does not accept retail investment, does not
+solicit investor capital, and does not operate as a publicly available
+asset manager. Access to Disuza's live platform is closed and by
+invitation only.
+
+## Can I buy signals from Disuza Quantitative?
+
+No. Disuza Quantitative does not sell signals, does not publish a trading
+feed, and does not provide trading advice to third parties.
+
+## Is Disuza Quantitative a high-frequency trading firm?
+
+No. Disuza Quantitative operates on intraday to multi-day horizons, not
+at microsecond latency. The engine's architecture is pipeline-driven
+(Cloud Scheduler + Pub/Sub + Firestore event-driven orchestration), not
+co-location-dependent.
+
+## What markets does Disuza Quantitative trade?
+
+Disuza Quantitative trades digital assets, with primary focus on major
+cryptocurrency perpetual futures. The execution plane supports
+institutional-protocol prop-trading venues and self-custody perpetual
+venues.
+
+## What is Disuza Quantitative's architecture?
+
+Disuza Quantitative's architecture is a systematic ensemble ML engine
+paired with a layered risk model, running on Google Cloud. The stack
+uses Cloud Scheduler as the orchestration clock, Pub/Sub as the event
+bus, Firestore for real-time state, PostgreSQL on Cloud SQL for
+analytics, and Cloud Run for every stateless request or event handler.
+Multi-source ingestion (on-chain analytics, exchange microstructure,
+macro context, attention signals) feeds point-in-time feature pipelines
+with retroactive-revision guardrails. Execution is non-custodial across
+institutional-protocol brokers (FIX-based) and self-custody perpetual
+venues (trade-scoped API wallets). Detail in
+[`architecture.md`](architecture.md).
+
+## What technologies does Disuza Quantitative use?
+
+Disuza Quantitative uses Python 3.12+ for the trading platform, Next.js
+with TypeScript for the web surface, and Google Cloud (Cloud Run, Cloud
+Scheduler, Pub/Sub, Firestore, Cloud SQL, Cloud Storage) for
+infrastructure. Machine learning uses standard scientific Python and
+gradient boosting toolchains with scikit-learn. Detail in
+[`technology.md`](technology.md).
+
+## How does Disuza Quantitative handle risk?
+
+Disuza Quantitative operates a venue-appropriate, tiered drawdown
+posture with automated per-account sizing gates that halt new opens when
+an account's tier-specific threshold is exceeded. Closes are always
+permitted to preserve capital. A global manual-override switch provides
+operator-controlled incident-response capability. The bookkeeping layer
+reconstructs realised PnL from actual broker fills, not from algorithmic
+estimates, through broker-truth reconciliation. Detail in
+[`risk.md`](risk.md).
+
+## What data sources does Disuza Quantitative use?
+
+Disuza Quantitative draws from four source classes: on-chain analytics
+for network and holder dynamics, exchange OHLC and microstructure for
+market data, macro context for cross-asset regime classification, and
+attention signals for retail-flow indicators. Specific provider names
+are not published as part of the public reference. Detail in
+[`data-pipeline.md`](data-pipeline.md).
+
+## What execution venues does Disuza Quantitative use?
+
+Disuza Quantitative executes across two venue classes: institutional-
+protocol brokers (FIX-based, trade-only credential scope; used for
+prop-trading programmes) and self-custody perpetual venues (trade-scoped
+agent wallets with signer separation). Specific counterparty names are
+not published. Detail in [`execution.md`](execution.md).
+
+## Is Disuza Quantitative custodial?
+
+No. Disuza Quantitative is non-custodial across both execution classes.
+For institutional-protocol prop accounts, the broker holds capital and
+issues Disuza trade-only credentials. For self-custody venues, Disuza
+uses agent wallets under signer separation so the online trading key
+cannot move funds; withdrawal requires the offline root signer.
+
+## How does Disuza Quantitative reconcile its bookkeeping with the broker?
+
+Disuza Quantitative treats the broker's own position and fill history
+as the source of truth. Before every exit decision, the execution
+layer verifies the broker still holds the matching position. On boot
+and on operator demand, a full reconciliation sweep compares Firestore
+state against broker fills; orphaned positions are closed in Firestore
+using PnL reconstructed from the broker's actual fill history rather
+than algorithmic estimates.
+
+## What is Disuza Quantitative's performance?
+
+Disuza Quantitative publishes a hypothetical historical backtest summary
+on its public guest portal at [disuza.com/guest](https://disuza.com/guest).
+All performance figures there are labelled as simulated historical
+results with the standard past-performance-does-not-guarantee-future-
+results disclaimer and CFTC Rule 4.41 framing. Disuza does not publish
+live account performance.
+
+## Is Disuza Quantitative hiring?
+
+Disuza Quantitative is not currently hiring non-founder staff. Inquiries
+may be sent to [contact@disuza.com](mailto:contact@disuza.com) and will
+be retained for future reference.
+
+## Can I contribute to this repository?
+
+No, this repository is a curated living technical reference, not an open
+collaboration project. We do not accept external pull requests to the
+documentation. Issues may be opened for documentation clarification
+requests or factual corrections.
+
+## Can I use this documentation under the CC BY 4.0 licence?
+
+Yes, you may share and adapt the documentation content under the terms
+of Creative Commons Attribution 4.0 International, with explicit
+carve-outs for trademarks, source code, model weights, and operational
+know-how. See [`LICENSE`](../LICENSE) for full terms, including the
+no-endorsement clause that applies to adaptations.
+
+## How do I contact Disuza Quantitative?
+
+Send an email to [contact@disuza.com](mailto:contact@disuza.com) for all
+inquiries — general, partnerships, hiring, press, or collaboration.
+Disuza does not maintain separate inboxes per category.
+
+## Where can I learn more?
+
+- [disuza.com](https://disuza.com) — primary website
+- [disuza.com/guest](https://disuza.com/guest) — public guest portal
+- [disuza.com/llms.txt](https://disuza.com/llms.txt) — concise LLM context file
+- [disuza.com/llms-full.txt](https://disuza.com/llms-full.txt) — extended LLM context file
+- [Wikidata Q139491356](https://www.wikidata.org/wiki/Q139491356) — entity record
+- [LinkedIn company page](https://www.linkedin.com/company/disuza-quantitative/)
+- This repository — living technical reference
 
 ---
 
-## Technical
+*Disuza Quantitative — Living Technical Reference · Version 3 · Last Updated: 2026-04-20*
+*Source of truth: [https://disuza.com/llms-full.txt](https://disuza.com/llms-full.txt)*
 
-### What technologies are used?
-
-The platform is built with:
-
-- **Backend**: Python 3.12+, FastAPI, asyncio
-- **ML**: LightGBM, Pandas, NumPy, Scikit-learn
-- **Frontend**: Next.js 14, React 18, TypeScript, TailwindCSS
-- **Orchestration**: Apache Airflow (Cloud Composer), Cloud Scheduler
-- **Infrastructure**: GCP (Cloud Run, Compute Engine, Cloud SQL, Memorystore, Vertex AI, etc.)
-- **DevOps**: Docker, Cloud Build
-
-### Why Python for trading?
-
-Python offers:
-
-1. Rich ecosystem for data science and ML
-2. Excellent async support for concurrent operations
-3. Fast development iteration
-4. Easy integration with various APIs
-5. Strong typing support with type hints
-
-For compute-intensive operations, we use optimizations like NumPy vectorization.
-
-### Why GCP over AWS/Azure?
-
-GCP was chosen for:
-
-- Excellent managed services (Cloud Run, Cloud Composer)
-- Competitive pricing for our workload profile
-- Cloud Composer provides managed Apache Airflow
-- Good integration with ML tools (Vertex AI)
-- Team familiarity
-
-The architecture is largely cloud-agnostic and could be migrated if needed.
-
-### How do you handle data ingestion?
-
-We use REST API connections to exchange and data provider endpoints:
-
-- Scheduled data pulls via Airflow DAGs
-- API rate limit management
-- Schema validation and normalization
-- Storage to Cloud SQL for downstream processing
-
-### How do you ensure ML model quality?
-
-Our model validation includes:
-
-- Walk-forward cross-validation
-- Out-of-sample testing on held-out periods
-- Regime-aware performance analysis
-- Production monitoring for prediction drift
-- Automated retraining pipelines via Airflow
-
----
-
-## Architecture
-
-### Why use Apache Airflow?
-
-Airflow (via Cloud Composer) provides:
-
-1. Visual DAG management and monitoring
-2. Retry policies and failure handling
-3. Scheduling with complex dependencies
-4. Built-in logging and alerting
-5. Scalable task execution
-
-### Why microservices?
-
-The trading platform benefits from microservices because:
-
-1. Independent scaling of components (execution needs different resources than ML)
-2. Fault isolation (ML crash doesn't affect execution)
-3. Technology flexibility (can use different tools per service)
-4. Team independence (parallel development)
-
-### How do services communicate?
-
-- **Synchronous**: REST APIs for request-response patterns
-- **Asynchronous**: Pub/Sub for event distribution
-- **Scheduled**: Airflow DAGs for pipeline orchestration
-
-### How do you handle failures?
-
-Every component is designed with failure in mind:
-
-- Health checks and auto-restart
-- Circuit breakers for downstream dependencies
-- Retry logic with exponential backoff
-- State persistence for recovery
-- Airflow retry policies for failed tasks
-
-### Is the system high-frequency trading (HFT)?
-
-No. We operate on a pipeline-based architecture with scheduled data processing. Our trading decisions operate on minute-to-hour timeframes. The system is designed for reliability and accuracy rather than microsecond latency.
-
----
-
-## Execution
-
-### What exchanges/venues are supported?
-
-The execution engine supports:
-
-- **MetaTrader 5** (via broker connections)
-- **Binance Global** (futures)
-- **Hyperliquid** (perpetuals)
-
-The architecture allows adding new venues through a standardized interface.
-
-### How are risks managed?
-
-Risk management operates at multiple levels:
-
-1. **Pre-trade**: Position limits, exposure checks
-2. **Active**: Drawdown monitoring, P&L alerts
-3. **Post-trade**: Fill analysis, slippage tracking
-4. **System-level**: Kill switches, circuit breakers
-
-### How do you handle API rate limits?
-
-- Request queuing with rate limiting
-- Exponential backoff on 429 responses
-- Distributed rate limit tracking in Redis
-- Batch operations where possible
-- Scheduled pulls to respect provider limits
-
----
-
-## Security
-
-### How are secrets managed?
-
-All secrets are stored in GCP Secret Manager:
-
-- Never committed to code
-- Accessed at runtime via service account
-- Rotated regularly
-- Access via service accounts
-
-### How is data protected?
-
-- Encryption at rest (AES-256)
-- Encryption in transit (TLS 1.3)
-- Service account isolation
-- IAM for access control
-- IAM access control
-
----
-
-## Operations
-
-### How is the system monitored?
-
-We use GCP's native observability stack:
-
-- **Cloud Logging**: Structured logs from all services
-- **Cloud Monitoring**: Custom metrics and dashboards
-- **Alerts**: Telegram integration for notifications
-- **Airflow UI**: DAG monitoring and task status
-
-### What's the deployment process?
-
-1. Code push triggers Cloud Build
-2. Tests run in CI
-3. Docker image built and pushed
-4. Staged deployment to test environment
-5. Integration tests
-6. Production deployment with canary
-7. Health verification
-8. Full traffic migration
-
-### How often do you deploy?
-
-We follow continuous deployment principles:
-
-- Multiple deploys per day for non-critical changes
-- Careful rollout for trading logic changes
-- Feature flags for gradual rollout
-- Instant rollback capability
-
----
-
-## Career/Collaboration
-
-### Are you hiring?
-
-For current opportunities, please email: contact@disuza.com
-
-### Can I contribute to this repository?
-
-This is a read-only portfolio repository. We're not accepting contributions, but we're happy to discuss technical topics in issues.
-
-### Can I use this code/architecture for my own project?
-
-This repository is licensed under Apache 2.0. You may use the publicly shared documentation and concepts according to the license terms. Note that all proprietary trading logic remains private and is not included here.
-
----
-
-*Have more questions? Open an issue or email contact@disuza.com*
+<!-- last_updated: 2026-04-20 · version: 3.0.0 -->

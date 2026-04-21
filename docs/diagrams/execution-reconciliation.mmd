@@ -1,0 +1,52 @@
+%% Disuza Quantitative — Execution and Broker-truth Reconciliation
+%% Version 3 · 2026-04-20
+%%
+%% The platform's bookkeeping is always a reconstruction of the broker's
+%% ledger. PnL comes from actual broker fills, never from algorithmic
+%% candle-based estimates.
+
+graph TB
+  SIG[Signal event<br/>from compute plane]
+  ROUTE[Signal router<br/>risk gates]
+  PRECHECK{Broker pre-check<br/>does position<br/>still exist?}
+  PLACE[Place order<br/>with idempotency key]
+  FILLS[Broker fills stream]
+  CLOSE[Close condition<br/>trail · timeout · reversal]
+  POSTCHECK{Broker pre-check<br/>on close}
+  EXIT[Publish close]
+  EXEC[Execute close<br/>on broker]
+  REAL[Real fill<br/>price + fee]
+  PNL[Reconstruct PnL<br/>from actual fills]
+  STATE[(Firestore state<br/>+ PostgreSQL ledger)]
+  ORPH{Orphan?<br/>FS says open<br/>broker is flat}
+  SWEEP[Reconciliation sweep<br/>on boot + on demand]
+  HIST[Pull broker fill history<br/>reconstruct real exit]
+  ALERT[Critical alert<br/>Telegram]
+
+  SIG --> ROUTE
+  ROUTE --> PRECHECK
+  PRECHECK -->|broker has position| PLACE
+  PRECHECK -->|broker flat| ORPH
+  PLACE --> FILLS
+  FILLS --> CLOSE
+  CLOSE --> POSTCHECK
+  POSTCHECK -->|broker has position| EXIT
+  POSTCHECK -->|broker flat| ORPH
+  EXIT --> EXEC
+  EXEC --> REAL
+  REAL --> PNL
+  PNL --> STATE
+
+  SWEEP --> ORPH
+  ORPH -->|reconstruct| HIST
+  HIST --> PNL
+  ORPH --> ALERT
+
+  classDef gate fill:#fff3cd,stroke:#aa6600,stroke-width:1.5px
+  classDef recon fill:#e8f4f8,stroke:#336699,stroke-width:1.5px
+  classDef state fill:#e8f8e8,stroke:#338833,stroke-width:1px
+  classDef alert fill:#f8e8e8,stroke:#883333,stroke-width:1.5px
+  class PRECHECK,POSTCHECK,ORPH gate
+  class SWEEP,HIST,RECON,PNL recon
+  class STATE state
+  class ALERT alert

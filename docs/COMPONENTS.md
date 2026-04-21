@@ -1,257 +1,160 @@
-# Component Overview
+# Components
 
-> High-level descriptions of the major system components.
+> The public-facing services that make up the Disuza Quantitative platform.
+> Internal module structure and implementation details are operational and
+> not included.
 
----
+## Service map
 
-## 1. Core Trading Platform (`src/`)
+| Service | Tier | Trigger | Purpose |
+| --- | --- | --- | --- |
+| Data collector | Data plane | Cloud Scheduler (periodic) | Multi-source ingestion, PIT snapshot, schema validation, cache-manifest lineage |
+| Signal detector | Compute plane | Pub/Sub event + Cloud Scheduler safety-net | Feature fetch, ensemble ML inference, risk-framework gating, signal publication |
+| Hedge monitor | Compute + execution plane | Cloud Scheduler (periodic) | Layered risk overlay, trailing-stop discipline, timeout enforcement, reconciliation sweep |
+| Order executor | Execution plane | Pub/Sub event | Venue adapters, order lifecycle, broker-truth reconciliation on exits |
+| Retrain job | Compute plane | Cloud Scheduler (monthly) | Periodic model retraining, artefact versioning, active-artefact pointer update |
+| Dashboard API | Access layer | HTTPS authenticated | Client portal endpoints for position and analytics reads |
+| Public site | Presentation | Static hosting | Guest portal, landing, authenticated client UI |
 
-The heart of the system, handling data processing, feature engineering, and ML inference.
+Each service is independently deployable, independently scaled, and
+independently instrumented.
 
-### Subcomponents
+## Data collector
 
+**Purpose.** Periodic multi-source ingestion into the point-in-time
+feature pipeline.
 
-| Directory        | Purpose                     | Key Technologies           |
-| ---------------- | --------------------------- | -------------------------- |
-| `core/`          | Shared infrastructure       | Pub/Sub, Redis, State Mgmt |
-| `data_pipeline/` | Data ingestion & processing | REST APIs, Pandas          |
-| `features/`      | Feature engineering engine  | NumPy, Custom DSL          |
-| `ML/`            | Model training & inference  | LightGBM, Scikit-learn     |
-| `ml_pipelines/`  | Pipeline orchestration      | Custom framework           |
-| `functions/`     | Cloud Run deployments       | FastAPI, Docker            |
-| `utils/`         | Shared utilities            | Logging, Config, I/O       |
+**Triggers.** Cloud Scheduler fires on the ingestion cadence. On boot, a
+first cycle runs immediately to seed the cache.
 
-### Key Capabilities
+**Responsibilities.**
 
-- **Scheduled data processing** via Airflow DAGs
-- **Feature computation** across multiple data domains
-- **Model inference** with hierarchical gating
-- **Horizontal scalability** through stateless design
+- Fetch from each configured source class (on-chain analytics, exchange
+  microstructure, macro context, attention signals).
+- Write a point-in-time snapshot of the raw data.
+- Validate against the critical-feature schema; fall back to last-known-
+  good if validation fails.
+- Produce a content-addressed manifest hash and a lineage row in
+  BigQuery for long-term audit.
+- Publish a cycle-complete event on Pub/Sub.
 
----
+## Signal detector
 
-## 2. Execution Engine (`trading-execution-engine/`)
+**Purpose.** Feature-based position decisions from the ensemble ML engine.
 
-A separate, highly-optimized service for order execution and position management.
+**Triggers.** Primary trigger is the cycle-complete event from the data
+collector. A Cloud Scheduler safety-net fires every few hours as a
+fallback in case the primary trigger is missed.
 
-### Architecture
+**Responsibilities.**
 
-```
-┌──────────────────────────────────────────────────────────────────┐
-│                        Execution Engine                          │
-│                                                                  │
-│  ┌──────────────┐    ┌──────────────┐    ┌──────────────┐        │
-│  │  Dispatcher  │───▶│   Workers    │───▶│   Executors  │        │
-│  │              │    │              │    │              │        │
-│  │  • Signal    │    │  • MT5       │    │  • MT5       │        │
-│  │    routing   │    │  • Binance   │    │  • Binance   │        │
-│  │  • Priority  │    │  • Hyperliquid    │  • Hyperliquid        │
-│  │    queue     │    │              │    │              │        │
-│  └──────────────┘    └──────────────┘    └──────────────┘        │
-│           │                  │                   │               │
-│           └──────────────────┼───────────────────┘               │
-│                              ▼                                   │
-│                    ┌──────────────┐                              │
-│                    │ Risk Manager │                              │
-│                    │              │                              │
-│                    │ • Position   │                              │
-│                    │   limits     │                              │
-│                    │ • Drawdown   │                              │
-│                    │   controls   │                              │
-│                    │ • Exposure   │                              │
-│                    │   checks     │                              │
-│                    └──────────────┘                              │
-│                                                                  │
-└──────────────────────────────────────────────────────────────────┘
-```
+- Resolve the active model artefact from the Firestore pointer.
+- Load the per-asset feature vector for the current bar.
+- Run ensemble ML inference.
+- Apply risk-framework gates (position caps, drawdown gates,
+  trading-enabled flag).
+- Publish a signal event to the order executor.
 
-### Subcomponents
+## Hedge monitor
 
+**Purpose.** Layered risk overlay, in-flight position discipline, and
+reconciliation sweep.
 
-| Directory            | Purpose                             |
-| -------------------- | ----------------------------------- |
-| `src/core/`          | Configuration, models, base classes |
-| `src/dispatcher/`    | Signal routing and prioritization   |
-| `src/execution/`     | Venue-specific execution logic      |
-| `src/workers/`       | Background processing workers       |
-| `external-watchdog/` | Health monitoring service           |
+**Triggers.** Cloud Scheduler periodic cadence. Also exposes a manual
+reconcile endpoint for operator use.
 
-### Features
+**Responsibilities.**
 
-- **Multi-venue support**: MT5, Binance, Hyperliquid
-- **Multi-account management**: Parallel account execution with SQL state
-- **Dashboard sync**: Real-time communication with operations dashboard
-- **Configuration**: Dynamic config updates without restart
-- **Risk controls**: Pre-trade validation, position limits, drawdown gates
-- **Notifications**: Telegram integration for trade alerts and status
-- **Resilience**: Automatic reconnection, state recovery
+- Run the layered risk overlay to modulate exposure when short-horizon
+  signals disagree with the primary stance.
+- Monitor trailing stops and enforce timeout discipline.
+- Before every exit decision, verify the broker still holds the matching
+  position (per-exit broker-truth pre-check).
+- Run a full reconciliation sweep on boot and on demand: compare
+  Firestore state against broker fills, reconstruct orphaned position
+  exits from real fill history.
 
----
+## Order executor
 
-## 3. Dashboard Backend (`disuza-dashboard-backend/`)
+**Purpose.** Venue-specific order placement, monitoring, and close.
 
-RESTful API serving the operations dashboard.
+**Triggers.** Pub/Sub events from the signal detector and hedge monitor.
 
-### Technology Stack
+**Responsibilities.**
 
-- **Framework**: FastAPI (Python)
-- **Database**: PostgreSQL (Cloud SQL)
-- **Cache**: Redis (Memorystore)
-- **Auth**: JWT-based authentication
+- Route orders to the right venue adapter based on the target account.
+- Place orders with stable idempotency keys and client order identifiers.
+- Monitor fills and produce structured execution events.
+- On close, resolve the real exit price and fees from broker fills,
+  reconstruct PnL, and update Firestore state.
+- Emit alerts on execution failures or unexpected broker states.
 
-### API Categories
+## Retrain job
 
+**Purpose.** Periodic model retraining with artefact versioning.
 
-| Router                  | Endpoints                    |
-| ----------------------- | ---------------------------- |
-| `auth.py`               | Login, logout, token refresh |
-| `dashboard.py`          | Positions, trades, P&L       |
-| `dashboard_snippets.py` | Widget data, summaries       |
+**Triggers.** Cloud Scheduler monthly cron.
 
-### Key Features
+**Responsibilities.**
 
-- Position data retrieval
-- Historical trade analytics
-- System health metrics
-- Configuration management
+- Assemble the training window from the PIT feature store.
+- Retrain the ensemble ML engine and the layered risk model.
+- Write artefacts to Cloud Storage under a versioned path.
+- Update the Firestore pointer that the signal detector reads, flipping
+  the active artefact with a single atomic write (no redeploy required).
+- Emit a retrain-complete event with validation metrics.
 
----
+## Dashboard API
 
-## 4. Dashboard Frontend (`disuza-site/`)
+**Purpose.** Authenticated client portal endpoints.
 
-Modern web application for monitoring and operations.
+**Triggers.** HTTPS requests from the public site after authentication.
 
-### Technology Stack
+**Responsibilities.**
 
-- **Framework**: Next.js 14 (App Router)
-- **UI**: React 18, TailwindCSS
-- **Deployment**: Vercel (Edge)
+- Position reads (open positions, current equity, drawdown state).
+- Historical analytics reads (trade ledger, equity curves).
+- Configuration reads and limited writes (authorised personnel only).
+- System-health summary endpoints.
 
-### Page Structure
+## Public site
 
+**Purpose.** The public presence at [disuza.com](https://disuza.com). Hosts
+the landing page, the guest portal (public demo), LLM context files, and
+— after authentication — the operator dashboard.
 
-| Route                  | Purpose               |
-| ---------------------- | --------------------- |
-| `/`                    | Landing page          |
-| `/dashboard`           | Overview              |
-| `/dashboard/analytics` | Performance analytics |
-| `/dashboard/execution` | Trade execution view  |
-| `/dashboard/logs`      | System logs           |
-| `/dashboard/settings`  | Configuration         |
+**Responsibilities.**
 
-### UI Components
+- Render marketing and reference content.
+- Provide the guest portal with clearly labelled hypothetical-backtest
+  simulation data.
+- Emit the machine-readable context files at `/llms.txt` and
+  `/llms-full.txt`, regenerated from a single source of truth on every
+  production build.
+- Proxy authenticated requests to the dashboard API.
 
-- `Hero.tsx` - Landing page hero section
-- `Header.tsx` / `Footer.tsx` - Layout components
-- `Sidebar.tsx` - Dashboard navigation
-- `dashboard/*.tsx` - Dashboard-specific widgets
-- `ui/*.tsx` - Reusable UI primitives
+## Inter-service contracts
 
----
+- **Event envelope.** Every Pub/Sub event carries: an `idempotency_key`
+  (stable across retries), a `source` identifier, a `ts` timestamp, and
+  a typed `payload`.
+- **Consumer idempotency.** Before acting on an event, consumers check
+  a processed-message ledger keyed on `idempotency_key`.
+- **State updates.** Firestore writes use optimistic concurrency with
+  version counters; conflicts trigger a bounded retry with backoff.
+- **Failure propagation.** Unrecoverable errors emit a structured alert
+  on Telegram; recoverable errors retry with exponential backoff up to
+  a bounded attempt count before alerting.
 
-## 5. Configuration (`config/`)
+## What is NOT published
 
-Centralized configuration management with environment-specific overrides.
-
-### Configuration Categories
-
-
-| Directory      | Purpose                        |
-| -------------- | ------------------------------ |
-| `ml/`          | Model parameters, data loader  |
-| `production/`  | Production-specific settings   |
-| `backtesting/` | Backtest configurations        |
-| `cloudbuild/`  | Container build configurations |
-
-### Configuration Pattern
-
-```yaml
-# Conceptual configuration structure
-environment: production
-
-database:
-  host: ${DB_HOST}
-  pool_size: 10
-  
-features:
-  cache_ttl: 300
-  
-model:
-  version: latest
-  timeout_ms: 100
-```
+Module-level file layouts, internal APIs, secret-handling patterns,
+deploy scripts, runbooks, incident histories, and service-to-service
+authentication details are operational and are not part of the public
+reference.
 
 ---
 
-## 6. Pipeline Orchestration (`dags/`)
+*Disuza Quantitative — Living Technical Reference · Version 3 · Last Updated: 2026-04-20*
 
-Airflow DAGs for scheduled processing and workflow management.
-
-### DAG Categories
-
-- **Data pipelines**: Market data ingestion via REST APIs
-- **Feature pipelines**: Feature computation and storage
-- **Inference pipelines**: Model prediction workflows
-- **Training pipelines**: Model retraining workflows
-- **Maintenance**: Cleanup, archival, reports
-
----
-
-## 7. Infrastructure Files
-
-### Dockerfiles
-
-Multiple Dockerfiles for different services:
-
-- `Dockerfile` - Main platform
-- `Dockerfile.final-gate` - ML inference service
-- `Dockerfile.dashboard-api` - Backend API
-
-### Cloud Build
-
-Container build configurations:
-
-- `cloudbuild-*.yaml` - Service-specific pipelines
-- Multi-stage builds with testing
-
----
-
-## Component Interactions
-
-```
-                     ┌─────────────┐
-                     │    User     │
-                     └──────┬──────┘
-                            │
-                     ┌──────▼──────┐
-                     │  Dashboard  │
-                     │  Frontend   │
-                     └──────┬──────┘
-                            │
-                     ┌──────▼──────┐
-                     │  Dashboard  │
-                     │   Backend   │
-                     └──────┬──────┘
-                            │
-        ┌───────────────────┼───────────────────┐
-        │                   │                   │
-┌───────▼───────┐   ┌───────▼───────┐   ┌───────▼───────┐
-│    Trading    │   │   Execution   │   │   Database    │
-│   Platform    │   │    Engine     │   │               │
-│               │◀──│               │──▶│   Cloud SQL   │
-│  (ML + Data)  │   │   (Orders)    │   │   + Redis     │
-└───────┬───────┘   └───────────────┘   └───────────────┘
-        │
-        │
-┌───────▼───────┐
-│    Airflow    │
-│  (Composer)   │
-│               │
-│  Orchestrates │
-│  all DAGs     │
-└───────────────┘
-```
-
----
-
-*Each component is designed for independent deployment and scaling while maintaining clear interfaces with other components.*
+<!-- last_updated: 2026-04-20 · version: 3.0.0 -->

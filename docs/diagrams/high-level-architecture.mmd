@@ -1,0 +1,66 @@
+%% Disuza Quantitative — High-level Architecture
+%% Version 3 · 2026-04-20
+%% Render natively on GitHub. Paste into https://mermaid.live for interactive view.
+
+graph TB
+  subgraph Orchestration
+    CS[Cloud Scheduler<br/>the clock]
+    PS[Pub/Sub<br/>event bus]
+    FS[Firestore<br/>real-time state]
+  end
+
+  subgraph "Data plane"
+    ING[Multi-source ingestion<br/>on-chain · exchange · macro · attention]
+    PIT[Point-in-time feature pipelines]
+    FST[Feature store<br/>cache + lineage]
+  end
+
+  subgraph "Compute plane"
+    ML[Ensemble ML engine]
+    RISK[Layered risk model]
+    ROUTER[Signal router<br/>with risk gates]
+  end
+
+  subgraph "Execution plane"
+    ADAPT[Venue adapters]
+    LIFE[Order lifecycle manager]
+    RECON[Broker-truth reconciliation]
+  end
+
+  subgraph "Venue classes"
+    INST[Institutional-protocol brokers<br/>FIX sessions, trade-only scope]
+    SELF[Self-custody perpetual venues<br/>trade-scoped API wallets]
+  end
+
+  subgraph Persistence
+    SQL[(PostgreSQL<br/>analytics)]
+    GCS[(Cloud Storage<br/>artefacts + snapshots)]
+  end
+
+  CS --> ING
+  ING --> PIT
+  PIT --> FST
+  FST --> ML
+  ML --> RISK
+  RISK --> ROUTER
+  ROUTER --> PS
+  PS --> LIFE
+  LIFE --> ADAPT
+  ADAPT --> INST
+  ADAPT --> SELF
+  INST -.->|fills| RECON
+  SELF -.->|fills| RECON
+  RECON --> FS
+  LIFE --> FS
+  ML --> GCS
+  FST --> GCS
+  RECON --> SQL
+
+  classDef plane fill:#e8f4f8,stroke:#333,stroke-width:1px
+  classDef orch fill:#fff3cd,stroke:#333,stroke-width:1px
+  classDef venue fill:#f0e8f8,stroke:#333,stroke-width:1px
+  classDef persist fill:#f3f3f3,stroke:#666,stroke-width:1px,color:#555
+  class ML,RISK,ROUTER plane
+  class CS,PS,FS orch
+  class INST,SELF venue
+  class SQL,GCS persist

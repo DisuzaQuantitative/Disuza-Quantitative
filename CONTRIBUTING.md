@@ -1,30 +1,64 @@
 # Contributing
 
-Thank you for your interest in Disuza Quantitative!
+Thank you for your interest in Disuza Quantitative.
 
-## About This Repository
+## About this repository
 
-This repository serves as a **portfolio showcase** demonstrating the architecture and technologies used in our trading platform. It does not contain executable code or proprietary implementations.
+This repository is a **living technical reference** for Disuza Quantitative's
+architecture, methodology, and regulatory posture. It is maintained by the
+firm and updated alongside production changes. It is licensed under
+[Creative Commons Attribution 4.0 International (CC BY 4.0)](LICENSE), with
+explicit carve-outs for trademarks, source code, and operational know-how.
 
-## Contributions
+## Pull requests
 
-We are not accepting external contributions to this repository at this time. This is a read-only portfolio intended for demonstration purposes.
+**We do not accept external pull requests against this documentation.** The
+content here must stay consistent with the production system, which is not
+publicly observable. Attempting to contribute documentation changes from
+outside the firm creates a drift surface that we cannot verify, so we decline
+such contributions as a matter of policy rather than quality.
 
-## Opportunities
+If you have submitted a PR in error, please convert it into an issue
+(see below) and we will address it there.
 
-If you're interested in working with us or have collaboration proposals, please reach out:
+## Issues
 
-- **Email**: contact@disuza.com
-- **Website**: https://disuza.com
+We welcome issues in the following categories:
 
-## Questions
+- **Documentation clarification requests.** A section is unclear or
+  ambiguous — describe what you tried to learn and where the documentation
+  fell short.
+- **Factual corrections.** A claim is inconsistent with a publicly
+  observable signal (for example, a broken link, or a statement that
+  contradicts our published [llms.txt](https://disuza.com/llms.txt)).
+- **Questions about the public reference.** If you are trying to
+  understand Disuza's technology or posture and the existing
+  documentation does not answer, we are happy to respond.
 
-For questions about the technologies or architecture demonstrated here, feel free to open an issue for discussion. We're happy to engage with the community on technical topics (without disclosing proprietary details).
+We will not respond in issues to:
 
-## Code of Conduct
+- Requests for source code, model weights, datasets, or operational
+  specifics that are explicitly carved out of the public reference.
+- Commercial proposals, partnership inquiries, or career discussions —
+  these belong at [contact@disuza.com](mailto:contact@disuza.com).
+- General cryptocurrency market discussion not related to this
+  documentation.
 
-We expect all interactions to be professional and respectful. Harassment, spam, and off-topic discussions will not be tolerated.
+## Security
+
+Please see [`SECURITY.md`](.github/SECURITY.md) for responsible disclosure
+of security-relevant findings.
+
+## Code of conduct
+
+We expect all interactions in issues and other project spaces to be
+professional and respectful. Harassment, spam, and off-topic or bad-faith
+contributions will not be tolerated.
+
+## Contact
+
+All other inquiries: [contact@disuza.com](mailto:contact@disuza.com).
 
 ---
 
-© 2025-2026 Disuza Quantitative
+*Disuza Quantitative — Living Technical Reference · Version 3 · Last Updated: 2026-04-20*
