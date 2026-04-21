@@ -30,9 +30,9 @@ orchestration tier and persistence tier.
 
 - Multi-source ingestion combining on-chain analytics, exchange OHLC and
   microstructure, macro context, and attention signals.
-- Real-time and point-in-time (PIT) feature pipelines with
-  retroactive-revision guardrails so that training and live inference see
-  the same feature distributions.
+- Real-time and point-in-time feature pipelines with retroactive-revision
+  guardrails so that training and live inference see the same feature
+  distributions.
 - Schema validation and last-known-good fallbacks prevent malformed or
   missing data from poisoning downstream inference.
 
@@ -91,19 +91,19 @@ graph TB
     FS[Firestore state]
   end
 
-  subgraph Data plane
+  subgraph "Data plane"
     ING[Multi-source ingestion<br/>on-chain · exchange · macro · attention]
     PIT[PIT feature pipelines]
     FS_STORE[Feature store]
   end
 
-  subgraph Compute plane
+  subgraph "Compute plane"
     ML[Ensemble ML engine]
     RISK[Layered risk model]
     ROUTER[Signal router]
   end
 
-  subgraph Execution plane
+  subgraph "Execution plane"
     ADAPT[Venue adapters]
     LIFE[Order lifecycle manager]
     RECON[Broker-truth reconciliation]
