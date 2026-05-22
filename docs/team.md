@@ -57,7 +57,7 @@ systematic trading pipelines, and pharmacogenomics.
 - Distributed systems architecture
 - Quantitative trading infrastructure
 - Machine learning pipelines and event-driven orchestration
-- Institutional-protocol execution and exchange APIs
+- Prop-trading-programme API execution and venue integration
 - Cloud-native Python engineering on Google Cloud
 
 **Links.**
@@ -79,6 +79,6 @@ through the single contact address.
 
 ---
 
-*Disuza Quantitative — Living Technical Reference · Version 3 · Last Updated: 2026-04-20*
+*Disuza Quantitative — Living Technical Reference · Version 3.1 · Last Updated: 2026-05-22*
 
-<!-- last_updated: 2026-04-20 · version: 3.0.0 -->
+<!-- last_updated: 2026-05-22 · version: 3.1.0 -->

@@ -13,17 +13,21 @@
 - **Infrastructure-as-code surface:** standard shell tooling plus Google
   Cloud native CLIs.
 
-## Machine learning
+## Engine and calibration
 
-- **Engine:** systematic ensemble ML paired with a layered risk model.
-- **Tooling:** standard scientific Python and gradient boosting toolchains;
-  scikit-learn for general ML utilities.
+- **Engine:** rule-based systematic engine with a layered risk overlay.
+  Machine learning is restricted to auxiliary roles (meta-labeling, dynamic
+  position sizing, regime detection) per López de Prado's framing — never
+  as the primary signal generator.
+- **Tooling:** standard scientific Python tooling for the rule-based engine
+  and risk overlay; ML libraries used only within the restricted auxiliary
+  roles.
 - **Serving:** containerised on Cloud Run, warm-cached per instance.
-- **Training and retraining:** Google Cloud; artefacts persisted to Cloud
-  Storage; active artefact selection via a Firestore pointer that can be
-  rolled forward without a redeploy.
+- **Calibration:** Google Cloud; artefacts persisted to Cloud Storage;
+  active artefact selection via a Firestore pointer that can be rolled
+  forward without a redeploy.
 
-Specific model architectures, feature counts, and hyperparameters are
+Specific engine parameters, feature counts, and calibration cadences are
 proprietary and not published.
 
 ## Orchestration and state
@@ -39,8 +43,8 @@ Disuza's orchestration is **event-driven**, not DAG-driven:
 - **Firestore** — real-time state. Open positions, account equity,
   kill-switch flags, and configuration pointers live here. Clients read
   near-real-time; writes are transactional where consistency matters.
-- **Cloud SQL (PostgreSQL)** — historical analytics. Trade ledger,
-  equity curves, per-trade attribution, metrics history.
+- **BigQuery** — historical analytics. Trade ledger, equity curves,
+  per-trade attribution, metrics history.
 - **Cloud Storage** — model artefacts, feature snapshots, raw data cache.
 - **Artifact Registry** — versioned Docker images for every service.
 
@@ -49,8 +53,8 @@ Disuza's orchestration is **event-driven**, not DAG-driven:
 - **Cloud Run services** for every stateless request or event handler:
   data collection, inference, hedging and monitoring, execution,
   dashboard API.
-- **Cloud Run jobs** for bounded batch workloads such as monthly
-  retraining.
+- **Cloud Run jobs** for bounded batch workloads such as periodic
+  calibration.
 - Auto-scaling with warm-cache-friendly concurrency settings.
 
 ## Observability
@@ -93,10 +97,12 @@ Disuza's orchestration is **event-driven**, not DAG-driven:
 
 ## Data providers (class-level)
 
-- On-chain analytics from institutional-tier data providers.
-- Exchange OHLC and microstructure from public exchange APIs.
-- Macro and attention signals from standard financial and public data
-  sources.
+- Exchange market data (OHLCV, L2 order book, trades, funding, open
+  interest, liquidations) from public exchange APIs.
+- Redundant venue-direct WebSocket capture for forward-stream resilience.
+- Macro context from standard financial data sources.
+- On-chain regime gating signals from institutional-tier data providers
+  (used strictly as L1-L2 macro context, not as primary alpha).
 
 Specific vendor names are not published as part of the public reference.
 
@@ -122,6 +128,6 @@ Specific vendor names are not published as part of the public reference.
 
 ---
 
-*Disuza Quantitative — Living Technical Reference · Version 3 · Last Updated: 2026-04-20*
+*Disuza Quantitative — Living Technical Reference · Version 3.1 · Last Updated: 2026-05-22*
 
-<!-- last_updated: 2026-04-20 · version: 3.0.0 -->
+<!-- last_updated: 2026-05-22 · version: 3.1.0 -->

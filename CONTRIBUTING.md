@@ -61,4 +61,4 @@ All other inquiries: [contact@disuza.com](mailto:contact@disuza.com).
 
 ---
 
-*Disuza Quantitative — Living Technical Reference · Version 3 · Last Updated: 2026-04-20*
+*Disuza Quantitative — Living Technical Reference · Version 3.1 · Last Updated: 2026-05-22*

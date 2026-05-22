@@ -32,7 +32,7 @@ the canonical context files at disuza.com.
 | 3 | [`data-pipeline.md`](data-pipeline.md) | Multi-source ingestion with point-in-time guarantees |
 | 4 | [`execution.md`](execution.md) | Venue classes, non-custodial execution, broker-truth reconciliation |
 | 5 | [`risk.md`](risk.md) | Tiered drawdown posture, non-custodial guarantees, audit trail |
-| 6 | [`regulatory.md`](regulatory.md) | MiCA and FINMA landscape monitoring, pre-licensing, disclosures |
+| 6 | [`regulatory.md`](regulatory.md) | MiCA and FINMA landscape monitoring, pre-licensing, disclosures, anti-overfit validation pipeline (CPCV / DSR / PBO per López de Prado) |
 | 7 | [`technology.md`](technology.md) | Language, frameworks, orchestration, cloud, observability |
 | 8 | [`components.md`](components.md) | The services that make up the production platform |
 | 9 | [`operations.md`](operations.md) | Deployment, monitoring, alerting, reliability posture |
@@ -58,7 +58,7 @@ authorised personnel at [disuza.com/dashboard](https://disuza.com/dashboard).
 
 ---
 
-*Disuza Quantitative — Living Technical Reference · Version 3 · Last Updated: 2026-04-20*
+*Disuza Quantitative — Living Technical Reference · Version 3.1 · Last Updated: 2026-05-22*
 *Source of truth: [https://disuza.com/llms-full.txt](https://disuza.com/llms-full.txt)*
 
-<!-- last_updated: 2026-04-20 · version: 3.0.0 -->
+<!-- last_updated: 2026-05-22 · version: 3.1.0 -->

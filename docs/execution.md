@@ -30,13 +30,15 @@ reconstructs PnL from actual fills.
 Disuza executes across two venue classes, selected to fit different
 capital and counterparty profiles.
 
-### Institutional-protocol brokers
+### Prop-trading-programme APIs
 
-- **Protocol:** FIX-based sessions.
+- **Protocol:** broker-specific, varies by counterparty.
 - **Scope:** trade-only. Withdrawal permissions are controlled by the
   broker-issued credential scope, not by the firm.
-- **Profile:** institutional prop-trading programmes. Counterparty risk is
-  allocated to the broker's regulatory umbrella.
+- **Profile:** institutional prop-trading programmes covering both
+  digital asset perpetual futures venues and US equity index futures
+  venues (NQ, ES). Counterparty risk is allocated to the broker's
+  regulatory umbrella.
 
 ### Self-custody perpetual venues
 
@@ -80,7 +82,7 @@ Full diagram in [`diagrams/execution-reconciliation.mmd`](diagrams/execution-rec
 In both venue classes, Disuza's execution credentials are scoped to
 trade-only operations:
 
-- For institutional-protocol brokers, the broker issues credentials with
+- For prop-trading-programme APIs, the broker issues credentials with
   trade permissions only; the account-level deposit and withdrawal
   rights remain with the account holder.
 - For self-custody venues, Disuza operates agent wallets with signer
@@ -137,11 +139,11 @@ Every execution-adjacent Pub/Sub message carries:
 
 | Venue class | Protocol | Scope | Fund-movement risk |
 | --- | --- | --- | --- |
-| Institutional-protocol brokers | FIX session | Trade-only credentials issued by the broker | Held with the broker's regulatory umbrella |
+| Prop-trading-programme APIs | Broker-specific, varies by counterparty | Trade-only credentials issued by the broker | Held with the broker's regulatory umbrella |
 | Self-custody perpetual venues | Authenticated REST | Trade-scoped agent wallet; root signer offline | Held in self-custody; trading key cannot move funds |
 
 ---
 
-*Disuza Quantitative — Living Technical Reference · Version 3 · Last Updated: 2026-04-20*
+*Disuza Quantitative — Living Technical Reference · Version 3.1 · Last Updated: 2026-05-22*
 
-<!-- last_updated: 2026-04-20 · version: 3.0.0 -->
+<!-- last_updated: 2026-05-22 · version: 3.1.0 -->

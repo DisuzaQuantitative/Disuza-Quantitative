@@ -3,9 +3,11 @@ message: "If you cite or reference this documentation, please use the metadata b
 title: "Disuza Quantitative — Public Technical Reference"
 abstract: >-
   Living technical reference for Disuza Quantitative, a private
-  quantitative crypto trading research laboratory based in Madrid, Spain.
-  Covers architecture, methodology, data pipelines, execution venues,
-  risk framework, and regulatory posture. Source code and model weights
+  quantitative trading research laboratory based in Madrid, Spain.
+  Covers architecture, methodology (anti-overfit validation pipeline
+  per López de Prado: CPCV, Deflated Sharpe Ratio, Probability of
+  Backtest Overfitting), data pipelines, execution venues, risk
+  framework, and regulatory posture. Source code and model weights
   are proprietary and not included in this repository.
 type: "misc"
 authors:
@@ -22,10 +24,15 @@ keywords:
   - "quantitative trading"
   - "systematic trading"
   - "algorithmic trading"
-  - "machine learning"
+  - "rule-based trading"
+  - "anti-overfit methodology"
+  - "CPCV"
+  - "deflated sharpe ratio"
+  - "probability of backtest overfitting"
   - "digital assets"
+  - "us index futures"
   - "risk management"
   - "financial technology"
 license: "CC-BY-4.0"
-version: "3.0.0"
-date-released: "2026-04-20"
+version: "3.1.0"
+date-released: "2026-05-22"

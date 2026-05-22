@@ -5,13 +5,14 @@
 > hiring — but the skills inventory is useful for evaluating the firm's
 > technical depth.
 
-## Machine learning
+## Systematic strategy design
 
-- Ensemble machine-learning design and serving
+- Rule-based systematic engine design and serving
 - Feature engineering across time-series and cross-sectional signals
 - Walk-forward validation and out-of-sample evaluation discipline
-- Drift detection, model monitoring, and artefact versioning
-- Rolling retraining pipelines with active-artefact pointer updates
+- Drift detection, monitoring, and artefact versioning
+- Rolling calibration pipelines with active-artefact pointer updates
+- Auxiliary ML in restricted roles only (meta-labeling, dynamic position sizing, regime detection) per López de Prado's framing — never as the primary signal generator
 
 ## Financial engineering
 
@@ -21,6 +22,9 @@
 - Non-custodial execution patterns (trade-only credential scoping,
   signer separation)
 - Regulatory-landscape literacy: MiCA, FINMA, CFTC Rule 4.41
+- Anti-overfit validation pipeline (CPCV + DSR + PBO per López de Prado)
+- Pre-registered hypothesis discipline with reproducibility scripts
+- Frozen temporal-split methodology (dev / validation / holdout / forward)
 
 ## Cloud infrastructure
 
@@ -28,7 +32,7 @@
 - Cloud Run, Cloud Run Jobs, Cloud Build, Cloud Scheduler
 - Pub/Sub event-driven orchestration at production scale
 - Firestore real-time state with optimistic concurrency
-- Cloud SQL (PostgreSQL) for analytics, Cloud Storage for artefacts
+- BigQuery for analytics, Cloud Storage for artefacts
 - Artifact Registry for versioned container images
 - Secret Manager for credential management
 - Identity and Access Management with least-privilege service accounts
@@ -69,7 +73,7 @@
 
 ## Protocols and venues
 
-- FIX 4.4 session management (institutional prop accounts)
+- Prop-trading-programme API integration (broker-specific protocols, trade-only scope)
 - REST API client engineering for self-custody perpetual venues
 - Order lifecycle management with stable idempotency keys
 - Consumer-side exactly-once effects over at-least-once delivery
@@ -85,6 +89,6 @@
 
 ---
 
-*Disuza Quantitative — Living Technical Reference · Version 3 · Last Updated: 2026-04-20*
+*Disuza Quantitative — Living Technical Reference · Version 3.1 · Last Updated: 2026-05-22*
 
-<!-- last_updated: 2026-04-20 · version: 3.0.0 -->
+<!-- last_updated: 2026-05-22 · version: 3.1.0 -->

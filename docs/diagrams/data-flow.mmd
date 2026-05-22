@@ -1,12 +1,12 @@
 %% Disuza Quantitative — Data Flow (PIT pipelines)
-%% Version 3 · 2026-04-20
+%% Version 3.1 · 2026-05-22
 
 graph LR
   subgraph "Source classes"
-    S1[On-chain analytics]
-    S2[Exchange microstructure]
+    S1[Exchange market data<br/>OHLCV · L2 · trades · funding · OI]
+    S2[Venue-direct WebSocket<br/>forward-stream redundancy]
     S3[Macro context]
-    S4[Attention signals]
+    S4[On-chain regime gating<br/>L1-L2 context only]
   end
 
   CLOCK[Cloud Scheduler<br/>ingestion cadence]
@@ -18,7 +18,7 @@ graph LR
   MANIFEST[Manifest hash<br/>+ BigQuery lineage]
   PIT[PIT feature pipeline<br/>retroactive-revision guardrails]
   FSTORE[(Feature store)]
-  INFER[Ensemble ML inference]
+  INFER[Rule-based signal evaluation]
 
   CLOCK --> COLLECT
   S1 --> COLLECT

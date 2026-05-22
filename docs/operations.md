@@ -53,7 +53,7 @@ operational details and not published.
   produce exactly-once effects via a processed-message ledger keyed on
   stable idempotency identifiers.
 - **State recovery.** Services are stateless from a request perspective;
-  persistent state lives in Firestore and Cloud SQL. A service can restart
+  persistent state lives in Firestore and BigQuery. A service can restart
   at any time and resume operation.
 - **Broker-truth reconciliation.** The platform's bookkeeping is always
   a reconstruction of the broker's ledger, not an authoritative record.
@@ -113,6 +113,6 @@ public reference.
 
 ---
 
-*Disuza Quantitative — Living Technical Reference · Version 3 · Last Updated: 2026-04-20*
+*Disuza Quantitative — Living Technical Reference · Version 3.1 · Last Updated: 2026-05-22*
 
-<!-- last_updated: 2026-04-20 · version: 3.0.0 -->
+<!-- last_updated: 2026-05-22 · version: 3.1.0 -->

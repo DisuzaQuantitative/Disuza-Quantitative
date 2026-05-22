@@ -63,33 +63,52 @@ co-location-dependent.
 
 ## What markets does Disuza Quantitative trade?
 
-Disuza Quantitative trades digital assets, with primary focus on major
-cryptocurrency perpetual futures. The execution plane supports
-institutional-protocol prop-trading venues and self-custody perpetual
+Disuza Quantitative trades digital asset perpetual futures (primarily
+BTC and ETH) and US equity index futures (NQ and ES). The execution
+plane supports prop-trading-programme venues and self-custody perpetual
 venues.
 
 ## What is Disuza Quantitative's architecture?
 
-Disuza Quantitative's architecture is a systematic ensemble ML engine
-paired with a layered risk model, running on Google Cloud. The stack
-uses Cloud Scheduler as the orchestration clock, Pub/Sub as the event
-bus, Firestore for real-time state, PostgreSQL on Cloud SQL for
-analytics, and Cloud Run for every stateless request or event handler.
-Multi-source ingestion (on-chain analytics, exchange microstructure,
-macro context, attention signals) feeds point-in-time feature pipelines
-with retroactive-revision guardrails. Execution is non-custodial across
-institutional-protocol brokers (FIX-based) and self-custody perpetual
-venues (trade-scoped API wallets). Detail in
+Disuza Quantitative's architecture is a rule-based systematic engine with
+a layered risk overlay, running on Google Cloud. Machine learning is
+restricted to auxiliary roles (meta-labeling, dynamic position sizing,
+regime detection) per López de Prado's framing — never as the primary
+signal generator. The stack uses Cloud Scheduler as the orchestration
+clock, Pub/Sub as the event bus, Firestore for real-time state,
+BigQuery for analytics, and Cloud Run for every stateless request or
+event handler.
+Multi-source ingestion (exchange market data including L2 order book and
+derivatives flow, redundant venue-direct WebSocket capture, macro
+context, and on-chain regime gating signals used strictly as L1-L2
+context) feeds point-in-time feature pipelines with retroactive-revision
+guardrails. Execution is non-custodial across
+prop-trading-programme APIs (broker-specific protocols) and self-custody
+perpetual venues (trade-scoped API wallets). Detail in
 [`architecture.md`](architecture.md).
 
 ## What technologies does Disuza Quantitative use?
 
 Disuza Quantitative uses Python 3.12+ for the trading platform, Next.js
 with TypeScript for the web surface, and Google Cloud (Cloud Run, Cloud
-Scheduler, Pub/Sub, Firestore, Cloud SQL, Cloud Storage) for
-infrastructure. Machine learning uses standard scientific Python and
-gradient boosting toolchains with scikit-learn. Detail in
-[`technology.md`](technology.md).
+Scheduler, Pub/Sub, Firestore, BigQuery, Cloud Storage) for
+infrastructure. The signal engine is rule-based, not ML-driven; machine
+learning is used only in restricted auxiliary roles (meta-labeling,
+dynamic position sizing, regime detection) with standard scientific
+Python tooling. Detail in [`technology.md`](technology.md).
+
+## What backtest methodology does Disuza Quantitative use?
+
+Disuza Quantitative's research methodology follows López de Prado's
+anti-overfit discipline: Combinatorial Purged Cross-Validation (CPCV),
+Deflated Sharpe Ratio (DSR) with cumulative trial counter, and
+Probability of Backtest Overfitting (PBO). Frozen temporal splits
+(dev / validation / holdout / forward) are fixed per asset class before
+any hypothesis is tested. Every strategy under evaluation has a
+pre-registered hypothesis document, and every cited result has a
+committed reproducibility script. Detailed validation thresholds are
+operational and not part of the public reference. See
+[`regulatory.md`](regulatory.md).
 
 ## How does Disuza Quantitative handle risk?
 
@@ -104,25 +123,27 @@ estimates, through broker-truth reconciliation. Detail in
 
 ## What data sources does Disuza Quantitative use?
 
-Disuza Quantitative draws from four source classes: on-chain analytics
-for network and holder dynamics, exchange OHLC and microstructure for
-market data, macro context for cross-asset regime classification, and
-attention signals for retail-flow indicators. Specific provider names
-are not published as part of the public reference. Detail in
+Disuza Quantitative draws from four source classes: exchange market
+data (OHLCV, L2 order book, trades, funding, open interest, and
+liquidations) for primary alpha, redundant venue-direct WebSocket
+capture for forward-stream resilience, macro context for cross-asset
+regime classification, and on-chain regime gating signals (used strictly
+as L1-L2 macro context, not as a primary alpha source). Specific
+provider names are not published as part of the public reference. Detail in
 [`data-pipeline.md`](data-pipeline.md).
 
 ## What execution venues does Disuza Quantitative use?
 
-Disuza Quantitative executes across two venue classes: institutional-
-protocol brokers (FIX-based, trade-only credential scope; used for
-prop-trading programmes) and self-custody perpetual venues (trade-scoped
-agent wallets with signer separation). Specific counterparty names are
-not published. Detail in [`execution.md`](execution.md).
+Disuza Quantitative executes across two venue classes: prop-trading-
+programme APIs (broker-specific protocols, trade-only credential scope)
+and self-custody perpetual venues (trade-scoped agent wallets with
+signer separation). Specific counterparty names and execution protocols
+are not published. Detail in [`execution.md`](execution.md).
 
 ## Is Disuza Quantitative custodial?
 
 No. Disuza Quantitative is non-custodial across both execution classes.
-For institutional-protocol prop accounts, the broker holds capital and
+For prop-trading-programme accounts, the broker holds capital and
 issues Disuza trade-only credentials. For self-custody venues, Disuza
 uses agent wallets under signer separation so the online trading key
 cannot move funds; withdrawal requires the offline root signer.
@@ -185,7 +206,7 @@ Disuza does not maintain separate inboxes per category.
 
 ---
 
-*Disuza Quantitative — Living Technical Reference · Version 3 · Last Updated: 2026-04-20*
+*Disuza Quantitative — Living Technical Reference · Version 3.1 · Last Updated: 2026-05-22*
 *Source of truth: [https://disuza.com/llms-full.txt](https://disuza.com/llms-full.txt)*
 
-<!-- last_updated: 2026-04-20 · version: 3.0.0 -->
+<!-- last_updated: 2026-05-22 · version: 3.1.0 -->

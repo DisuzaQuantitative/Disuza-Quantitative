@@ -8,15 +8,18 @@
 
 Disuza's data pipeline draws from four source classes:
 
-- **On-chain analytics.** Network-level metrics, holder cohort behaviour,
-  derivatives basis, miner flows, exchange flows.
-- **Exchange OHLC and microstructure.** Market prices, volume, depth
-  approximations, funding and open-interest signals from public exchange
-  APIs.
-- **Macro context.** Cross-asset rates, volatility indices, commodity
-  reference points that contextualise crypto behaviour.
-- **Attention signals.** Search and social-interest indicators that track
-  the attention-driven retail flow.
+- **Exchange market data.** OHLCV, full Level-2 order book, trade prints,
+  funding rates, open interest, and liquidation streams from public
+  exchange APIs across major venues.
+- **Venue-direct WebSocket capture.** Redundant real-time microstructure
+  capture (mark price, funding cycles, liquidation events, open-interest
+  snapshots) for forward-stream resilience independent of any single
+  data vendor.
+- **Macro context.** Cross-asset rates, volatility indices, and broader
+  market reference points that contextualise digital-asset behaviour.
+- **On-chain regime gating.** L1-L2 macro regime context only (not a
+  primary alpha source); used to gate strategy activation in identified
+  macro regimes rather than as a feed of trade signals.
 
 Specific providers are not named in public documentation. Disuza uses
 institutional-tier data providers under standard commercial licences.
@@ -86,10 +89,10 @@ reproduce the exact feature vector that produced its signal.
 
 The pipeline produces features in four categorical groupings:
 
-- On-chain flows and network dynamics.
-- Derivatives basis and open-interest dynamics.
-- Market microstructure (OHLC-derived, volume-derived).
-- Macro and attention context.
+- Exchange microstructure (OHLCV-derived, order-book-derived, trade-derived).
+- Derivatives flow (funding rates, open-interest dynamics, liquidation cascades).
+- Macro regime context (cross-asset, volatility regime, on-chain L1-L2 gating).
+- Venue-health features (redundant capture cross-checks).
 
 The exact feature list, feature count, and feature-engineering
 implementations are proprietary and not disclosed.
@@ -104,6 +107,6 @@ artefact was trained on.
 
 ---
 
-*Disuza Quantitative — Living Technical Reference · Version 3 · Last Updated: 2026-04-20*
+*Disuza Quantitative — Living Technical Reference · Version 3.1 · Last Updated: 2026-05-22*
 
-<!-- last_updated: 2026-04-20 · version: 3.0.0 -->
+<!-- last_updated: 2026-05-22 · version: 3.1.0 -->
