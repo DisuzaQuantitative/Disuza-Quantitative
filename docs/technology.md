@@ -35,7 +35,7 @@ proprietary and not published.
 Disuza's orchestration is **event-driven**, not DAG-driven:
 
 - **Cloud Scheduler** — the clock. Kicks off ingestion, safety-net
-  inference runs, hedge-monitor sweeps, and retraining cycles on cron
+  inference runs, hedge-monitor sweeps, and calibration cycles on cron
   schedules.
 - **Pub/Sub** — the event bus. Pipelines communicate by publishing and
   consuming topics. Consumers implement idempotency via a processed-message

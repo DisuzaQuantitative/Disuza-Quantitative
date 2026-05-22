@@ -9,8 +9,8 @@
 Disuza Quantitative is a private quantitative trading research laboratory
 based in Madrid, Spain, founded in 2025 by Yasmine Bendhiab (Co-Founder &
 CEO) and Fares Bendhiab (Co-Founder & CTO). Disuza engineers systematic
-execution algorithms for digital asset markets and operates in a
-pre-licensing phase.
+execution algorithms for digital asset perpetual futures and US equity
+index futures, and operates in a pre-licensing phase.
 
 ## Who founded Disuza Quantitative?
 
