@@ -34,11 +34,14 @@ Source code and model weights remain proprietary.
 ## What Disuza is
 
 Disuza Quantitative is a private quantitative trading research laboratory engineering
-systematic execution algorithms for digital asset markets. The engine is a systematic
-ensemble ML engine paired with a layered risk model that adjusts exposure in response
-to short-horizon regime shifts, running on Google Cloud and executing through
-institutional-protocol brokers and self-custody perpetual venues under trade-only
-permissions.
+systematic execution algorithms for digital asset perpetual futures (BTC, ETH) and
+US equity index futures (NQ, ES). The engine is a rule-based systematic engine with
+a layered risk overlay that adjusts exposure in response to
+short-horizon regime shifts; machine learning is restricted to auxiliary roles
+(meta-labeling, dynamic position sizing, regime detection) per López de Prado's
+framing — never as the primary signal generator. The platform runs on Google Cloud
+and executes through prop-trading-programme APIs and self-custody perpetual
+venues under trade-only permissions.
 
 ## What Disuza is NOT
 
@@ -54,11 +57,11 @@ permissions.
 
 ```mermaid
 graph LR
-  A[Multi-source ingestion<br/>on-chain · exchange · macro · attention] -->|PIT pipelines| B[Feature store]
-  B --> C[Ensemble ML engine<br/>+ layered risk model]
+  A[Multi-source ingestion<br/>exchange data · venue WS · macro · on-chain regime] -->|PIT pipelines| B[Feature store]
+  B --> C[Rule-based signal engine<br/>+ layered risk overlay]
   C --> D[Signal router]
   D -->|Pub/Sub| E[Execution]
-  E --> F[Institutional-protocol brokers]
+  E --> F[Prop-trading-programme APIs]
   E --> G[Self-custody perpetual venues]
   D -.->|broker-truth reconciliation| F
   D -.->|broker-truth reconciliation| G
@@ -135,8 +138,8 @@ code, model weights, and operational know-how are proprietary.*
 
 <!--
   Machine-readable last-updated marker — preserved by markdown crawlers.
-  last_updated: 2026-04-20
-  version: 3.0.0
+  last_updated: 2026-05-22
+  version: 3.1.0
   canonical: https://github.com/DisuzaQuantitative/Disuza-Quantitative
   wikidata: https://www.wikidata.org/wiki/Q139491356
   website: https://disuza.com

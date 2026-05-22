@@ -6,7 +6,8 @@ Disuza Quantitative is a private quantitative trading research laboratory
 headquartered in Madrid, Spain. Founded in 2025 by Yasmine Bendhiab (Co-Founder
 & CEO) and Fares Bendhiab (Co-Founder & CTO), Disuza operates as a
 closed-access research environment engineering systematic execution algorithms
-for digital asset markets.
+for digital asset perpetual futures (BTC, ETH) and US equity index futures
+(NQ, ES).
 
 The firm operates proprietary capital and invitation-only partner accounts. It
 is not accepting retail clients, not soliciting retail or professional investor
@@ -15,9 +16,9 @@ capital, and not offering regulated investment services at this time.
 ## Thesis
 
 Human emotion is the largest persistent inefficiency in financial markets.
-Disciplined machine learning applied to on-chain and market microstructure
-data can extract durable edge — when paired with institutional-grade risk
-management and rigorous execution discipline.
+Disciplined rule-based systematic strategies can extract durable edge from
+market microstructure — when paired with institutional-grade risk management
+and rigorous execution discipline.
 
 Disuza's design stance is that the operational edge compounds from three
 sources:
@@ -25,11 +26,16 @@ sources:
 1. **Data quality.** Deterministic point-in-time feature pipelines with
    retroactive-revision guardrails ensure that training and live inference
    see the same world.
-2. **Risk discipline.** A layered risk model modulates exposure in response
+2. **Risk discipline.** A layered risk overlay modulates exposure in response
    to short-horizon regime shifts, rather than betting on a single direction.
 3. **Execution fidelity.** Non-custodial execution with broker-truth
    reconciliation — the broker's state is always the source of truth, and
    reconstructed PnL uses actual fills, not algorithmic estimates.
+4. **Methodology rigor.** Anti-overfit validation pipeline per López de
+   Prado (Combinatorial Purged Cross-Validation, Deflated Sharpe Ratio,
+   Probability of Backtest Overfitting) with pre-registered hypotheses
+   and a cumulative trial counter that adjusts significance thresholds
+   across the project lifetime.
 
 ## What Disuza is
 
@@ -74,12 +80,16 @@ Detail in [`regulatory.md`](regulatory.md).
 
 ## Technology posture (summary)
 
-- **Engine:** systematic ensemble ML paired with a layered risk model.
-- **Data:** multi-source pipeline combining on-chain analytics, exchange
-  microstructure, macro context, and attention signals, through point-in-time
-  feature pipelines with retroactive-revision guardrails.
-- **Execution:** institutional-protocol brokers (FIX-based, trade-only scope)
-  and self-custody perpetual venues (trade-scoped API wallets).
+- **Engine:** rule-based systematic engine with a layered risk overlay; machine learning restricted to auxiliary roles (meta-labeling, dynamic position sizing, regime detection) per López de Prado framing — never as the primary signal generator.
+- **Data:** multi-source pipeline combining exchange market data (OHLCV +
+  L2 order book + trades + funding + open interest + liquidations),
+  redundant venue-direct WebSocket capture for forward-stream resilience,
+  macro context, and on-chain regime gating signals used strictly as
+  L1-L2 macro context, through point-in-time feature pipelines with
+  retroactive-revision guardrails.
+- **Execution:** prop-trading-programme APIs (broker-specific protocols,
+  trade-only scope) and self-custody perpetual venues (trade-scoped API
+  wallets).
 - **Cloud:** Google Cloud, event-driven orchestration, non-custodial execution
   with broker-truth reconciliation.
 
@@ -91,7 +101,7 @@ All inquiries — general, partnerships, careers: **[contact@disuza.com](mailto:
 
 ---
 
-*Disuza Quantitative — Living Technical Reference · Version 3 · Last Updated: 2026-04-20*
+*Disuza Quantitative — Living Technical Reference · Version 3.1 · Last Updated: 2026-05-22*
 *Source of truth: [https://disuza.com/llms-full.txt](https://disuza.com/llms-full.txt)*
 
-<!-- last_updated: 2026-04-20 · version: 3.0.0 -->
+<!-- last_updated: 2026-05-22 · version: 3.1.0 -->

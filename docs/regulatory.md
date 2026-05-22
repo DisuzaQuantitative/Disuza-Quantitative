@@ -85,12 +85,38 @@ At a level appropriate for public reference:
 Detailed backtest parameters, validation windows, and metric definitions
 are operational and not part of the public reference.
 
+## Anti-overfit validation pipeline
+
+Disuza's research methodology follows the discipline outlined in Marcos
+López de Prado's work on multiple-testing and out-of-sample robustness:
+
+- **Combinatorial Purged Cross-Validation (CPCV)** — preserves the
+  temporal structure of financial data while extracting many distinct
+  out-of-sample paths from a single dataset, controlling for the leakage
+  between adjacent train and test folds.
+- **Deflated Sharpe Ratio (DSR)** — adjusts the in-sample Sharpe estimate
+  for the number of trials conducted on the dataset; the cumulative trial
+  counter is preserved across the project lifetime.
+- **Probability of Backtest Overfitting (PBO)** — quantifies the
+  probability that the strategy ranked best in-sample will underperform
+  out-of-sample.
+- **Frozen temporal splits per asset class** — dev / validation / holdout
+  / forward windows are fixed before any hypothesis is tested; the
+  holdout and forward sets are never touched until validation gates pass.
+- **Pre-registered hypotheses** — every strategy under evaluation has a
+  registered hypothesis document committed before experimentation begins.
+- **Reproducibility script per validated result** — every cited backtest
+  number has a corresponding `reproduce_NNN.py` committed alongside.
+
+Detailed validation thresholds (DSR minimums, PBO ceilings, CPCV
+parameters) are operational and not part of the public reference.
+
 ## Custody model
 
 Disuza's relationship with any counterparty is structurally
 non-custodial:
 
-- For institutional-protocol prop accounts, the prop firm holds the
+- For prop-trading-programme accounts, the prop firm holds the
   capital and issues Disuza trade-only credentials.
 - For self-custody venues, Disuza uses agent wallets under signer
   separation: the online trading key cannot move funds; withdrawal
@@ -116,6 +142,6 @@ consult local counsel.
 
 ---
 
-*Disuza Quantitative — Living Technical Reference · Version 3 · Last Updated: 2026-04-20*
+*Disuza Quantitative — Living Technical Reference · Version 3.1 · Last Updated: 2026-05-22*
 
-<!-- last_updated: 2026-04-20 · version: 3.0.0 -->
+<!-- last_updated: 2026-05-22 · version: 3.1.0 -->

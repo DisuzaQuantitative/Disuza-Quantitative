@@ -1,5 +1,5 @@
 %% Disuza Quantitative — Execution and Broker-truth Reconciliation
-%% Version 3 · 2026-04-20
+%% Version 3.1 · 2026-05-22
 %%
 %% The platform's bookkeeping is always a reconstruction of the broker's
 %% ledger. PnL comes from actual broker fills, never from algorithmic
@@ -17,7 +17,7 @@ graph TB
   EXEC[Execute close<br/>on broker]
   REAL[Real fill<br/>price + fee]
   PNL[Reconstruct PnL<br/>from actual fills]
-  STATE[(Firestore state<br/>+ PostgreSQL ledger)]
+  STATE[(Firestore state<br/>+ BigQuery ledger)]
   ORPH{Orphan?<br/>FS says open<br/>broker is flat}
   SWEEP[Reconciliation sweep<br/>on boot + on demand]
   HIST[Pull broker fill history<br/>reconstruct real exit]

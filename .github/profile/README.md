@@ -13,8 +13,9 @@
 ## About
 
 Disuza Quantitative engineers systematic execution algorithms for digital asset
-markets. The firm operates proprietary capital and invitation-only partner
-accounts under a closed-access, non-custodial model. It is not a high-frequency
+perpetual futures (BTC, ETH) and US equity index futures (NQ, ES). The firm
+operates proprietary capital and invitation-only partner accounts under a
+closed-access, non-custodial model. It is not a high-frequency
 trading firm, not a retail-facing signal-selling service, and not a public hedge
 fund.
 
@@ -31,11 +32,17 @@ fund.
 
 ## Technology
 
-Systematic ensemble ML engine paired with a layered risk model, running on
-Google Cloud. Multi-source ingestion pipeline combining on-chain analytics,
-exchange microstructure, macro context, and attention signals, processed through
-point-in-time feature pipelines. Execution via institutional-protocol brokers
-and self-custody perpetual venues under trade-only permissions.
+Rule-based systematic engine with a layered risk overlay, running on Google
+Cloud. Machine learning is restricted to auxiliary roles (meta-labeling, dynamic
+position sizing, regime detection) per López de Prado's framing — never as the
+primary signal generator. Multi-source ingestion pipeline combining
+exchange market data (OHLCV + L2 + trades + funding + open interest +
+liquidations), redundant venue-direct WebSocket capture for forward-stream
+resilience, macro context, and on-chain regime gating signals used
+strictly as L1-L2 macro context, processed through point-in-time feature
+pipelines. Execution via
+prop-trading-programme APIs and self-custody perpetual venues under
+trade-only permissions.
 
 ## Regulatory posture
 

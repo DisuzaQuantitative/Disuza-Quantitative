@@ -8,7 +8,7 @@
 1. **Capital preservation is the first objective.** Return-seeking is
    subordinate to downside control.
 2. **Venue-appropriate posture.** Drawdown and sizing parameters are
-   calibrated per account class, because institutional-protocol brokers
+   calibrated per account class, because prop-trading-programme APIs
    and self-custody venues carry different risk profiles and counterparty
    assumptions.
 3. **Closes are always permitted.** Risk gates may block new opens;
@@ -63,7 +63,7 @@ After exit:
 Accounts are grouped into tiers based on counterparty class and capital
 profile:
 
-- **Prop-programme tier.** Institutional-protocol prop accounts operating
+- **Prop-programme tier.** Prop-trading-programme accounts operating
   under the prop firm's own drawdown rules. Tier parameters are
   conservative to preserve the programme.
 - **Self-custody tier.** Self-custody perpetual accounts with proprietary
@@ -109,6 +109,6 @@ reference.
 
 ---
 
-*Disuza Quantitative — Living Technical Reference · Version 3 · Last Updated: 2026-04-20*
+*Disuza Quantitative — Living Technical Reference · Version 3.1 · Last Updated: 2026-05-22*
 
-<!-- last_updated: 2026-04-20 · version: 3.0.0 -->
+<!-- last_updated: 2026-05-22 · version: 3.1.0 -->

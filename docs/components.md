@@ -9,10 +9,10 @@
 | Service | Tier | Trigger | Purpose |
 | --- | --- | --- | --- |
 | Data collector | Data plane | Cloud Scheduler (periodic) | Multi-source ingestion, PIT snapshot, schema validation, cache-manifest lineage |
-| Signal detector | Compute plane | Pub/Sub event + Cloud Scheduler safety-net | Feature fetch, ensemble ML inference, risk-framework gating, signal publication |
+| Signal detector | Compute plane | Pub/Sub event + Cloud Scheduler safety-net | Feature fetch, rule-based signal evaluation, risk-framework gating, signal publication |
 | Hedge monitor | Compute + execution plane | Cloud Scheduler (periodic) | Layered risk overlay, trailing-stop discipline, timeout enforcement, reconciliation sweep |
 | Order executor | Execution plane | Pub/Sub event | Venue adapters, order lifecycle, broker-truth reconciliation on exits |
-| Retrain job | Compute plane | Cloud Scheduler (monthly) | Periodic model retraining, artefact versioning, active-artefact pointer update |
+| Calibration job | Compute plane | Cloud Scheduler (periodic) | Periodic parameter calibration for the rule-based engine and auxiliary ML components, artefact versioning, active-artefact pointer update |
 | Dashboard API | Access layer | HTTPS authenticated | Client portal endpoints for position and analytics reads |
 | Public site | Presentation | Static hosting | Guest portal, landing, authenticated client UI |
 
@@ -29,8 +29,9 @@ first cycle runs immediately to seed the cache.
 
 **Responsibilities.**
 
-- Fetch from each configured source class (on-chain analytics, exchange
-  microstructure, macro context, attention signals).
+- Fetch from each configured source class (exchange market data,
+  venue-direct WebSocket capture, macro context, on-chain regime
+  gating signals).
 - Write a point-in-time snapshot of the raw data.
 - Validate against the critical-feature schema; fall back to last-known-
   good if validation fails.
@@ -40,7 +41,7 @@ first cycle runs immediately to seed the cache.
 
 ## Signal detector
 
-**Purpose.** Feature-based position decisions from the ensemble ML engine.
+**Purpose.** Feature-based position decisions from the rule-based signal engine.
 
 **Triggers.** Primary trigger is the cycle-complete event from the data
 collector. A Cloud Scheduler safety-net fires every few hours as a
@@ -48,9 +49,9 @@ fallback in case the primary trigger is missed.
 
 **Responsibilities.**
 
-- Resolve the active model artefact from the Firestore pointer.
+- Resolve the active artefact from the Firestore pointer.
 - Load the per-asset feature vector for the current bar.
-- Run ensemble ML inference.
+- Evaluate the rule-based signal engine.
 - Apply risk-framework gates (position caps, drawdown gates,
   trading-enabled flag).
 - Publish a signal event to the order executor.
@@ -89,20 +90,22 @@ reconcile endpoint for operator use.
   reconstruct PnL, and update Firestore state.
 - Emit alerts on execution failures or unexpected broker states.
 
-## Retrain job
+## Calibration job
 
-**Purpose.** Periodic model retraining with artefact versioning.
+**Purpose.** Periodic parameter calibration with artefact versioning.
 
-**Triggers.** Cloud Scheduler monthly cron.
+**Triggers.** Cloud Scheduler periodic cron.
 
 **Responsibilities.**
 
-- Assemble the training window from the PIT feature store.
-- Retrain the ensemble ML engine and the layered risk model.
+- Assemble the calibration window from the PIT feature store.
+- Recalibrate the rule-based signal engine's parameter set and the layered
+  risk overlay (and any auxiliary ML components used in restricted roles
+  per López de Prado's framing).
 - Write artefacts to Cloud Storage under a versioned path.
 - Update the Firestore pointer that the signal detector reads, flipping
   the active artefact with a single atomic write (no redeploy required).
-- Emit a retrain-complete event with validation metrics.
+- Emit a calibration-complete event with validation metrics.
 
 ## Dashboard API
 
@@ -155,6 +158,6 @@ reference.
 
 ---
 
-*Disuza Quantitative — Living Technical Reference · Version 3 · Last Updated: 2026-04-20*
+*Disuza Quantitative — Living Technical Reference · Version 3.1 · Last Updated: 2026-05-22*
 
-<!-- last_updated: 2026-04-20 · version: 3.0.0 -->
+<!-- last_updated: 2026-05-22 · version: 3.1.0 -->

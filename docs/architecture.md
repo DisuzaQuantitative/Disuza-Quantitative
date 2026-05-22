@@ -17,7 +17,7 @@ The platform is built on four core principles:
 3. **Fail-safe operations.** Every service is designed to fail gracefully.
    Consumers tolerate at-least-once delivery via a processed-message ledger
    and stable idempotency keys. State persists across restarts in Firestore
-   and PostgreSQL.
+   and BigQuery.
 4. **Observability first.** Structured logging, custom metrics, heartbeat
    watchdogs, and operator alerts are part of every service from day one.
 
@@ -28,8 +28,11 @@ orchestration tier and persistence tier.
 
 ### Data plane
 
-- Multi-source ingestion combining on-chain analytics, exchange OHLC and
-  microstructure, macro context, and attention signals.
+- Multi-source ingestion combining exchange market data (OHLCV + L2 order
+  book + trades + funding + open interest + liquidations), redundant
+  venue-direct WebSocket capture for forward-stream resilience, macro
+  context, and on-chain regime gating signals used strictly as L1-L2
+  macro context (not as primary alpha source).
 - Real-time and point-in-time feature pipelines with retroactive-revision
   guardrails so that training and live inference see the same feature
   distributions.
@@ -40,11 +43,14 @@ Detail in [`data-pipeline.md`](data-pipeline.md).
 
 ### Compute plane
 
-- **Ensemble ML engine** — the direction-agnostic core that produces position
-  decisions from the feature store.
-- **Layered risk model** — an overlay that modulates exposure when
-  short-horizon signals disagree with the primary stance, implementing
-  counter-positioning discipline rather than naïve directional betting.
+- **Rule-based signal engine** — the direction-agnostic core that produces
+  position decisions from the feature store, governed by a fixed parameter
+  set rather than a learned primary model. Machine learning, when used, is
+  confined to auxiliary roles (meta-labeling, dynamic position sizing,
+  regime detection) per López de Prado's framing.
+- **Layered risk overlay** — modulates exposure when short-horizon signals
+  disagree with the primary stance, implementing counter-positioning
+  discipline rather than naïve directional betting.
 - **Signal router** — combines engine outputs with risk-framework gates
   before publishing to the execution plane.
 
@@ -53,8 +59,10 @@ taxonomy are proprietary and not published.
 
 ### Execution plane
 
-- **Venue adapters** — institutional-protocol brokers (FIX-based, trade-only
-  scope) and self-custody perpetual venues (trade-scoped API wallets).
+- **Venue adapters** — prop-trading-programme APIs (broker-specific
+  protocols, trade-only scope; including US equity index futures venues
+  for NQ and ES) and self-custody perpetual venues (trade-scoped API
+  wallets).
 - **Order lifecycle manager** — place, monitor, reconcile, and close.
 - **Broker-truth reconciliation** — the broker's own position and fill
   history is the source of truth for PnL and account state. Reconstructed
@@ -73,8 +81,8 @@ exactly-once effects.
 
 - **Firestore** for real-time state (open positions, account equity, kill
   switches, execution status).
-- **PostgreSQL** on Google Cloud SQL for historical analytics (trade ledger,
-  equity curves, per-trade attribution).
+- **BigQuery** for historical analytics (trade ledger, equity curves,
+  per-trade attribution).
 - **Cloud Storage** for model artefacts, feature snapshots, and cache
   manifests.
 
@@ -92,14 +100,14 @@ graph TB
   end
 
   subgraph "Data plane"
-    ING[Multi-source ingestion<br/>on-chain · exchange · macro · attention]
+    ING[Multi-source ingestion<br/>exchange data · venue WS · macro · on-chain regime]
     PIT[PIT feature pipelines]
     FS_STORE[Feature store]
   end
 
   subgraph "Compute plane"
-    ML[Ensemble ML engine]
-    RISK[Layered risk model]
+    ML[Rule-based signal engine]
+    RISK[Layered risk overlay]
     ROUTER[Signal router]
   end
 
@@ -129,7 +137,7 @@ graph TB
 - **Asynchronous (Pub/Sub):** signal propagation between pipeline stages,
   execution-event distribution, alert fan-out.
 - **Scheduled (Cloud Scheduler):** data ingestion cycles, feature computation
-  kickoff, hedge-monitor sweeps, retraining cycles.
+  kickoff, hedge-monitor sweeps, periodic calibration cycles.
 
 ## Resilience
 
@@ -153,6 +161,6 @@ graph TB
 
 ---
 
-*Disuza Quantitative — Living Technical Reference · Version 3 · Last Updated: 2026-04-20*
+*Disuza Quantitative — Living Technical Reference · Version 3.1 · Last Updated: 2026-05-22*
 
-<!-- last_updated: 2026-04-20 · version: 3.0.0 -->
+<!-- last_updated: 2026-05-22 · version: 3.1.0 -->
