@@ -39,7 +39,7 @@ impact:
   switch trips, unexpected broker state). Always page.
 - **Warning:** recoverable degradation (source unavailable with LKG
   fallback active, schema drift flagged). Notify without paging.
-- **Info:** routine state transitions (deploys, retrain cycles,
+- **Info:** routine state transitions (deploys, calibration cycles,
   reconciliation results). Log only.
 
 Alert thresholds, pager routing, and runbook-association are
