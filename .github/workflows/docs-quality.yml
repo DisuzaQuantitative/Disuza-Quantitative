@@ -81,6 +81,7 @@ jobs:
           npx --yes @mermaid-js/mermaid-cli@11.15.0 \
             --input /tmp/target-architecture.mmd \
             --output /tmp/target-architecture.svg \
+            --puppeteerConfigFile scripts/mermaid-puppeteer-config.json \
             --quiet
 
       - name: Install Gitleaks
