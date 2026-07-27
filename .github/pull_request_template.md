@@ -1,40 +1,44 @@
-<!--
-  This repository does not accept external pull requests.
-
-  If you are outside Disuza Quantitative, please close this PR and open an
-  issue instead. We will address documentation corrections or clarifications
-  in subsequent internal commits.
-
-  If you are inside Disuza Quantitative, thank you — please remove this
-  comment and complete the template below.
--->
-
 ## Summary
 
-<!-- What changed and why. One short paragraph. -->
+<!-- What changed and why. Keep claims evidence-bounded. -->
 
-## Consistency with facts.ts
+## Public-facts contract
 
-- [ ] I have verified these docs are consistent with the FACTS_PUBLIC export
-      in the website repo (`lib/facts.ts`).
-- [ ] This PR does not introduce new facts that are not already in the site's
-      published `llms.txt` / `llms-full.txt`.
+- [ ] I checked every changed claim against `PUBLIC_FACTS.yml`.
+- [ ] Present capabilities are labelled **CURRENT**.
+- [ ] Unfinished and future capabilities are labelled **IN PROGRESS** or
+      **TARGET**.
+- [ ] This change makes no unsupported live, production, performance,
+      investment-service, legal-status, or regulatory-readiness claim.
 
-## IP-safety grep
+## Confidentiality
 
-- [ ] I ran the IP-safety grep and it returns `✓ IP-safe`.
+- [ ] No internal identifiers, results, trial or split details, data locators,
+      hashes, infrastructure coordinates, access details, secrets, thresholds,
+      counterparties, or private-repository identifiers are included.
 
-## Rendering check
+## Automated and visual checks
 
-- [ ] I previewed this PR on GitHub and confirmed Mermaid diagrams render
-      correctly.
-- [ ] Cross-references (links between doc pages) resolve.
+- [ ] The `Public surface` workflow is green.
+- [ ] Markdown, links, anchors, CFF, Mermaid, and secret scanning pass.
+- [ ] I previewed the GitHub Markdown and the 1200×630 Open Graph image.
 
-## Version bump
+## v4.0.0 founder approval
 
-If this PR materially changes the documentation surface:
+- [ ] The non-author founder explicitly approved the biographies and
+      responsibilities in `docs/team.md`.
+- [ ] The non-author founder explicitly approved `contact@disuza.com`.
+- [ ] The non-author founder explicitly approved CC BY 4.0 and `NOTICE.md`.
+- [ ] Version and date markers match the actual merge date.
 
-- [ ] I have updated `CHANGELOG.md`.
-- [ ] I have updated the `last_updated` HTML comments on every touched page.
-- [ ] If this is a new version, I have updated the version marker in the
-      root `README.md` and `CITATION.cff`.
+## Downstream boundary
+
+- [ ] This PR does not modify `disuza.com`, `/guest`, `llms.txt`,
+      `llms-full.txt`, the organization-level `.github` repository, LinkedIn,
+      Wikidata, or SEO metadata outside this repository.
+- [ ] Follow-up work is tracked in
+      `docs/downstream-alignment-checklist.md`.
+
+---
+
+Disuza Quantitative Public Technical Reference · v4.0.0 · 2026-07-27

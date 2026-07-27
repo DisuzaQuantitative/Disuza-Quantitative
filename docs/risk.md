@@ -1,114 +1,83 @@
-# Risk Framework
+# Risk and Research Governance
 
-> Disuza's risk framework operates at multiple tiers and is tightly coupled
-> to the execution layer, not a separate after-the-fact check.
+> **Version 4.0.0 · Verified 2026-07-27**
 
-## Principles
+This page separates current research controls from target deployment controls.
+It does not publish account thresholds, strategy parameters, or operating
+runbooks.
 
-1. **Capital preservation is the first objective.** Return-seeking is
-   subordinate to downside control.
-2. **Venue-appropriate posture.** Drawdown and sizing parameters are
-   calibrated per account class, because prop-trading-programme APIs
-   and self-custody venues carry different risk profiles and counterparty
-   assumptions.
-3. **Closes are always permitted.** Risk gates may block new opens;
-   they never block a close. Whatever the state, the platform must be
-   able to reduce exposure.
-4. **Non-custodial by construction.** Risk to client funds is structurally
-   bounded by trade-only credential scoping, not by policy discipline.
+## CURRENT — research-risk principles
 
-## Tiers of risk control
+The current programme follows these principles:
 
-### Pre-trade
+1. **Evidence before promotion.** A research candidate does not advance
+   because it is plausible or attractive.
+2. **Fail closed.** Missing or inconsistent evidence blocks a claim rather
+   than being filled with an optimistic assumption.
+3. **Temporal separation.** Governed out-of-sample evaluation is separated
+   from development.
+4. **Cumulative trial accounting.** Repeated testing changes the evidentiary
+   bar and must be counted.
+5. **Reproducibility.** A result must be tied to deterministic inputs,
+   code, and checks before it can be interpreted.
+6. **No current performance claim.** Research infrastructure is not evidence
+   of a qualified strategy.
 
-Before any order leaves the execution layer:
+## CURRENT — capital posture
 
-- **Position gating.** Only one directional position per asset per account
-  at any time; size and exposure ceilings are enforced against current
-  account equity.
-- **Drawdown gate.** An account whose current drawdown exceeds its
-  tier-specific flat threshold has its new-open sizing set to zero. Closes
-  are unaffected.
-- **Trading-enabled check.** A global manual-override flag in Firestore
-  can pause new opens firm-wide without requiring a redeploy. This is an
-  operator-controlled incident-response lever, not an automated circuit.
+This public reference represents no current account operation,
+investor-capital acceptance, trade placement, or live risk-control surface.
 
-### In-trade
+Capital preservation is a design priority for future qualification, not a
+claim that live capital controls are currently deployed.
 
-While a position is open:
+## IN PROGRESS — stronger control evidence
 
-- **Trailing-stop discipline.** Positions carry a trail that ratchets on
-  favourable moves and triggers exit when broken.
-- **Timeout discipline.** Every position has a maximum hold time; an
-  unreached stop-or-target at timeout produces an exit at market.
-- **Broker-truth reconciliation.** Before every exit publication, the
-  execution layer verifies the broker still holds the position; orphaned
-  positions are reconciled from broker fills rather than closed at an
-  algorithmic estimate.
+The programme is strengthening:
 
-### Post-trade
+- access and authorization evidence;
+- trial-accounting integrity;
+- failure and recovery tests;
+- independent audit evidence;
+- consistency between policy, implementation, and verification.
 
-After exit:
+No internal incident detail, control threshold, or qualification evidence is
+published here.
 
-- **Real-PnL reconstruction.** Realised PnL is taken from actual broker
-  fills minus actual fees, never from algorithmic estimates.
-- **Equity-state update.** Per-account running equity is updated with the
-  reconstructed PnL. Drawdown re-computes against the peak-to-trough
-  definition appropriate for the account tier.
-- **Audit trail.** Every execution decision — open, monitor, close,
-  reconciliation — produces a timestamped immutable log entry.
+## TARGET — deployment risk controls
 
-## Account tiering
+A future qualified deployment path is intended to include:
 
-Accounts are grouped into tiers based on counterparty class and capital
-profile:
+- pre-trade exposure and account checks;
+- venue-appropriate drawdown controls;
+- controls that allow risk reduction even when new exposure is blocked;
+- position timeout and exit discipline;
+- order and fill reconciliation;
+- operator intervention controls;
+- structured audit evidence;
+- non-custodial credential design where applicable.
 
-- **Prop-programme tier.** Prop-trading-programme accounts operating
-  under the prop firm's own drawdown rules. Tier parameters are
-  conservative to preserve the programme.
-- **Self-custody tier.** Self-custody perpetual accounts with proprietary
-  capital. Tier parameters align with the firm's internal
-  capital-preservation mandate.
+Each item is a **TARGET** capability until independently qualified. This list
+is not a statement that a production risk system exists today.
 
-Exact tier parameters are not published and are calibrated against
-historical backtest characteristics.
+## Promotion boundaries
 
-## Kill switches
+A future candidate would move through separate research, synthetic execution,
+paper, and live decisions. Evidence from one boundary would not automatically
+qualify the next.
 
-Two mechanisms that share a name but serve different purposes:
+## What remains private
 
-### Automated per-account flat gate
+The following are not published:
 
-When an account's current drawdown exceeds its tier-specific flat
-threshold, its new-open sizing multiplier is set to zero. The pre-trade
-gate then skips new opens for that account. Closes continue to be
-permitted so the account can recover exposure.
-
-### Global manual-override
-
-An operator can toggle the global `trading_enabled` flag off in Firestore
-to halt new opens firm-wide. This is an incident-response mechanism, not
-an automated circuit. Like the per-account gate, it blocks new opens only;
-closes remain permitted.
-
-## Audit and observability
-
-- Every execution decision emits a structured log line with the full
-  context required to reconstruct the decision.
-- Heartbeat watchdogs detect stalled services; a missing heartbeat after
-  a bounded window alerts operators.
-- Structured logs ship to Cloud Logging; alerts route through Telegram
-  to the operator channel.
-
-## What is NOT published
-
-Specific drawdown thresholds, sizing multipliers, trailing-stop
-percentages, timeout durations, account tier memberships, and operator
-playbooks are operational controls and are not part of the public
-reference.
+- drawdown, sizing, stop, timeout, or alert thresholds;
+- account tiers and venue mappings;
+- kill-switch logic and test packs;
+- credentials, principals, and custody boundaries;
+- incident history and recovery procedures;
+- research verdicts, metrics, and trial counts.
 
 ---
 
-*Disuza Quantitative — Living Technical Reference · Version 3.1 · Last Updated: 2026-05-22*
-
-<!-- last_updated: 2026-05-22 · version: 3.1.0 -->
+*Disuza Quantitative — Public Technical Reference · Version 4.0.0 ·
+2026-07-27*

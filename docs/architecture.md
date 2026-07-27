@@ -1,166 +1,185 @@
 # Architecture
 
-> High-level system architecture of the Disuza Quantitative platform at the
-> abstraction level appropriate for public reference. Internal implementation
-> details, model parameters, and operational cadences are not included.
+> **Version 4.0.0 · Verified 2026-07-27**
 
-## Design philosophy
+This page separates the present research foundation from work in progress and
+the intended system design. The release-level definitions and non-claims in
+[`PUBLIC_FACTS.yml`](../PUBLIC_FACTS.yml) govern every statement below.
 
-The platform is built on four core principles:
+## Status vocabulary
 
-1. **Event-driven orchestration.** Workflows are triggered by a cloud-hosted
-   scheduler and mediated through a pub/sub event bus, with consumer-side
-   idempotency. There is no central dependency-tracked DAG orchestrator.
-2. **Domain-driven separation.** Data ingestion, feature engineering,
-   inference, risk, and execution are independent services that communicate
-   through well-defined contracts.
-3. **Fail-safe operations.** Every service is designed to fail gracefully.
-   Consumers tolerate at-least-once delivery via a processed-message ledger
-   and stable idempotency keys. State persists across restarts in Firestore
-   and BigQuery.
-4. **Observability first.** Structured logging, custom metrics, heartbeat
-   watchdogs, and operator alerts are part of every service from day one.
+- **CURRENT** — publicly supportable at the date shown above.
+- **IN PROGRESS** — being designed, implemented, or evaluated; completion is
+  not claimed.
+- **TARGET** — intended future capability; it is not a statement of present
+  operation.
 
-## Planes
+## CURRENT — research foundation
 
-Disuza's architecture decomposes into three functional planes plus an
-orchestration tier and persistence tier.
+The current foundation is a private research environment, not an operating
+trading platform. It supports:
 
-### Data plane
+- rule-based strategy research;
+- private Python-based research tooling;
+- data acquisition and quality-control work;
+- cloud-supported batch research workflows;
+- statistical validation and reproducibility controls;
+- audit-oriented research governance.
 
-- Multi-source ingestion combining exchange market data (OHLCV + L2 order
-  book + trades + funding + open interest + liquidations), redundant
-  venue-direct WebSocket capture for forward-stream resilience, macro
-  context, and on-chain regime gating signals used strictly as L1-L2
-  macro context (not as primary alpha source).
-- Real-time and point-in-time feature pipelines with retroactive-revision
-  guardrails so that training and live inference see the same feature
-  distributions.
-- Schema validation and last-known-good fallbacks prevent malformed or
-  missing data from poisoning downstream inference.
+The research universe covers BTC and ETH perpetual markets and NQ and ES
+index-futures markets. Optional CFD adaptation is evaluated as a separate
+research lane. The primary design horizon is approximately 30 minutes to
+4 hours.
 
-Detail in [`data-pipeline.md`](data-pipeline.md).
+Primary signal generation is rule-based. Machine learning may be evaluated
+only in auxiliary research roles and only after the corresponding hard-rule
+baseline qualifies out of sample.
 
-### Compute plane
+No statement in this section represents integrated runtime inference, deployed
+execution, capital connectivity, or live operation.
 
-- **Rule-based signal engine** — the direction-agnostic core that produces
-  position decisions from the feature store, governed by a fixed parameter
-  set rather than a learned primary model. Machine learning, when used, is
-  confined to auxiliary roles (meta-labeling, dynamic position sizing,
-  regime detection) per López de Prado's framing.
-- **Layered risk overlay** — modulates exposure when short-horizon signals
-  disagree with the primary stance, implementing counter-positioning
-  discipline rather than naïve directional betting.
-- **Signal router** — combines engine outputs with risk-framework gates
-  before publishing to the execution plane.
+## IN PROGRESS — controlled abstractions
 
-Internal model architecture, feature details, hold horizons, and signal
-taxonomy are proprietary and not published.
+The programme is developing and evaluating high-level abstractions for:
 
-### Execution plane
+- point-in-time data preparation and quality controls;
+- candidate evaluation and reproducibility evidence;
+- risk, state, and execution boundaries;
+- order and fill accounting;
+- failure handling and operator-review evidence.
 
-- **Venue adapters** — prop-trading-programme APIs (broker-specific
-  protocols, trade-only scope; including US equity index futures venues
-  for NQ and ES) and self-custody perpetual venues (trade-scoped API
-  wallets).
-- **Order lifecycle manager** — place, monitor, reconcile, and close.
-- **Broker-truth reconciliation** — the broker's own position and fill
-  history is the source of truth for PnL and account state. Reconstructed
-  PnL uses actual broker fills, not algorithmic estimates.
+These abstractions remain subject to verification. Their presence in design
+material does not establish that a complete system exists or is ready for
+deployment.
 
-Detail in [`execution.md`](execution.md).
+## TARGET — design principles
 
-### Orchestration tier
+Any future qualified system is intended to preserve five boundaries:
 
-Cloud Scheduler is the clock. Pub/Sub is the event bus. Firestore is the
-real-time state store. Consumer services use stable idempotency keys and a
-processed-message ledger so that at-least-once delivery produces
-exactly-once effects.
+1. **Research before promotion.** A candidate advances only through explicit
+   evidence and a human decision.
+2. **Rule-based primary logic.** Auxiliary ML cannot replace the hard-rule
+   baseline.
+3. **Point-in-time integrity.** Evaluation inputs must reflect what would have
+   been available at the relevant decision time.
+4. **Risk-reducing failure behaviour.** Missing or inconsistent evidence must
+   block promotion or new exposure.
+5. **Reconciled state.** Any future execution record must be reconciled against
+   venue-reported orders and fills.
 
-### Persistence tier
+## TARGET — target architecture — not deployed
 
-- **Firestore** for real-time state (open positions, account equity, kill
-  switches, execution status).
-- **BigQuery** for historical analytics (trade ledger, equity curves,
-  per-trade attribution).
-- **Cloud Storage** for model artefacts, feature snapshots, and cache
-  manifests.
-
-## High-level architecture diagram
-
-Full diagram in [`diagrams/high-level-architecture.mmd`](diagrams/high-level-architecture.mmd).
-GitHub renders Mermaid natively.
+The sole architecture diagram for this release is embedded below. Everything
+inside it is **TARGET** and **not deployed**.
 
 ```mermaid
-graph TB
-  subgraph Orchestration
-    CS[Cloud Scheduler]
-    PS[Pub/Sub event bus]
-    FS[Firestore state]
-  end
+---
+title: Target architecture - not deployed
+---
+flowchart TB
+  subgraph TARGET["TARGET — Target architecture (not deployed)"]
+    direction TB
 
-  subgraph "Data plane"
-    ING[Multi-source ingestion<br/>exchange data · venue WS · macro · on-chain regime]
-    PIT[PIT feature pipelines]
-    FS_STORE[Feature store]
-  end
+    subgraph RESEARCH["Research and validation"]
+      direction TB
+      INPUTS["Governed research inputs"]
+      PIT["Point-in-time dataset construction"]
+      RULES["Rule-based candidate evaluation"]
+      VALIDATE["Validation and governance review"]
+      PROMOTE{"Explicit promotion decision"}
+      AUX["Auxiliary ML candidate<br/>after hard-rule qualification"]
 
-  subgraph "Compute plane"
-    ML[Rule-based signal engine]
-    RISK[Layered risk overlay]
-    ROUTER[Signal router]
-  end
+      INPUTS --> PIT --> RULES --> VALIDATE --> PROMOTE
+      RULES -.->|"baseline qualifies first"| AUX
+      AUX -.-> VALIDATE
+    end
 
-  subgraph "Execution plane"
-    ADAPT[Venue adapters]
-    LIFE[Order lifecycle manager]
-    RECON[Broker-truth reconciliation]
-  end
+    subgraph QUALIFY["Execution qualification"]
+      direction LR
+      PAPER["Paper-execution qualification"]
+      ADAPTER["Venue-adapter boundary"]
+      PAPER --> ADAPTER
+    end
 
-  CS --> ING
-  ING --> PIT
-  PIT --> FS_STORE
-  FS_STORE --> ML
-  ML --> RISK
-  RISK --> ROUTER
-  ROUTER --> PS
-  PS --> LIFE
-  LIFE --> ADAPT
-  ADAPT -.-> RECON
-  RECON -.-> FS
+    subgraph CONTROL["Runtime controls"]
+      direction LR
+      RISK["Risk and state controls"]
+      RECON["Order and fill reconciliation"]
+      AUDIT["Audit evidence"]
+      RISK --> RECON --> AUDIT
+    end
+
+    PROMOTE -->|"qualifies"| PAPER
+    ADAPTER --> RISK
+  end
 ```
 
-## Communication patterns
+At a high level, the intended flow would be:
 
-- **Synchronous (REST):** dashboard-to-backend reads, configuration updates,
-  health checks, and authenticated client portal.
-- **Asynchronous (Pub/Sub):** signal propagation between pipeline stages,
-  execution-event distribution, alert fan-out.
-- **Scheduled (Cloud Scheduler):** data ingestion cycles, feature computation
-  kickoff, hedge-monitor sweeps, periodic calibration cycles.
+1. governed research inputs;
+2. point-in-time dataset construction;
+3. rule-based candidate evaluation;
+4. validation and governance review;
+5. an explicit promotion decision;
+6. paper-execution qualification;
+7. venue-adapter, risk, state, and reconciliation boundaries;
+8. audit evidence for subsequent review.
 
-## Resilience
+An auxiliary-ML path would begin only after the hard-rule baseline satisfies
+its research qualification requirements. It would remain a separate candidate
+and would not inherit the baseline's status.
 
-| Scenario | Response |
-| --- | --- |
-| Data source temporarily unavailable | Retry with backoff, fall back to last-known-good cache, validated-schema gate |
-| Execution venue unresponsive | Retry against the same venue with bounded attempts; broker-truth reconciliation ensures no phantom PnL if the engine's close request raced with a broker-side event |
-| Pub/Sub duplicate delivery | Consumer-side processed-message ledger with stable idempotency keys |
-| Model artefact load failure | Fallback to most-recent validated artefact; block new-open signals if no valid artefact is available |
-| Equity drawdown exceeds tier | Automated per-account sizing gate halts new opens at that account; closes remain permitted to preserve capital |
-| Operator intervention required | Global manual-override flag in Firestore; trading pauses at consumer read without redeploy |
+## TARGET — data and research plane
 
-## Security posture
+The intended data and research plane would separate source acquisition,
+point-in-time dataset construction, quality checks, feature computation,
+candidate evaluation, and reproducibility evidence. A failure in required
+evidence would stop the affected path.
 
-- Credentials in Google Cloud Secret Manager, never in code or repositories.
-- Service accounts with least-privilege IAM per service.
-- Non-custodial execution: credentials scoped to trade-only operations in
-  both execution classes.
-- Immutable timestamped audit trail on every execution decision.
-- Structured logs emitted to Cloud Logging.
+This target description does not identify providers, private datasets,
+internal lineage records, parameters, or research outcomes.
+
+## TARGET — validation and promotion plane
+
+The intended validation plane would apply frozen evaluation rules,
+anti-overfit controls, reproducibility checks, and explicit review before any
+candidate could move to a later lifecycle stage.
+
+Research qualification, paper-execution qualification, and any later
+deployment decision would remain separate decisions. Passing one would not
+imply the next.
+
+## TARGET — runtime and execution plane
+
+A future runtime plane would separate signal decisions, risk decisions, state
+transitions, venue adaptation, and order-and-fill reconciliation. Risk-reducing
+actions would remain possible when new exposure is blocked.
+
+The target is compatible with venue-appropriate, non-custodial operation where
+applicable. It is not a claim of current account access, order placement,
+custody, or capital management.
+
+## TARGET — operational evidence
+
+A future qualified runtime would need structured evidence for:
+
+- configuration and artefact identity;
+- decision provenance;
+- state transitions;
+- order and fill reconciliation;
+- failures, recovery tests, and operator decisions.
+
+The public reference intentionally omits private infrastructure coordinates,
+control values, runbooks, identities, credentials, and incident records.
+
+## Public architecture boundary
+
+This page is a status-qualified design reference. It does not publish source
+code, strategy logic, provider entitlements, private interfaces, or evidence
+packs. See [`status.md`](status.md), [`research-methodology.md`](research-methodology.md),
+and [`risk.md`](risk.md) for the governing public context.
 
 ---
 
-*Disuza Quantitative — Living Technical Reference · Version 3.1 · Last Updated: 2026-05-22*
-
-<!-- last_updated: 2026-05-22 · version: 3.1.0 -->
+*Disuza Quantitative — Public Technical Reference · Version 4.0.0 ·
+2026-07-27*

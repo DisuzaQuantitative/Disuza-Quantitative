@@ -1,79 +1,63 @@
 <div align="center">
 
+<!--
+  Canonical profile copy for this release. GitHub renders an organization
+  profile only from profile/README.md in the organization's public .github
+  repository; synchronize this file there through a separate reviewed PR.
+-->
+
 # Disuza Quantitative
 
-**Private quantitative trading research laboratory · Madrid, Spain · Founded 2025**
+Private pre-deployment quantitative R&D initiative
 
-[Website](https://disuza.com) · [Guest Portal](https://disuza.com/guest) · [Wikidata](https://www.wikidata.org/wiki/Q139491356) · [LinkedIn](https://www.linkedin.com/company/disuza-quantitative/) · [LLM Context](https://disuza.com/llms.txt)
+Public documentation v4.0.0 · 2026-07-27
 
----
+[Website](https://disuza.com) ·
+[LinkedIn](https://www.linkedin.com/company/disuza-quantitative/) ·
+[Public technical reference](https://github.com/DisuzaQuantitative/Disuza-Quantitative)
 
 </div>
 
-## About
+---
 
-Disuza Quantitative engineers systematic execution algorithms for digital asset
-perpetual futures (BTC, ETH) and US equity index futures (NQ, ES). The firm
-operates proprietary capital and invitation-only partner accounts under a
-closed-access, non-custodial model. It is not a high-frequency
-trading firm, not a retail-facing signal-selling service, and not a public hedge
-fund.
+## CURRENT — about
 
-## Founders
+Disuza Quantitative is a private, pre-deployment quantitative R&D initiative
+building and validating rule-based systematic trading infrastructure. Its work
+concerns research governance, validation discipline, software design, and the
+controlled development of a systematic research stack.
 
-- **Yasmine Bendhiab** — Co-Founder & CEO. Strategic operations and corporate
-  compliance. Based in Madrid, Spain.
-  [LinkedIn](https://www.linkedin.com/in/yasmine-bendhiab-22379319a/).
+The initiative is pre-deployment. Public descriptions must not be read as
+claims of live trading, managed capital, investment services, investment
+performance, legal registration, licensing, regulatory approval, or
+authorization.
 
-- **Fares Bendhiab** — Co-Founder & CTO. Lead architect of the quantitative
-  infrastructure. Based in Bizerte, Tunisia.
-  [LinkedIn](https://linkedin.com/in/fares-bendhiab-40866828a) ·
-  [GitHub](https://github.com/FaresDisusa).
+## Status
 
-## Technology
+| Label | Public meaning |
+| --- | --- |
+| **CURRENT** | Documentation, governance work, and research tooling under controlled development. |
+| **IN PROGRESS** | Validation, data, execution, risk, and operational controls being developed or evaluated. |
+| **TARGET** | An auditable, deployment-ready research and execution stack, subject to qualification gates. |
 
-Rule-based systematic engine with a layered risk overlay, running on Google
-Cloud. Machine learning is restricted to auxiliary roles (meta-labeling, dynamic
-position sizing, regime detection) per López de Prado's framing — never as the
-primary signal generator. Multi-source ingestion pipeline combining
-exchange market data (OHLCV + L2 + trades + funding + open interest +
-liquidations), redundant venue-direct WebSocket capture for forward-stream
-resilience, macro context, and on-chain regime gating signals used
-strictly as L1-L2 macro context, processed through point-in-time feature
-pipelines. Execution via
-prop-trading-programme APIs and self-custody perpetual venues under
-trade-only permissions.
+Target-state documentation does not establish present capability.
 
-## Regulatory posture
-
-Operating in a pre-licensing phase, monitoring the MiCA (EU) and FINMA (Swiss)
-regulatory landscapes. Non-custodial client relationships. CFTC Rule 4.41
-acknowledged for simulated performance. Not soliciting retail investors and not
-offering regulated investment services at this stage.
-
-## Public repositories
-
-This organisation maintains a small number of public repositories for technical
-reference and transparency:
+## Public repository
 
 - **[Disuza-Quantitative](https://github.com/DisuzaQuantitative/Disuza-Quantitative)**
-  — the living technical reference. Architecture, methodology, and operations.
+  — the versioned public technical reference, including machine-readable
+  [public facts](../../PUBLIC_FACTS.yml).
 
-Source code for the trading platform itself is proprietary and not hosted on
-GitHub.
+The repository does not publish a production trading platform, proprietary
+source code, private datasets, model weights, secrets, or a performance record.
 
 ## Contact
 
-**[contact@disuza.com](mailto:contact@disuza.com)** — all inquiries.
+[contact@disuza.com](mailto:contact@disuza.com)
 
----
+## Licence
 
-<div align="center">
-
-*Disuza Quantitative is a closed-access research laboratory. Documentation is
-released under CC BY 4.0; source code, model weights, trademarks, and
-operational know-how remain proprietary.*
-
-**© 2025-2026 Disuza Quantitative**
-
-</div>
+Current public documentation is available under
+[CC BY 4.0](../../LICENSE).
+Historical grants remain governed by the notices shipped with their exact
+versions.

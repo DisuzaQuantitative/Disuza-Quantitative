@@ -1,53 +1,37 @@
 # Security Policy
 
-## Scope
+> **Version 4.0.0 · Verified 2026-07-27**
 
-This repository contains public documentation only. No production source code,
-credentials, model weights, or client data are stored here. However, we take
-seriously any security-relevant finding that touches Disuza Quantitative's
-public surfaces:
+## CURRENT — scope
 
-- This repository and its contents.
-- The Disuza Quantitative website at [disuza.com](https://disuza.com).
-- Any Disuza-operated endpoints that are reachable from the public internet.
+This repository contains public documentation and its read-only quality
+checks. It does not contain the private trading code, credentials, model
+weights, private datasets, account details, or operational infrastructure.
 
-## Reporting a vulnerability
+Security reports in scope for this policy concern files, workflows, links, or
+metadata published by this repository.
 
-**Please do not open a public GitHub issue for security findings.**
+## CURRENT — reporting
 
-Send an email to **[contact@disuza.com](mailto:contact@disuza.com)** with:
+Do not publish a suspected vulnerability or sensitive value in a GitHub issue.
+Send a minimal report to
+[contact@disuza.com](mailto:contact@disuza.com), including:
 
-- A description of the finding and its suspected impact.
-- Steps to reproduce (proof-of-concept, logs, or scripts as needed).
-- Any suggested mitigation or fix.
-- Your contact details and whether you wish to be credited in an acknowledgment.
+- the affected public file or workflow;
+- the observed impact;
+- safe reproduction steps; and
+- contact details if a reply is requested.
 
-You can also reference the canonical security contact at
-[disuza.com/.well-known/security.txt](https://disuza.com/.well-known/security.txt)
-(RFC 9116).
+Do not include credentials, private data, or unnecessary exploit material.
+Receipt of a report does not create a service-level, bounty, employment, or
+commercial commitment.
 
-## Timelines
+## CURRENT — boundaries
 
-- **Acknowledgment:** within 48 hours of receipt.
-- **Triage and initial response:** within 7 days.
-- **Resolution:** proportionate to severity, typically 30 days or less for
-  confirmed issues on our public surfaces.
-
-## Out of scope
-
-- Third-party services, dependencies, and cloud providers (please report to
-  their respective security teams).
-- Social engineering, physical security, or issues targeting Disuza personnel.
-- Self-inflicted misconfigurations in forks or adaptations of this
-  documentation.
-- Findings already reported or publicly known at the time of your report.
-
-## Recognition
-
-We appreciate coordinated disclosure and will acknowledge researchers who
-report valid findings in good faith (with their permission). Disuza does not
-currently operate a monetary bug-bounty programme.
+This policy does not represent a live trading platform, a public security
+programme for private infrastructure, or a monetary bug bounty. Third-party
+services and dependencies remain governed by their own reporting processes.
 
 ---
 
-*Disuza Quantitative Security — [contact@disuza.com](mailto:contact@disuza.com)*
+Disuza Quantitative Public Technical Reference · v4.0.0 · 2026-07-27

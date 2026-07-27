@@ -1,64 +1,84 @@
 # Contributing
 
-Thank you for your interest in Disuza Quantitative.
+Thank you for your interest in the Disuza Quantitative Public Technical
+Reference.
 
-## About this repository
+## Repository purpose
 
-This repository is a **living technical reference** for Disuza Quantitative's
-architecture, methodology, and regulatory posture. It is maintained by the
-firm and updated alongside production changes. It is licensed under
-[Creative Commons Attribution 4.0 International (CC BY 4.0)](LICENSE), with
-explicit carve-outs for trademarks, source code, and operational know-how.
+This repository documents a private, pre-deployment quantitative R&D
+initiative. It is a public documentation surface, not a live trading system,
+investment product, performance record, or source-code distribution.
 
-## Pull requests
+[`PUBLIC_FACTS.yml`](PUBLIC_FACTS.yml) is the canonical machine-readable source
+for public positioning and status definitions.
 
-**We do not accept external pull requests against this documentation.** The
-content here must stay consistent with the production system, which is not
-publicly observable. Attempting to contribute documentation changes from
-outside the firm creates a drift surface that we cannot verify, so we decline
-such contributions as a matter of policy rather than quality.
+## External pull requests
 
-If you have submitted a PR in error, please convert it into an issue
-(see below) and we will address it there.
+We do not accept unsolicited external pull requests. Public descriptions must
+be reconciled against information that is not publicly observable, so an
+external contributor cannot independently establish that a proposed capability
+statement is safe and accurate.
 
-## Issues
+Documentation clarifications and corrections to publicly observable facts are
+welcome as issues.
 
-We welcome issues in the following categories:
+## Acceptable issues
 
-- **Documentation clarification requests.** A section is unclear or
-  ambiguous — describe what you tried to learn and where the documentation
-  fell short.
-- **Factual corrections.** A claim is inconsistent with a publicly
-  observable signal (for example, a broken link, or a statement that
-  contradicts our published [llms.txt](https://disuza.com/llms.txt)).
-- **Questions about the public reference.** If you are trying to
-  understand Disuza's technology or posture and the existing
-  documentation does not answer, we are happy to respond.
+- Broken links, rendering defects, spelling errors, or ambiguous wording.
+- A mismatch between a document and `PUBLIC_FACTS.yml`.
+- A missing or incorrect **CURRENT**, **IN PROGRESS**, or **TARGET** label.
+- A statement that appears to imply deployment, performance, investment
+  activity, legal registration, or regulatory authorization.
+- A security concern submitted through the process in
+  [`.github/SECURITY.md`](.github/SECURITY.md).
 
-We will not respond in issues to:
+Do not post credentials, private identifiers, unpublished research, security
+details, or other sensitive material in a public issue.
 
-- Requests for source code, model weights, datasets, or operational
-  specifics that are explicitly carved out of the public reference.
-- Commercial proposals, partnership inquiries, or career discussions —
-  these belong at [contact@disuza.com](mailto:contact@disuza.com).
-- General cryptocurrency market discussion not related to this
-  documentation.
+## Maintainer publication rules
 
-## Security
+Every proposed documentation change must satisfy all of the following:
 
-Please see [`SECURITY.md`](.github/SECURITY.md) for responsible disclosure
-of security-relevant findings.
+1. **Status-qualified** — capability statements use **CURRENT**,
+   **IN PROGRESS**, or **TARGET** with the meanings in `PUBLIC_FACTS.yml`.
+2. **Evidence-bounded** — wording does not extend beyond publicly supportable
+   facts.
+3. **Pre-deployment** — target designs are not presented as integrated,
+   deployed, connected to capital, or operating in markets.
+4. **Claim-safe** — no returns, alpha, track-record, managed-account, custody,
+   investment-service, legal-registration, licensing, approval, or
+   authorization claim is introduced.
+5. **Disclosure-safe** — no secrets, private IDs, detailed thresholds,
+   infrastructure coordinates, proprietary algorithms, or unpublished results
+   are included.
+6. **Metadata-consistent** — a release updates `README.md`,
+   `PUBLIC_FACTS.yml`, `CHANGELOG.md`, `CITATION.cff`, and the organization
+   profile to the same version and date.
+7. **Licence-consistent** — current public documentation remains CC BY 4.0,
+   while historical grants remain described accurately in `NOTICE.md`.
 
-## Code of conduct
+## Style
 
-We expect all interactions in issues and other project spaces to be
-professional and respectful. Harassment, spam, and off-topic or bad-faith
-contributions will not be tolerated.
+- Use plain English and define specialized terms.
+- Separate facts from intended future state.
+- Prefer the narrowest claim that the available evidence supports.
+- Use repository-relative links for repository files.
+- Do not use promotional, predictive, or performance-oriented language.
+
+## Licence of accepted material
+
+Material intentionally accepted into the current public documentation is
+published under [CC BY 4.0](LICENSE), unless a file explicitly states
+otherwise. By submitting material for inclusion, an authorized contributor
+must have the right to provide it on those terms.
+
+Historical material remains subject to the notice shipped with its exact
+version. See [`NOTICE.md`](NOTICE.md).
 
 ## Contact
 
-All other inquiries: [contact@disuza.com](mailto:contact@disuza.com).
+General inquiries: [contact@disuza.com](mailto:contact@disuza.com).
 
 ---
 
-*Disuza Quantitative — Living Technical Reference · Version 3.1 · Last Updated: 2026-05-22*
+Disuza Quantitative Public Technical Reference · v4.0.0 · 2026-07-27
