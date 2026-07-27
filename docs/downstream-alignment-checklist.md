@@ -41,6 +41,9 @@ by copying unsupported claims from an older public page.
 
 ## TARGET — external identity surfaces
 
+- [ ] Align this repository's GitHub **About** description, homepage preview,
+      and topics; remove stale cloud, production, legal-status, and
+      regulatory-readiness markers before claiming cross-surface alignment.
 - [ ] Open a separate reviewed PR in the organization-level public `.github`
       repository to synchronize its `profile/README.md` from the approved
       `.github/profile/README.md` mirror in this release.
