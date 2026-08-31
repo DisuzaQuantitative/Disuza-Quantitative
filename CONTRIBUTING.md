@@ -81,4 +81,4 @@ General inquiries: [contact@disuza.com](mailto:contact@disuza.com).
 
 ---
 
-Disuza Quantitative Public Technical Reference · v4.0.0 · 2026-07-27
+Disuza Quantitative Public Technical Reference · v4.0.0 candidate · Unreleased · Last verified 2026-09-01

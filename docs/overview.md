@@ -1,6 +1,6 @@
 # Overview
 
-> **Version 4.0.0 · Verified 2026-07-27**
+> **Version 4.0.0 candidate · Unreleased · Last verified 2026-09-01**
 
 ## CURRENT — initiative
 
@@ -12,7 +12,11 @@ Its present work is research and engineering: developing rule-based systematic
 methods, testing their assumptions, strengthening research controls, and
 building the foundations required for later qualification.
 
-## CURRENT — research scope
+Forward-only market-data capture and monitoring are operational for research
+data collection. They do not place orders, operate accounts, connect capital,
+or constitute a trading runtime.
+
+## CURRENT — programme research scope
 
 The core market scope is:
 
@@ -24,6 +28,11 @@ The primary design horizon is approximately 30 minutes to 4 hours.
 
 This scope describes what is researched. It does not state that these markets
 are currently traded live.
+
+It is programme research scope only, not qualified engine coverage. A bounded
+execution-engine contract is qualified on deterministic synthetic fixtures only;
+it has not processed market data, and its narrow contract does not establish
+coverage of the programme research universe or design horizon.
 
 ## CURRENT — design position
 
@@ -47,7 +56,7 @@ The research programme is strengthening controls around access, trial
 accounting, reproducibility, and independent audit evidence.
 
 This is the current priority. The public reference therefore makes no current
-strategy-performance claim and no deployment claim.
+strategy-performance claim and no trading-system deployment claim.
 
 ## TARGET — future system
 
@@ -86,5 +95,5 @@ See [`status.md`](status.md) for the current public status and
 
 ---
 
-*Disuza Quantitative — Public Technical Reference · Version 4.0.0 ·
-2026-07-27*
+*Disuza Quantitative — Public Technical Reference · Version 4.0.0 candidate ·
+Unreleased · Last verified 2026-09-01*

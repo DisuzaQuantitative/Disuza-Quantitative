@@ -23,13 +23,14 @@
 - [ ] Markdown, links, anchors, CFF, Mermaid, and secret scanning pass.
 - [ ] I previewed the GitHub Markdown and the 1200×630 Open Graph image.
 
-## v4.0.0 founder approval
+## Release approval
 
 - [ ] The non-author founder explicitly approved the biographies and
       responsibilities in `docs/team.md`.
 - [ ] The non-author founder explicitly approved `contact@disuza.com`.
 - [ ] The non-author founder explicitly approved CC BY 4.0 and `NOTICE.md`.
-- [ ] Version and date markers match the actual merge date.
+- [ ] Candidate version and verification markers are current; any release date
+      is added only when the release actually occurs.
 
 ## Downstream boundary
 
@@ -41,4 +42,4 @@
 
 ---
 
-Disuza Quantitative Public Technical Reference · v4.0.0 · 2026-07-27
+Disuza Quantitative Public Technical Reference · contribution checklist

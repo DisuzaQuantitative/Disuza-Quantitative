@@ -2,8 +2,8 @@
 
 ## Current distribution
 
-Version 4.0.0 of the Disuza Quantitative Public Technical Reference is dated
-2026-07-27.
+Version 4.0.0 of the Disuza Quantitative Public Technical Reference is an
+unreleased candidate, last verified on 2026-09-01. No release date is claimed.
 
 Unless a file contains a different notice, original public documentation in
 this distribution is offered under the
@@ -12,7 +12,7 @@ this distribution is offered under the
 
 A reasonable attribution is:
 
-> Disuza Quantitative, *Public Technical Reference*, version 4.0.0,
+> Disuza Quantitative, *Public Technical Reference*, unreleased version 4.0.0 candidate,
 > <https://github.com/DisuzaQuantitative/Disuza-Quantitative>,
 > licensed under CC BY 4.0. Changes, if any, were made by the reuser.
 

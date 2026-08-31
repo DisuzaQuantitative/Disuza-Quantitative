@@ -1,12 +1,13 @@
 cff-version: 1.2.0
-message: "If you reference this public documentation, please cite it using the metadata below."
+message: "This is an unreleased v4.0.0 candidate. If you reference it, identify it as an unreleased candidate."
 title: "Disuza Quantitative Public Technical Reference"
 abstract: >-
   Disuza Quantitative is a private, pre-deployment quantitative R&D initiative
   building and validating rule-based systematic trading infrastructure. This
-  versioned public reference distinguishes current, in-progress, and target
-  state. It does not represent a live trading system, investment activity,
-  investment performance, legal registration, or regulatory authorization.
+  unreleased public-reference candidate distinguishes current, in-progress, and
+  target state. Forward-only market-data capture supports research collection;
+  it does not represent a live trading system, investment activity, investment
+  performance, legal registration, or regulatory authorization.
 authors:
   - name: "Disuza Quantitative"
     website: "https://disuza.com"
@@ -22,4 +23,3 @@ keywords:
   - "public documentation"
 license: "CC-BY-4.0"
 version: "4.0.0"
-date-released: "2026-07-27"

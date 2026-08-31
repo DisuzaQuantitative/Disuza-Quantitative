@@ -1,6 +1,6 @@
 # Architecture
 
-> **Version 4.0.0 · Verified 2026-07-27**
+> **Version 4.0.0 candidate · Unreleased · Last verified 2026-09-01**
 
 This page separates the present research foundation from work in progress and
 the intended system design. The release-level definitions and non-claims in
@@ -22,6 +22,7 @@ trading platform. It supports:
 - rule-based strategy research;
 - private Python-based research tooling;
 - data acquisition and quality-control work;
+- forward-only market-data capture and monitoring for research data collection;
 - cloud-supported batch research workflows;
 - statistical validation and reproducibility controls;
 - audit-oriented research governance.
@@ -31,12 +32,21 @@ index-futures markets. Optional CFD adaptation is evaluated as a separate
 research lane. The primary design horizon is approximately 30 minutes to
 4 hours.
 
+This is programme research scope only, not qualified engine coverage or current
+trading activity. A bounded execution-engine contract is qualified on
+deterministic synthetic fixtures only. Its narrow contract does not establish
+coverage of that research universe or design horizon.
+It has not processed market data and does not qualify a strategy, an economic
+result, paper execution, live execution, or deployment.
+
 Primary signal generation is rule-based. Machine learning may be evaluated
 only in auxiliary research roles and only after the corresponding hard-rule
 baseline qualifies out of sample.
 
-No statement in this section represents integrated runtime inference, deployed
-execution, capital connectivity, or live operation.
+The operational data-capture surface is separate from the trading-system
+lifecycle. It does not establish integrated runtime inference, deployed
+execution, order placement, account operation, capital connectivity, or live
+trading.
 
 ## IN PROGRESS — controlled abstractions
 
@@ -181,5 +191,5 @@ and [`risk.md`](risk.md) for the governing public context.
 
 ---
 
-*Disuza Quantitative — Public Technical Reference · Version 4.0.0 ·
-2026-07-27*
+*Disuza Quantitative — Public Technical Reference · Version 4.0.0 candidate ·
+Unreleased · Last verified 2026-09-01*

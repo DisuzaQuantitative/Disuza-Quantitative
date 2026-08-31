@@ -1,6 +1,6 @@
 # Research Methodology
 
-> **Version 4.0.0 · Verified 2026-07-27**
+> **Version 4.0.0 candidate · Unreleased · Last verified 2026-09-01**
 
 This page describes the public research policy at a high level. It does not
 publish strategy logic, datasets, thresholds, trial counts, or results.
@@ -28,18 +28,33 @@ separate, trial-accounted hypothesis against that baseline.
 This policy prevents a flexible model from replacing an unproven economic
 mechanism.
 
-## CURRENT — anti-overfit design
+## CURRENT — bounded synthetic engine evidence
+
+A bounded execution-engine contract is qualified on deterministic synthetic
+fixtures only. It has not processed market data and does not qualify a strategy,
+an economic result, paper execution, live execution, or deployment.
+
+The contract is deliberately narrower than the programme research scope. It
+does not establish coverage of the programme research universe or design
+horizon.
+
+## CURRENT — route-specific anti-overfit design
 
 The research design uses:
 
-- temporal development, validation, holdout, and forward partitions;
+- temporal separation across development, validation, holdout, and forward
+  partitions;
 - hypothesis pre-registration before governed out-of-sample evaluation;
-- Combinatorial Purged Cross-Validation (CPCV);
-- Deflated Sharpe Ratio (DSR);
-- Probability of Backtest Overfitting (PBO);
+- purged, embargoed, anchored walk-forward evaluation and Deflated Sharpe Ratio
+  (DSR) on the current synthetic engine route;
+- Combinatorial Purged Cross-Validation (CPCV) and Probability of Backtest
+  Overfitting (PBO) as programme methods only where applicable;
 - cumulative trial accounting;
-- reproducibility artefacts and deterministic checks;
-- explicit sanity checks before a result can be interpreted.
+- sanity checks and reproducibility controls, including deterministic artefacts
+  and checks before a result can be interpreted.
+
+CPCV and PBO are not claimed for the current synthetic engine route. Their use
+depends on an evaluation geometry for which they are applicable.
 
 These methods reduce avoidable overfitting risk. They do not guarantee that a
 strategy has economic value or will perform in the future.
@@ -88,5 +103,5 @@ The following remain private:
 
 ---
 
-*Disuza Quantitative — Public Technical Reference · Version 4.0.0 ·
-2026-07-27*
+*Disuza Quantitative — Public Technical Reference · Version 4.0.0 candidate ·
+Unreleased · Last verified 2026-09-01*

@@ -1,6 +1,6 @@
 # Security Policy
 
-> **Version 4.0.0 · Verified 2026-07-27**
+> **Version 4.0.0 candidate · Unreleased · Last verified 2026-09-01**
 
 ## CURRENT — scope
 
@@ -34,4 +34,4 @@ services and dependencies remain governed by their own reporting processes.
 
 ---
 
-Disuza Quantitative Public Technical Reference · v4.0.0 · 2026-07-27
+Disuza Quantitative Public Technical Reference · v4.0.0 candidate · Unreleased · Last verified 2026-09-01

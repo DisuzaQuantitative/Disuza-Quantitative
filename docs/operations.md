@@ -1,6 +1,6 @@
 # Operations — Moved in v4
 
-> **Version 4.0.0 · Verified 2026-07-27**
+> **Version 4.0.0 candidate · Unreleased · Last verified 2026-09-01**
 
 This legacy path remains as a compatibility stub for one major release.
 
@@ -11,4 +11,6 @@ This legacy path remains as a compatibility stub for one major release.
 - **TARGET:** future operational evidence is described in
   [`architecture.md`](architecture.md#target--operational-evidence).
 
-No live operational capability is claimed on this page.
+Forward-only research data capture and monitoring are operational. No trading
+runtime, order placement, account operation, or capital connectivity is claimed
+on this page.

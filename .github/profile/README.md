@@ -10,7 +10,7 @@
 
 Private pre-deployment quantitative R&D initiative
 
-Public documentation v4.0.0 · 2026-07-27
+Public documentation v4.0.0 candidate · Unreleased · Last verified 2026-09-01
 
 [Website](https://disuza.com) ·
 [LinkedIn](https://www.linkedin.com/company/disuza-quantitative/) ·
@@ -31,6 +31,12 @@ The initiative is pre-deployment. Public descriptions must not be read as
 claims of live trading, managed capital, investment services, investment
 performance, legal registration, licensing, regulatory approval, or
 authorization.
+
+Forward-only market-data capture and monitoring are operational for research
+data collection. They do not place orders, operate accounts, connect capital,
+or constitute a trading runtime. A bounded execution-engine contract is
+qualified on deterministic synthetic fixtures only; it has not processed market
+data and does not qualify performance or deployment.
 
 ## Status
 

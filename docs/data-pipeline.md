@@ -1,6 +1,6 @@
 # Data Pipeline — Moved in v4
 
-> **Version 4.0.0 · Verified 2026-07-27**
+> **Version 4.0.0 candidate · Unreleased · Last verified 2026-09-01**
 
 This legacy path remains as a compatibility stub for one major release.
 
@@ -11,4 +11,7 @@ This legacy path remains as a compatibility stub for one major release.
 - **TARGET:** the future data and research plane is described in
   [`architecture.md`](architecture.md#target--data-and-research-plane).
 
-No deployed pipeline is claimed on this page.
+Forward-only market-data capture and monitoring are operational for research
+data collection. No integrated data-to-trading execution pipeline is claimed;
+the capture surface does not place orders, operate accounts, connect capital,
+or constitute a trading runtime.

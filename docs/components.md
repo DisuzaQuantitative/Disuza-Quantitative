@@ -1,6 +1,6 @@
 # Components — Moved in v4
 
-> **Version 4.0.0 · Verified 2026-07-27**
+> **Version 4.0.0 candidate · Unreleased · Last verified 2026-09-01**
 
 This legacy path remains as a compatibility stub for one major release.
 

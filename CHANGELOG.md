@@ -7,7 +7,9 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 Release numbers describe this public documentation, not a trading system or
 investment product.
 
-## [4.0.0] — 2026-07-27
+## [4.0.0] — Unreleased
+
+Last verified: 2026-09-01.
 
 ### Context
 
@@ -39,6 +41,14 @@ deployment, integration, trading activity, or performance.
   and contribution policy around pre-deployment research and development.
 - Reclassified architecture, data, execution, risk, technology, and operations
   descriptions by lifecycle status.
+- Distinguished operational forward-only research data capture from any
+  trading runtime, order placement, account operation, or capital connectivity.
+- Recorded the bounded synthetic-fixture engine evidence without claiming
+  market-data, strategy-performance, paper, live, or deployment qualification.
+- Separated the current engine route's purged and embargoed anchored
+  walk-forward plus DSR controls from CPCV and PBO programme methods that apply
+  only where their evaluation geometry supports them.
+- Corrected the public non-technical business, legal, and administrative role.
 - Consolidated the architecture into one target-only Mermaid diagram and kept
   superseded documentation paths as one-major-version compatibility stubs.
 - Rebuilt the 1200×630 Open Graph image around pre-deployment systematic

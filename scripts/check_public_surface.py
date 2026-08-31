@@ -174,7 +174,8 @@ def check_facts() -> tuple[str, str, dict[str, str], dict[str, list[str]]]:
     fact_lists = simple_yaml_lists(FACTS_PATH)
     required = {
         "document.version",
-        "document.last_updated",
+        "document.release_status",
+        "document.last_verified",
         "document.canonical_repository",
         "initiative.name",
         "initiative.positioning",
@@ -182,6 +183,14 @@ def check_facts() -> tuple[str, str, dict[str, str], dict[str, list[str]]]:
         "status_vocabulary.CURRENT",
         "status_vocabulary.IN PROGRESS",
         "status_vocabulary.TARGET",
+        "research_scope.boundary",
+        "research_data_capture.status",
+        "research_data_capture.scope",
+        "research_data_capture.boundary",
+        "qualified_engine.status",
+        "qualified_engine.evidence",
+        "qualified_engine.boundary",
+        "qualified_engine.scope_boundary",
         "licensing.current_material",
         "contact.email",
     }
@@ -223,7 +232,8 @@ def check_facts() -> tuple[str, str, dict[str, str], dict[str, list[str]]]:
         )
 
     version = facts.get("document.version", "")
-    release_date = facts.get("document.last_updated", "")
+    release_status = facts.get("document.release_status", "")
+    last_verified = facts.get("document.last_verified", "")
 
     if version != EXPECTED_VERSION:
         add_issue(
@@ -233,14 +243,22 @@ def check_facts() -> tuple[str, str, dict[str, str], dict[str, list[str]]]:
             f"document.version must be {EXPECTED_VERSION}",
         )
 
+    if release_status != "unreleased":
+        add_issue(
+            FACTS_PATH,
+            1,
+            "facts-release-status",
+            "document.release_status must remain unreleased until publication",
+        )
+
     try:
-        parsed_date = dt.date.fromisoformat(release_date)
+        parsed_date = dt.date.fromisoformat(last_verified)
     except ValueError:
         add_issue(
             FACTS_PATH,
             1,
             "facts-date",
-            "document.last_updated must be an ISO date",
+            "document.last_verified must be an ISO date",
         )
     else:
         if parsed_date > dt.date.today():
@@ -248,7 +266,7 @@ def check_facts() -> tuple[str, str, dict[str, str], dict[str, list[str]]]:
                 FACTS_PATH,
                 1,
                 "facts-date",
-                "document.last_updated cannot be in the future",
+                "document.last_verified cannot be in the future",
             )
 
     actual_statuses = {
@@ -264,10 +282,10 @@ def check_facts() -> tuple[str, str, dict[str, str], dict[str, list[str]]]:
             "status_vocabulary must contain only CURRENT, IN PROGRESS, and TARGET",
         )
 
-    return version, release_date, facts, fact_lists
+    return version, last_verified, facts, fact_lists
 
 
-def check_release_markers(version: str, release_date: str) -> None:
+def check_candidate_markers(version: str, last_verified: str) -> None:
     marker_paths = [
         ROOT / "README.md",
         ROOT / "CONTRIBUTING.md",
@@ -279,9 +297,9 @@ def check_release_markers(version: str, release_date: str) -> None:
             continue
         text = path.read_text(encoding="utf-8")
         if version and version not in text:
-            add_issue(path, 1, "release-version", "v4 release marker is missing")
-        if release_date and release_date not in text:
-            add_issue(path, 1, "release-date", "release date marker is missing")
+            add_issue(path, 1, "candidate-version", "v4 candidate marker is missing")
+        if last_verified and last_verified not in text:
+            add_issue(path, 1, "verification-date", "last-verified marker is missing")
 
     old_markers = (
         ("legacy-version", re.compile(r"(?i)\bv?3\.1(?:\.0)?\b")),
@@ -303,7 +321,6 @@ def check_release_markers(version: str, release_date: str) -> None:
 
 def check_fact_consistency(
     version: str,
-    release_date: str,
     facts: dict[str, str],
     fact_lists: dict[str, list[str]],
 ) -> None:
@@ -350,7 +367,6 @@ def check_fact_consistency(
         "url",
         "license",
         "version",
-        "date-released",
     }
     for key in sorted(required_cff - cff.keys()):
         add_issue(cff_path, 1, "cff-field", f"missing top-level CFF field: {key}")
@@ -358,13 +374,20 @@ def check_fact_consistency(
     expected_cff = {
         "cff-version": "1.2.0",
         "version": version,
-        "date-released": release_date,
         "license": facts.get("licensing.current_material", ""),
         "url": canonical_repository,
     }
     for key, expected in expected_cff.items():
         if expected and cff.get(key) != expected:
             add_issue(cff_path, 1, "cff-consistency", f"{key} must match PUBLIC_FACTS.yml")
+
+    if facts.get("document.release_status") == "unreleased" and "date-released" in cff:
+        add_issue(
+            cff_path,
+            1,
+            "cff-unreleased",
+            "date-released must be absent while the candidate is unreleased",
+        )
 
     cff_text = cff_path.read_text(encoding="utf-8")
     if name and name.casefold() not in cff_text.casefold():
@@ -416,6 +439,41 @@ def check_fact_consistency(
                 )
 
     scalar_projections = {
+        "research_scope.boundary": [
+            ROOT / "README.md",
+            ROOT / "docs" / "status.md",
+            ROOT / "docs" / "overview.md",
+        ],
+        "research_data_capture.scope": [
+            ROOT / "README.md",
+            ROOT / "docs" / "status.md",
+            ROOT / "docs" / "architecture.md",
+            ROOT / "docs" / "faq.md",
+        ],
+        "research_data_capture.boundary": [
+            ROOT / "README.md",
+            ROOT / "docs" / "status.md",
+            ROOT / "docs" / "architecture.md",
+            ROOT / "docs" / "faq.md",
+        ],
+        "qualified_engine.evidence": [
+            ROOT / "README.md",
+            ROOT / "docs" / "status.md",
+            ROOT / "docs" / "research-methodology.md",
+            ROOT / "docs" / "faq.md",
+        ],
+        "qualified_engine.boundary": [
+            ROOT / "README.md",
+            ROOT / "docs" / "status.md",
+            ROOT / "docs" / "research-methodology.md",
+            ROOT / "docs" / "faq.md",
+        ],
+        "qualified_engine.scope_boundary": [
+            ROOT / "README.md",
+            ROOT / "docs" / "status.md",
+            ROOT / "docs" / "research-methodology.md",
+            ROOT / "docs" / "overview.md",
+        ],
         "research_scope.primary_horizon": [
             ROOT / "README.md",
             ROOT / "docs" / "status.md",
@@ -892,9 +950,9 @@ def check_diagram_contract() -> None:
 
 
 def main() -> int:
-    version, release_date, facts, fact_lists = check_facts()
-    check_release_markers(version, release_date)
-    check_fact_consistency(version, release_date, facts, fact_lists)
+    version, last_verified, facts, fact_lists = check_facts()
+    check_candidate_markers(version, last_verified)
+    check_fact_consistency(version, facts, fact_lists)
     check_forbidden_disclosures()
     check_relative_links()
     check_present_capability_claims()
@@ -911,8 +969,8 @@ def main() -> int:
         return 1
 
     print(
-        f"Public-surface validation passed for v{version} "
-        f"(release date {release_date})."
+        f"Public-surface validation passed for unreleased v{version} candidate "
+        f"(last verified {last_verified})."
     )
     return 0
 

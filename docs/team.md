@@ -1,6 +1,6 @@
 # Team
 
-> **Version 4.0.0 · Verified 2026-07-27**
+> **Version 4.0.0 candidate · Unreleased · Last verified 2026-09-01**
 
 Disuza Quantitative is a two-founder private R&D initiative led between
 Madrid, Spain, and Bizerte, Tunisia. These biographies are intentionally
@@ -9,8 +9,8 @@ limited to public responsibilities and location.
 ## CURRENT — Yasmine Bendhiab, Co-Founder
 
 - **Location:** Madrid, Spain.
-- **Responsibilities:** research operations, data engineering, and governance
-  coordination.
+- **Responsibilities:** business, legal, and administrative coordination. This
+  is a non-technical role.
 
 ## CURRENT — Fares Bendhiab, Co-Founder
 
@@ -31,5 +31,5 @@ General inquiries: [contact@disuza.com](mailto:contact@disuza.com).
 
 ---
 
-*Disuza Quantitative — Public Technical Reference · Version 4.0.0 ·
-2026-07-27*
+*Disuza Quantitative — Public Technical Reference · Version 4.0.0 candidate ·
+Unreleased · Last verified 2026-09-01*

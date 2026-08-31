@@ -1,6 +1,6 @@
 # Frequently Asked Questions
 
-> **Version 4.0.0 · Verified 2026-07-27**
+> **Version 4.0.0 candidate · Unreleased · Last verified 2026-09-01**
 
 ## What is Disuza Quantitative?
 
@@ -21,9 +21,11 @@ The initiative is led across Madrid, Spain, and Bizerte, Tunisia.
 
 ## Is there a live trading platform?
 
-No current live-platform claim is made. Runtime inference, execution, state,
-and reconciliation belong to the target deployment path and must be qualified
-before they can be described as current.
+No live trading platform is represented. Forward-only market-data capture and
+monitoring are operational for research data collection, but they do not place
+orders, operate accounts, connect capital, or constitute a trading runtime.
+Runtime inference, execution, state, and reconciliation belong to the target
+deployment path and must be qualified before they can be described as current.
 
 ## Does Disuza Quantitative publish current performance?
 
@@ -43,6 +45,10 @@ separately.
 
 Research scope is not a statement of current live trading.
 
+It is programme research scope only, not qualified engine coverage. The narrow
+engine contract does not establish coverage of every listed market or the
+programme design horizon.
+
 ## What is the primary holding horizon?
 
 **CURRENT:** The primary design horizon is approximately 30 minutes to 4 hours.
@@ -59,20 +65,29 @@ hard-rule baseline qualifies out of sample.
 
 ## What research methodology is used?
 
-**CURRENT:** The high-level methodology includes temporal data separation,
-pre-registration, cumulative trial accounting, CPCV, DSR, PBO, sanity checks,
-and reproducibility controls.
+**CURRENT:** The current synthetic engine route uses purged, embargoed, anchored
+walk-forward evaluation and Deflated Sharpe Ratio (DSR). Combinatorial Purged
+Cross-Validation (CPCV) and Probability of Backtest Overfitting (PBO) are
+programme methods only where applicable; they are not claimed for the current
+synthetic engine route.
 
 These methods reduce overfitting risk; they do not guarantee performance.
 See [`research-methodology.md`](research-methodology.md).
 
 ## What technology is current?
 
-**CURRENT:** private Python-based research tooling, data and quality-control
-work, cloud-supported batch workflows, and statistical governance.
+**CURRENT:** private Python-based research tooling, forward-only market-data
+capture and monitoring, data and quality-control work, cloud-supported batch
+workflows, and statistical governance.
 
 Specific runtime execution services are not presented as current. The broader
 system design is described as a target in [`architecture.md`](architecture.md).
+
+## What engine evidence is current?
+
+**CURRENT:** A bounded execution-engine contract is qualified on deterministic
+synthetic fixtures only. It has not processed market data and does not qualify a
+strategy, an economic result, paper execution, live execution, or deployment.
 
 ## Is the system non-custodial?
 
@@ -105,5 +120,5 @@ inquiries.
 
 ---
 
-*Disuza Quantitative — Public Technical Reference · Version 4.0.0 ·
-2026-07-27*
+*Disuza Quantitative — Public Technical Reference · Version 4.0.0 candidate ·
+Unreleased · Last verified 2026-09-01*

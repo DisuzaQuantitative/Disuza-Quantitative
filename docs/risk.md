@@ -1,6 +1,6 @@
 # Risk and Research Governance
 
-> **Version 4.0.0 · Verified 2026-07-27**
+> **Version 4.0.0 candidate · Unreleased · Last verified 2026-09-01**
 
 This page separates current research controls from target deployment controls.
 It does not publish account thresholds, strategy parameters, or operating
@@ -79,5 +79,5 @@ The following are not published:
 
 ---
 
-*Disuza Quantitative — Public Technical Reference · Version 4.0.0 ·
-2026-07-27*
+*Disuza Quantitative — Public Technical Reference · Version 4.0.0 candidate ·
+Unreleased · Last verified 2026-09-01*

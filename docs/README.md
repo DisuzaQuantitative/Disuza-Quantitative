@@ -1,6 +1,6 @@
 # Disuza Quantitative — Public Documentation
 
-> **Version 4.0.0 · Verified 2026-07-27**
+> **Version 4.0.0 candidate · Unreleased · Last verified 2026-09-01**
 
 **CURRENT:** Disuza Quantitative is a private, pre-deployment quantitative R&D initiative
 building and validating rule-based systematic trading infrastructure. This
@@ -39,7 +39,7 @@ Target architecture must never be read as current operating capability.
 | [`skills.md`](skills.md) | Demonstrated and developing capabilities |
 | [`downstream-alignment-checklist.md`](downstream-alignment-checklist.md) | Surfaces excluded from v4.0.0 that require later alignment |
 
-## CURRENT — public research scope
+## CURRENT — programme research scope
 
 The core research scope covers BTC and ETH perpetual markets and NQ and ES
 index-futures markets. Optional CFD research is evaluated as a separate lane.
@@ -47,6 +47,15 @@ The primary design horizon is approximately 30 minutes to 4 hours.
 
 This is a research scope, not a statement that these markets are currently
 traded live.
+
+It is not qualified engine coverage. A bounded execution-engine contract is
+qualified on deterministic synthetic fixtures only; it has not processed market
+data and its narrow contract does not establish coverage of the programme
+research universe or design horizon.
+
+Forward-only market-data capture and monitoring are operational for research
+data collection. They do not place orders, operate accounts, connect capital,
+or constitute a trading runtime.
 
 ## What is not included
 
@@ -67,5 +76,5 @@ release, the statement is omitted.
 
 ---
 
-*Disuza Quantitative — Public Technical Reference · Version 4.0.0 ·
-2026-07-27*
+*Disuza Quantitative — Public Technical Reference · Version 4.0.0 candidate ·
+Unreleased · Last verified 2026-09-01*

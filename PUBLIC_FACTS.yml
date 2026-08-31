@@ -2,7 +2,8 @@ schema_version: 1
 document:
   title: "Disuza Quantitative Public Technical Reference"
   version: "4.0.0"
-  last_updated: "2026-07-27"
+  release_status: "unreleased"
+  last_verified: "2026-09-01"
   canonical_repository: "https://github.com/DisuzaQuantitative/Disuza-Quantitative"
 
 initiative:
@@ -17,7 +18,7 @@ leadership:
   model: "Two-founder private initiative."
   co_founders:
     - name: "Yasmine Bendhiab"
-      responsibility: "Research operations, data engineering, and governance coordination."
+      responsibility: "Business, legal, and administrative coordination; non-technical role."
       location: "Madrid, Spain."
     - name: "Fares Bendhiab"
       responsibility: "Research architecture, quantitative engineering, and technical governance."
@@ -33,6 +34,8 @@ public_status:
     - "A private quantitative research and development initiative."
     - "A public documentation and governance corpus."
     - "Research tooling under controlled development."
+    - "Forward-only market-data capture and monitoring are operational for research data collection."
+    - "A bounded execution-engine contract is qualified on deterministic synthetic fixtures only."
   "IN PROGRESS":
     - "Validation controls and supporting research software."
     - "Data, execution, risk, and operational abstractions."
@@ -46,7 +49,8 @@ capabilities:
     - "Python-based quantitative research tooling."
     - "Rule-based strategy specification and evaluation."
     - "Temporal data separation and point-in-time quality work."
-    - "Statistical validation using CPCV, DSR, and PBO."
+    - "Purged, embargoed, anchored walk-forward evaluation and Deflated Sharpe Ratio (DSR) on the current synthetic engine route."
+    - "Combinatorial Purged Cross-Validation (CPCV) and Probability of Backtest Overfitting (PBO) as programme methods only where applicable."
     - "Hypothesis pre-registration, cumulative trial accounting, and reproducibility controls."
     - "Cloud-supported batch research workflows."
     - "Audit-oriented documentation and research governance."
@@ -83,6 +87,18 @@ research_scope:
   optional_research:
     - "Optional CFD adaptations are evaluated as a separate research lane."
   primary_horizon: "Approximately 30 minutes to 4 hours."
+  boundary: "Programme research scope only; not qualified engine coverage or current trading activity."
+
+research_data_capture:
+  status: "CURRENT"
+  scope: "Forward-only market-data capture and monitoring are operational for research data collection."
+  boundary: "They do not place orders, operate accounts, connect capital, or constitute a trading runtime."
+
+qualified_engine:
+  status: "CURRENT"
+  evidence: "A bounded execution-engine contract is qualified on deterministic synthetic fixtures only."
+  boundary: "It has not processed market data and does not qualify a strategy, an economic result, paper execution, live execution, or deployment."
+  scope_boundary: "Its narrow contract does not establish coverage of the programme research universe or design horizon."
 
 methodology:
   primary_signal_policy: "Rule-based."
@@ -91,9 +107,8 @@ methodology:
     - "Temporal separation."
     - "Hypothesis pre-registration."
     - "Cumulative trial accounting."
-    - "Combinatorial Purged Cross-Validation (CPCV)."
-    - "Deflated Sharpe Ratio (DSR)."
-    - "Probability of Backtest Overfitting (PBO)."
+    - "Purged, embargoed, anchored walk-forward evaluation and Deflated Sharpe Ratio (DSR) on the current synthetic engine route."
+    - "Combinatorial Purged Cross-Validation (CPCV) and Probability of Backtest Overfitting (PBO) as programme methods only where applicable."
     - "Sanity checks and reproducibility controls."
   limitation: "Research methods reduce avoidable error; they do not establish future performance."
 
@@ -109,11 +124,10 @@ repository_scope:
     - "Unpublished research results and operational control thresholds."
 
 explicit_non_claims:
-  - "No live, production, paper-trading, or customer-facing operation is represented."
-  - "No deployed execution, custody, managed account, or capital-management activity is represented."
+  - "No live or paper trading, production trading platform, customer-facing trading service, order placement, account operation, custody, or capital-management activity is represented."
   - "No historical or expected return, validated alpha, or investment-performance claim is made."
   - "No investment service, investment advice, financial product, offer, or solicitation is made."
-  - "No legal incorporation, registration, licence, regulatory approval, or authorization is represented."
+  - "No company-registration or financial-services-licence claim, regulatory approval, or authorization is represented."
 
 licensing:
   current_material: "CC-BY-4.0"

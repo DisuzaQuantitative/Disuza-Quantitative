@@ -1,6 +1,6 @@
 # Regulatory and Public-Claim Posture
 
-> **Version 4.0.0 · Verified 2026-07-27**
+> **Version 4.0.0 candidate · Unreleased · Last verified 2026-09-01**
 
 This page is informational. It is not legal advice, an offer, a solicitation,
 or a representation of regulatory approval.
@@ -46,9 +46,10 @@ Any future public performance material would require:
 ## CURRENT — research methodology disclosure
 
 The public methodology description is limited to governance principles:
-rule-based primary research, temporal separation, pre-registration,
-cumulative trial accounting, CPCV, DSR, PBO, sanity checks, and
-reproducibility.
+rule-based primary research, temporal separation, pre-registration, cumulative
+trial accounting, purged and embargoed anchored walk-forward evaluation, DSR,
+sanity checks, and reproducibility. CPCV and PBO remain programme methods only
+where applicable and are not claimed for the current synthetic engine route.
 
 This disclosure does not publish a strategy, a result, or a regulatory
 assurance.
@@ -76,12 +77,12 @@ for the recipient.
 
 ## Document status
 
-This posture was verified for the v4.0.0 public documentation release dated
-2026-07-27. Laws, regulatory interpretations, and business circumstances can
-change; this page must be reviewed before any materially different public
-claim is made.
+This posture was last verified on 2026-09-01 for the unreleased v4.0.0 public
+documentation candidate. Laws, regulatory interpretations, and business
+circumstances can change; this page must be reviewed before any materially
+different public claim is made.
 
 ---
 
-*Disuza Quantitative — Public Technical Reference · Version 4.0.0 ·
-2026-07-27*
+*Disuza Quantitative — Public Technical Reference · Version 4.0.0 candidate ·
+Unreleased · Last verified 2026-09-01*

@@ -1,22 +1,33 @@
 # Capabilities
 
-> **Version 4.0.0 · Verified 2026-07-27**
+> **Version 4.0.0 candidate · Unreleased · Last verified 2026-09-01**
 
 Capability labels describe the initiative's public research status. They are
-not credentials, performance claims, or evidence of live deployment.
+not credentials, performance claims, or evidence of trading-system deployment.
 
 ## CURRENT — demonstrated in the research programme
 
 - Python-based quantitative research tooling;
 - rule-based strategy specification and evaluation;
 - temporal data separation and point-in-time quality work;
-- statistical validation using CPCV, DSR, and PBO;
+- purged, embargoed, anchored walk-forward evaluation and Deflated Sharpe Ratio
+  (DSR) on the current synthetic engine route;
+- Combinatorial Purged Cross-Validation (CPCV) and Probability of Backtest
+  Overfitting (PBO) as programme methods only where applicable;
 - hypothesis pre-registration, cumulative trial accounting, and
   reproducibility controls;
 - cloud-supported batch research workflows;
+- forward-only market-data capture and monitoring for research data collection;
+- a bounded execution-engine contract qualified on deterministic synthetic
+  fixtures only;
 - audit-oriented documentation and research governance.
 
 These capabilities support private R&D only.
+
+The data-capture surface does not place orders, operate accounts, connect
+capital, or constitute a trading runtime. The engine evidence has not processed
+market data and does not qualify a strategy, an economic result, paper
+execution, live execution, or deployment.
 
 ## IN PROGRESS — under development
 
@@ -39,5 +50,5 @@ performance.
 
 ---
 
-*Disuza Quantitative — Public Technical Reference · Version 4.0.0 ·
-2026-07-27*
+*Disuza Quantitative — Public Technical Reference · Version 4.0.0 candidate ·
+Unreleased · Last verified 2026-09-01*

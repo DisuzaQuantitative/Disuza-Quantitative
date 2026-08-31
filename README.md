@@ -6,7 +6,7 @@
 
 Private pre-deployment quantitative R&D initiative
 
-Version 4.0.0 · 2026-07-27
+Version 4.0.0 candidate · Unreleased · Last verified 2026-09-01
 
 [![Pre-deployment R&D](https://img.shields.io/badge/status-Pre--deployment_R%26D-informational)](PUBLIC_FACTS.yml)
 [![License: CC BY 4.0](https://img.shields.io/badge/license-CC_BY_4.0-lightgrey.svg)](LICENSE)
@@ -23,7 +23,7 @@ Version 4.0.0 · 2026-07-27
 
 > **Informational documentation only.** Nothing in this repository is
 > investment advice, an offer, a solicitation, or a representation of legal
-> registration, regulatory authorization, live deployment, trading activity,
+> registration, regulatory authorization, trading-system deployment, trading activity,
 > or investment performance.
 
 ## CURRENT — what Disuza Quantitative is
@@ -55,6 +55,13 @@ positioning is [`PUBLIC_FACTS.yml`](PUBLIC_FACTS.yml).
 
 - **CURRENT** — a private quantitative R&D initiative, a documentation and
   governance corpus, and research tooling under controlled development.
+- **CURRENT** — forward-only market-data capture and monitoring are operational
+  for research data collection. They do not place orders, operate accounts,
+  connect capital, or constitute a trading runtime.
+- **CURRENT** — a bounded execution-engine contract is qualified on
+  deterministic synthetic fixtures only. It has not processed market data and
+  does not qualify a strategy, an economic result, paper execution, live
+  execution, or deployment.
 - **IN PROGRESS** — validation controls, data and execution abstractions, risk
   controls, and their supporting software are being developed and evaluated.
 - **TARGET** — an auditable, deployment-ready systematic research and execution
@@ -63,10 +70,10 @@ positioning is [`PUBLIC_FACTS.yml`](PUBLIC_FACTS.yml).
 Descriptions of a target architecture do not imply that its components are
 integrated, deployed, connected to capital, or operating in markets.
 
-## Research scope and method
+## Programme research scope and method
 
-- **CURRENT** — the core research scope covers BTC and ETH perpetual markets
-  and NQ and ES index-futures markets.
+- **CURRENT** — the programme research scope covers BTC and ETH perpetual
+  markets and NQ and ES index-futures markets.
 - **CURRENT** — optional CFD adaptations are evaluated as a separate research
   lane.
 - **CURRENT** — the primary design horizon is approximately 30 minutes to
@@ -74,27 +81,32 @@ integrated, deployed, connected to capital, or operating in markets.
 - **CURRENT** — primary signal generation is rule-based. Machine learning may
   be evaluated only in auxiliary roles and only after the related hard-rule
   baseline qualifies out of sample.
-- **CURRENT** — the public methodology includes temporal separation,
-  pre-registration, cumulative trial accounting, CPCV, DSR, PBO, sanity
-  checks, and reproducibility controls.
+- **CURRENT** — the current synthetic engine route uses purged, embargoed,
+  anchored walk-forward evaluation and Deflated Sharpe Ratio (DSR).
+- **CURRENT** — Combinatorial Purged Cross-Validation (CPCV) and Probability of
+  Backtest Overfitting (PBO) are programme methods only where applicable; they
+  are not claimed for the current synthetic engine route.
+
+Programme research scope is not qualified engine coverage or current trading
+activity. The narrow engine contract does not establish coverage of the
+programme research universe or design horizon.
 
 These methods reduce avoidable research error. They do not establish economic
 value or future performance.
 
 ## Explicit non-claims
 
-This repository makes no claim of:
+The following explicit non-claims apply:
 
-- No live, production, paper-trading, or customer-facing operation is
-  represented.
-- No deployed execution, custody, managed account, or capital-management
-  activity is represented.
+- No live or paper trading, production trading platform, customer-facing
+  trading service, order placement, account operation, custody, or
+  capital-management activity is represented.
 - No historical or expected return, validated alpha, or
   investment-performance claim is made.
 - No investment service, investment advice, financial product, offer, or
   solicitation is made.
-- No legal incorporation, registration, licence, regulatory approval, or
-  authorization is represented.
+- No company-registration or financial-services-licence claim, regulatory
+  approval, or authorization is represented.
 
 Research methodology can reduce avoidable error; it cannot establish future
 performance.
@@ -142,9 +154,9 @@ were originally applied; see [`NOTICE.md`](NOTICE.md).
 
 <div align="center">
 
-Disuza Quantitative · Public Technical Reference · v4.0.0
+Disuza Quantitative · Public Technical Reference · v4.0.0 candidate
 
-Last updated: 2026-07-27
+Unreleased · Last verified: 2026-09-01
 
 </div>
 
@@ -152,6 +164,7 @@ Last updated: 2026-07-27
   status: CURRENT
   lifecycle: pre-deployment
   version: 4.0.0
-  last_updated: 2026-07-27
+  release_status: unreleased
+  last_verified: 2026-09-01
   canonical_repository: https://github.com/DisuzaQuantitative/Disuza-Quantitative
 -->

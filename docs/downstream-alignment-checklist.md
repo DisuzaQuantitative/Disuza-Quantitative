@@ -1,9 +1,9 @@
 # Downstream Alignment Checklist
 
-> **Version 4.0.0 · Prepared 2026-07-27**
+> **Version 4.0.0 candidate · Unreleased · Last verified 2026-09-01**
 
-This checklist is a separate follow-up scope. Version 4.0.0 changes none of the
-surfaces below.
+This checklist is a separate follow-up scope. The unreleased version 4.0.0
+candidate changes none of the surfaces below.
 
 The canonical input for every later alignment is
 [`PUBLIC_FACTS.yml`](../PUBLIC_FACTS.yml). No downstream surface may be updated
@@ -65,5 +65,5 @@ by copying unsupported claims from an older public page.
 
 ---
 
-*Disuza Quantitative — downstream follow-up scope · Version 4.0.0 ·
-2026-07-27*
+*Disuza Quantitative — downstream follow-up scope · Version 4.0.0 candidate ·
+Unreleased · Last verified 2026-09-01*
