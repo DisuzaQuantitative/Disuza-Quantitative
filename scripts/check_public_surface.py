@@ -16,10 +16,12 @@ import unicodedata
 from dataclasses import dataclass
 from pathlib import Path
 from urllib.parse import unquote
+from zoneinfo import ZoneInfo
 
 
 ROOT = Path(__file__).resolve().parents[1]
 EXPECTED_VERSION = "4.0.0"
+DOCUMENT_TIMEZONE = ZoneInfo("Africa/Tunis")
 FACTS_PATH = ROOT / "PUBLIC_FACTS.yml"
 CHANGELOG_PATH = ROOT / "CHANGELOG.md"
 TEXT_SUFFIXES = {
@@ -261,12 +263,15 @@ def check_facts() -> tuple[str, str, dict[str, str], dict[str, list[str]]]:
             "document.last_verified must be an ISO date",
         )
     else:
-        if parsed_date > dt.date.today():
+        # The document date follows the maintainer's Tunis civil day. GitHub
+        # runners use UTC and can therefore still be on the preceding date.
+        document_today = dt.datetime.now(DOCUMENT_TIMEZONE).date()
+        if parsed_date > document_today:
             add_issue(
                 FACTS_PATH,
                 1,
                 "facts-date",
-                "document.last_verified cannot be in the future",
+                "document.last_verified cannot be in the future in Africa/Tunis",
             )
 
     actual_statuses = {
