@@ -1,107 +1,99 @@
 # Overview
 
-## Company
+> **Version 4.0.0 candidate · Unreleased · Last verified 2026-09-01**
 
-Disuza Quantitative is a private quantitative trading research laboratory
-headquartered in Madrid, Spain. Founded in 2025 by Yasmine Bendhiab (Co-Founder
-& CEO) and Fares Bendhiab (Co-Founder & CTO), Disuza operates as a
-closed-access research environment engineering systematic execution algorithms
-for digital asset perpetual futures (BTC, ETH) and US equity index futures
-(NQ, ES).
+## CURRENT — initiative
 
-The firm operates proprietary capital and invitation-only partner accounts. It
-is not accepting retail clients, not soliciting retail or professional investor
-capital, and not offering regulated investment services at this time.
+Disuza Quantitative is a private, pre-deployment quantitative R&D initiative
+building and validating rule-based systematic trading infrastructure. It is
+founder-led across Madrid, Spain, and Bizerte, Tunisia.
 
-## Thesis
+Its present work is research and engineering: developing rule-based systematic
+methods, testing their assumptions, strengthening research controls, and
+building the foundations required for later qualification.
 
-Human emotion is the largest persistent inefficiency in financial markets.
-Disciplined rule-based systematic strategies can extract durable edge from
-market microstructure — when paired with institutional-grade risk management
-and rigorous execution discipline.
+Forward-only market-data capture and monitoring are operational for research
+data collection. They do not place orders, operate accounts, connect capital,
+or constitute a trading runtime.
 
-Disuza's design stance is that the operational edge compounds from three
-sources:
+## CURRENT — programme research scope
 
-1. **Data quality.** Deterministic point-in-time feature pipelines with
-   retroactive-revision guardrails ensure that training and live inference
-   see the same world.
-2. **Risk discipline.** A layered risk overlay modulates exposure in response
-   to short-horizon regime shifts, rather than betting on a single direction.
-3. **Execution fidelity.** Non-custodial execution with broker-truth
-   reconciliation — the broker's state is always the source of truth, and
-   reconstructed PnL uses actual fills, not algorithmic estimates.
-4. **Methodology rigor.** Anti-overfit validation pipeline per López de
-   Prado (Combinatorial Purged Cross-Validation, Deflated Sharpe Ratio,
-   Probability of Backtest Overfitting) with pre-registered hypotheses
-   and a cumulative trial counter that adjusts significance thresholds
-   across the project lifetime.
+The core market scope is:
 
-## What Disuza is
+- BTC and ETH perpetual markets;
+- NQ and ES index-futures markets;
+- optional CFD research as a separate adaptation lane.
 
-- A private **research laboratory** — the primary output is systematic trading
-  infrastructure, not a product sold to retail.
-- A **closed-access** operator — access to the live platform is by invitation
-  only, and participation is limited to proprietary capital plus authorised
-  partner accounts.
-- A **methodology-transparent** organisation — architecture and posture are
-  published in this living reference; source code, model weights, and
-  operational know-how remain proprietary.
+The primary design horizon is approximately 30 minutes to 4 hours.
 
-## What Disuza is NOT
+This scope describes what is researched. It does not state that these markets
+are currently traded live.
 
-- **Not a high-frequency trading firm.** The firm operates on intraday to
-  multi-day horizons, not at microsecond latency.
-- **Not a retail-facing product** or signal-selling service. Disuza does not
-  offer subscription signals, does not accept retail investment, and does not
-  operate as a trading academy.
-- **Not a public hedge fund.** The firm is not licensed as a collective
-  investment scheme in any jurisdiction and does not hold or manage
-  third-party capital as an asset manager.
-- **Not a licensed investment firm.** The firm is in a pre-licensing phase
-  and monitors the MiCA and FINMA regulatory landscapes. Statements in this
-  repository about regulatory alignment are expressions of internal posture,
-  not representations of regulatory approval.
+It is programme research scope only, not qualified engine coverage. A bounded
+execution-engine contract is qualified on deterministic synthetic fixtures only;
+it has not processed market data, and its narrow contract does not establish
+coverage of the programme research universe or design horizon.
 
-## Regulatory posture (summary)
+## CURRENT — design position
 
-- **Jurisdiction:** Kingdom of Spain, entity registered in Madrid.
-- **Phase:** pre-licensing.
-- **Framework monitoring:** MiCA (EU) and FINMA (Swiss).
-- **Simulated performance disclosure:** CFTC Rule 4.41 acknowledged. All
-  performance figures on the public guest portal are hypothetical historical
-  simulations.
-- **Client relationship model:** non-custodial. Credentials across both
-  execution classes are scoped to trade-only operations.
-- **Solicitation posture:** closed-access, invitation-only. Disuza does not
-  solicit retail or professional investor capital.
+The programme is:
 
-Detail in [`regulatory.md`](regulatory.md).
+- **rule-based first** — primary signals must come from explicit economic and
+  market rules;
+- **methodology-led** — hypotheses, trial accounting, temporal separation,
+  reproducibility, and anti-overfit checks govern evaluation;
+- **audit-oriented** — verified facts, judgment, and unknowns are kept
+  separate;
+- **private by design** — source code, strategies, datasets, and operational
+  details are not published.
 
-## Technology posture (summary)
+Machine learning is limited to auxiliary research roles and only after a
+hard-rule baseline qualifies out of sample.
 
-- **Engine:** rule-based systematic engine with a layered risk overlay; machine learning restricted to auxiliary roles (meta-labeling, dynamic position sizing, regime detection) per López de Prado framing — never as the primary signal generator.
-- **Data:** multi-source pipeline combining exchange market data (OHLCV +
-  L2 order book + trades + funding + open interest + liquidations),
-  redundant venue-direct WebSocket capture for forward-stream resilience,
-  macro context, and on-chain regime gating signals used strictly as
-  L1-L2 macro context, through point-in-time feature pipelines with
-  retroactive-revision guardrails.
-- **Execution:** prop-trading-programme APIs (broker-specific protocols,
-  trade-only scope) and self-custody perpetual venues (trade-scoped API
-  wallets).
-- **Cloud:** Google Cloud, event-driven orchestration, non-custodial execution
-  with broker-truth reconciliation.
+## IN PROGRESS — governance and integrity
 
-Detail in [`architecture.md`](architecture.md) and [`technology.md`](technology.md).
+The research programme is strengthening controls around access, trial
+accounting, reproducibility, and independent audit evidence.
+
+This is the current priority. The public reference therefore makes no current
+strategy-performance claim and no trading-system deployment claim.
+
+## TARGET — future system
+
+The longer-term target is a qualified systematic trading system with:
+
+- controlled paper and live execution paths;
+- venue-appropriate risk controls;
+- reconciled order and fill accounting;
+- non-custodial design where applicable;
+- explicit human approval at promotion boundaries.
+
+These are target properties, not descriptions of a currently live platform.
+
+## What Disuza Quantitative is not
+
+Disuza Quantitative is not:
+
+- a public hedge fund;
+- a retail signal service;
+- a provider of investment services through this repository;
+- an invitation to invest;
+- a claim of live or future performance;
+- a high-frequency co-location operation.
+
+## Leadership footprint
+
+The initiative is led across Madrid and Bizerte. Public documentation uses a
+neutral organisational voice and does not expose private working arrangements.
 
 ## Contact
 
-All inquiries — general, partnerships, careers: **[contact@disuza.com](mailto:contact@disuza.com)**.
+General inquiries: **[contact@disuza.com](mailto:contact@disuza.com)**
+
+See [`status.md`](status.md) for the current public status and
+[`research-methodology.md`](research-methodology.md) for the research policy.
 
 ---
 
-*Disuza Quantitative — Living Technical Reference · Version 3.1 · Last Updated: 2026-05-22*
-*Source of truth: [https://disuza.com/llms-full.txt](https://disuza.com/llms-full.txt)*
-
-<!-- last_updated: 2026-05-22 · version: 3.1.0 -->
+*Disuza Quantitative — Public Technical Reference · Version 4.0.0 candidate ·
+Unreleased · Last verified 2026-09-01*

@@ -1,94 +1,54 @@
-# Skills Applied
+# Capabilities
 
-> Technical competencies applied in building and operating the Disuza
-> Quantitative platform. This is not a recruiting surface — Disuza is not
-> hiring — but the skills inventory is useful for evaluating the firm's
-> technical depth.
+> **Version 4.0.0 candidate · Unreleased · Last verified 2026-09-01**
 
-## Systematic strategy design
+Capability labels describe the initiative's public research status. They are
+not credentials, performance claims, or evidence of trading-system deployment.
 
-- Rule-based systematic engine design and serving
-- Feature engineering across time-series and cross-sectional signals
-- Walk-forward validation and out-of-sample evaluation discipline
-- Drift detection, monitoring, and artefact versioning
-- Rolling calibration pipelines with active-artefact pointer updates
-- Auxiliary ML in restricted roles only (meta-labeling, dynamic position sizing, regime detection) per López de Prado's framing — never as the primary signal generator
+## CURRENT — demonstrated in the research programme
 
-## Financial engineering
+- Python-based quantitative research tooling;
+- rule-based strategy specification and evaluation;
+- temporal data separation and point-in-time quality work;
+- purged, embargoed, anchored walk-forward evaluation and Deflated Sharpe Ratio
+  (DSR) on the current synthetic engine route;
+- Combinatorial Purged Cross-Validation (CPCV) and Probability of Backtest
+  Overfitting (PBO) as programme methods only where applicable;
+- hypothesis pre-registration, cumulative trial accounting, and
+  reproducibility controls;
+- cloud-supported batch research workflows;
+- forward-only market-data capture and monitoring for research data collection;
+- a bounded execution-engine contract qualified on deterministic synthetic
+  fixtures only;
+- audit-oriented documentation and research governance.
 
-- Systematic trading system design
-- Position sizing, risk gating, drawdown-driven kill switches
-- Broker-truth reconciliation and fill-history-based PnL reconstruction
-- Non-custodial execution patterns (trade-only credential scoping,
-  signer separation)
-- Regulatory-landscape literacy: MiCA, FINMA, CFTC Rule 4.41
-- Anti-overfit validation pipeline (CPCV + DSR + PBO per López de Prado)
-- Pre-registered hypothesis discipline with reproducibility scripts
-- Frozen temporal-split methodology (dev / validation / holdout / forward)
+These capabilities support private R&D only.
 
-## Cloud infrastructure
+The data-capture surface does not place orders, operate accounts, connect
+capital, or constitute a trading runtime. The engine evidence has not processed
+market data and does not qualify a strategy, an economic result, paper
+execution, live execution, or deployment.
 
-- Google Cloud Platform native operator
-- Cloud Run, Cloud Run Jobs, Cloud Build, Cloud Scheduler
-- Pub/Sub event-driven orchestration at production scale
-- Firestore real-time state with optimistic concurrency
-- BigQuery for analytics, Cloud Storage for artefacts
-- Artifact Registry for versioned container images
-- Secret Manager for credential management
-- Identity and Access Management with least-privilege service accounts
+## IN PROGRESS — under development
 
-## Backend engineering
+- stronger access-integrity and audit-evidence controls;
+- data, risk, state, and execution abstractions;
+- order-and-fill accounting and failure-handling controls;
+- evidence packages for later paper-execution qualification.
 
-- Python 3.12+ production-grade services
-- FastAPI for authenticated REST endpoints
-- Pydantic for data validation
-- asyncio for concurrent I/O
-- Structured logging, heartbeat watchdogs, custom metrics
-- Immutable timestamped audit trails
+Work listed here is not claimed as complete or deployment-ready.
 
-## Frontend engineering
+## TARGET — not deployed
 
-- Next.js 16 App Router with static export
-- React 19 with hooks and modern component patterns
-- TypeScript 5 across the frontend surface
-- Tailwind CSS for styling
-- Framer Motion for interactions
-- Firebase Hosting for static-export deployment
+- an integrated, auditable systematic research and execution stack;
+- qualified paper-execution and venue-adapter paths;
+- reconciled runtime state and risk-reducing failure behaviour;
+- explicit human promotion decisions between lifecycle stages.
 
-## Data engineering
-
-- Point-in-time feature pipelines
-- Retroactive-revision guardrails
-- Schema validation with last-known-good fallback
-- Content-addressed manifest hashes for provenance
-- BigQuery lineage tables for long-term audit
-
-## DevOps
-
-- Containerised services (Docker)
-- CI/CD through Cloud Build
-- Branch-protected main; staging verification; production deploy
-- Zero-downtime deploys with revision retention for instant rollback
-- Feature-flagged behaviour changes through Firestore
-
-## Protocols and venues
-
-- Prop-trading-programme API integration (broker-specific protocols, trade-only scope)
-- REST API client engineering for self-custody perpetual venues
-- Order lifecycle management with stable idempotency keys
-- Consumer-side exactly-once effects over at-least-once delivery
-
-## Documentation and observability
-
-- Single-source-of-truth for public content regenerated at build time
-- Structured commit history with conventional-commit prefixes
-- Living technical reference (this repository) maintained alongside
-  production changes
-- IP-safety pre-commit verification to prevent leakage of proprietary
-  terms into public surfaces
+The target list is directional. It is not a promise of availability or future
+performance.
 
 ---
 
-*Disuza Quantitative — Living Technical Reference · Version 3.1 · Last Updated: 2026-05-22*
-
-<!-- last_updated: 2026-05-22 · version: 3.1.0 -->
+*Disuza Quantitative — Public Technical Reference · Version 4.0.0 candidate ·
+Unreleased · Last verified 2026-09-01*

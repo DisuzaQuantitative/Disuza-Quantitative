@@ -1,195 +1,148 @@
 # Changelog
 
-All notable changes to this public technical reference are documented here.
+Notable changes to the Disuza Quantitative Public Technical Reference are
+recorded here.
 
-The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
-and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
+Release numbers describe this public documentation, not a trading system or
+investment product.
 
----
+## [4.0.0] — Unreleased
+
+Last verified: 2026-09-01.
+
+### Context
+
+Version 4.0.0 resets the public reference around one canonical positioning:
+Disuza Quantitative is a **private pre-deployment quantitative R&D
+initiative**.
+
+Architecture and capability descriptions now distinguish **CURRENT**,
+**IN PROGRESS**, and **TARGET** state. A target description is not evidence of
+deployment, integration, trading activity, or performance.
+
+### Added
+
+- `PUBLIC_FACTS.yml` as the machine-readable source for public positioning,
+  lifecycle, status definitions, repository scope, and explicit non-claims.
+- `NOTICE.md` for attribution, licence scope, and continuity of historical
+  licence grants.
+- `docs/status.md`, `docs/research-methodology.md`, and a separate downstream
+  alignment checklist.
+- Repository-wide status vocabulary for present state, active work, and
+  intended future state.
+- Explicit boundaries for information that must not be published.
+- Read-only documentation CI for facts, claims, Markdown, links, anchors, CFF,
+  Mermaid, and redacted secret scanning.
+
+### Changed
+
+- Reframed the root README, organization-profile mirror, citation metadata,
+  and contribution policy around pre-deployment research and development.
+- Reclassified architecture, data, execution, risk, technology, and operations
+  descriptions by lifecycle status.
+- Distinguished operational forward-only research data capture from any
+  trading runtime, order placement, account operation, or capital connectivity.
+- Recorded the bounded synthetic-fixture engine evidence without claiming
+  market-data, strategy-performance, paper, live, or deployment qualification.
+- Separated the current engine route's purged and embargoed anchored
+  walk-forward plus DSR controls from CPCV and PBO programme methods that apply
+  only where their evaluation geometry supports them.
+- Corrected the public non-technical business, legal, and administrative role.
+- Consolidated the architecture into one target-only Mermaid diagram and kept
+  superseded documentation paths as one-major-version compatibility stubs.
+- Rebuilt the 1200×630 Open Graph image around pre-deployment systematic
+  trading R&D.
+- Made CC BY 4.0 the canonical licence for the current public documentation.
+- Reduced technical descriptions to a documentation-safe level.
+
+### Removed
+
+- Statements that could be read as claims of a live or production trading
+  platform.
+- Performance, returns, validated-alpha, managed-account, custody, capital, and
+  investment-service claims.
+- Claims of legal registration, licensing, regulatory approval, or
+  authorization.
+- Guest-portal links and references to historical performance artefacts.
+- Private identifiers, control thresholds, infrastructure coordinates,
+  proprietary implementation details, and unpublished research results.
+
+### Licence continuity
+
+The licence change is prospective for the current distribution. Rights already
+granted under licence notices attached to earlier versions remain in effect for
+the exact historical material covered by those notices. See `NOTICE.md`.
 
 ## [3.1.0] — 2026-05-22
 
-### Context
+### v4 preservation notice
 
-V3.1 is a corrective release aligned with Disuza's internal governance
-update on machine-learning usage policy: the platform is **rule-based
-primary**, and machine learning is restricted to auxiliary roles
-(meta-labeling, dynamic position sizing, regime detection) per López de
-Prado's framing — never as the primary signal generator. Structure of
-the 15 documentation files is preserved; all changes are targeted
-patches.
+This historical entry is retained as a disclosure-safe summary. Version 4.0.0
+withdraws every v3.1 statement that could be read as current deployment,
+platform, performance, investment, legal, or regulatory status. The exact
+entry originally published with v3.1 remains available in the existing Git
+history; its removal from current `main` is explicit rather than a silent
+rewrite.
 
-### Added
+### Historical context
 
-- Anti-overfit validation pipeline surfaced publicly in
-  `docs/regulatory.md` and cross-linked: Combinatorial Purged
-  Cross-Validation (CPCV), Deflated Sharpe Ratio (DSR), Probability of
-  Backtest Overfitting (PBO) per López de Prado.
-- Methodology section covering frozen temporal splits
-  (dev / validation / holdout / forward), pre-registered hypotheses,
-  and per-result reproducibility scripts.
-- New FAQ entry "What backtest methodology does Disuza Quantitative use?"
-- US equity index futures (NQ, ES) added to the documented market scope.
-- "Methodology rigor" added as a fourth source of operational edge in
-  `docs/overview.md` thesis.
+V3.1 was a corrective documentation release that:
 
-### Changed
+- changed the stated primary research policy from model-led to rule-based,
+  with machine learning limited to auxiliary research roles;
+- added high-level anti-overfit methodology, temporal separation,
+  pre-registration, trial accounting, and reproducibility language;
+- added NQ and ES to the stated research scope;
+- revised technology, data-source, execution-protocol, and calibration
+  descriptions; and
+- removed several superseded technology and data-class claims.
 
-- ML framing reformulated across the documentation surface: from
-  "systematic ensemble ML engine paired with a layered risk model" to
-  "rule-based systematic engine with a layered risk overlay; machine
-  learning restricted to auxiliary roles".
-- Analytics store reference updated from PostgreSQL on Cloud SQL to
-  BigQuery.
-- Execution-protocol description generalised from "FIX-based
-  institutional-protocol brokers" to "prop-trading-programme APIs
-  (broker-specific protocols, trade-only scope)".
-- Data-source taxonomy reorganised:
-  - On-chain analytics demoted from primary class to "regime gating
-    signals (L1-L2 macro context only, not primary alpha)".
-  - Derivatives flow (L2 order book, trades, funding, open interest,
-    liquidations) surfaced as part of the primary exchange-data class.
-  - Venue-direct WebSocket capture surfaced as a redundant
-    forward-stream-resilience class.
-- "Retrain job" renamed to "Calibration job"; "monthly retraining" to
-  "periodic calibration".
-- Skills section "Machine learning" renamed to "Systematic strategy
-  design" with auxiliary-ML caveat.
-- Technology section "Machine learning" renamed to "Engine and
-  calibration".
+### Withdrawn v3.1 claims
 
-### Removed
-
-- "Attention signals" data class (not in current scope).
-- "FIX 4.4 session management" listed as a competency (replaced by
-  generic "prop-trading-programme API integration").
-- "Monthly retraining cycle" framing.
-
-### Notes for downstream readers
-
-The 12-month archived backtest (Apr 2025 – Apr 2026) and the 5-month
-validation artefact at `/compliance/validation-2026-04/` (hosted on
-disuza.com) are preserved verbatim. Their framing is from a prior model
-iteration and does **not** represent the current platform direction.
-The OpenTimestamps proofs remain valid as historical artefacts; readers
-should not infer current platform performance from those numbers. See
-`/compliance/validation-2026-04/LEGACY_FRAMING.md` (added in the website
-deployment that accompanies this V3.1 documentation release) for
-detailed framing.
-
-### Migration
-
-| V3.0 framing (withdrawn) | V3.1 replacement |
-| --- | --- |
-| Systematic ensemble ML engine | Rule-based systematic engine with auxiliary ML |
-| Gradient boosting toolchains (primary) | Scientific Python tooling; ML in auxiliary roles |
-| PostgreSQL on Cloud SQL (analytics) | BigQuery |
-| FIX-based / institutional-protocol brokers | Prop-trading-programme APIs (broker-specific protocols) |
-| Attention signals | (removed — out of current scope) |
-| On-chain analytics (primary class) | On-chain regime gating (L1-L2 context only) |
-| Digital asset markets (only) | Digital asset perpetual futures + US equity index futures (NQ, ES) |
-| Retrain job / monthly retraining | Calibration job / periodic calibration |
-
----
+- Historical performance and validation-artifact references are not current
+  evidence and are not republished in v4.
+- Statements implying a current platform direction, deployed execution, or
+  operating infrastructure are withdrawn.
+- Any architecture or capability surviving into v4 is restated independently
+  under **CURRENT**, **IN PROGRESS**, or **TARGET**.
 
 ## [3.0.0] — 2026-04-20
 
-### Context
+### v4 preservation notice
 
-Version 3 is a full rewrite of this repository. Previous versions (V1, tagged
-`v1.0.0-archive`, originally released January 2025) contained documentation
-that described an aspirational architecture rather than the system in
-production. Specifically, V1 referenced orchestration via Apache Airflow /
-Cloud Composer, a LightGBM quantile-regression model, MetaTrader 5 as the
-primary execution venue, and the `ccxt` library for exchange connectivity.
-**None of those statements reflect the current production system.**
+V3.0 was a full rewrite of the earlier showcase. Its detailed architecture,
+operating, legal, regulatory, and organizational language is superseded by
+version 4.0.0. The exact original entry remains available in Git history for
+provenance; v4 intentionally does not republish sensitive or unsupported
+details from that entry.
 
-V1 is preserved as a git tag (`v1.0.0-archive`) for historical reference
-but is no longer navigable from `main`. All links to documentation should
-now resolve to V3 content.
+### Historical scope
 
-### Added
-- Living technical reference framing (replacing "portfolio showcase").
-- Architecture description at an IP-safe abstraction level: systematic
-  ensemble ML engine paired with a layered risk model.
-- Public data-source framing: multi-source ingestion (on-chain analytics,
-  exchange microstructure, macro context, attention signals) through
-  point-in-time pipelines.
-- Execution venue framing: institutional-protocol brokers (FIX-based,
-  trade-only scope) plus self-custody perpetual venues (trade-scoped API
-  wallets).
-- Regulatory section covering MiCA and FINMA landscape monitoring,
-  CFTC Rule 4.41 acknowledgment, pre-licensing posture, and explicit
-  non-solicitation notice.
-- Team section with founder bios (Yasmine Bendhiab — Madrid; Fares
-  Bendhiab — Bizerte).
-- FAQ rewritten as a verbatim-lookup surface for LLM retrieval (20+
-  questions, each phrased as a prospect or LLM user would ask).
-- Mermaid architecture diagrams (high-level, data flow, execution
-  reconciliation) rendered natively by GitHub.
-- `CITATION.cff` for citation-tool compatibility.
-- `.github/ISSUE_TEMPLATE/` with question and documentation-clarification
-  templates.
-- Cross-references to `disuza.com`, `disuza.com/llms.txt`, Wikidata item
-  Q139491356, and LinkedIn company page.
+The v3.0 release introduced:
 
-### Changed
-- Licence migrated from Apache 2.0 to Creative Commons Attribution 4.0
-  International (CC BY 4.0), appropriate for a documentation-only repo.
-  Added explicit carve-outs for trademarks, source code, model weights,
-  and a no-endorsement clause.
-- Positioning shifted from "portfolio showcase for hiring managers" to
-  "canonical living technical reference for the firm's architecture,
-  methodology, and regulatory posture."
+- a living-technical-reference format;
+- high-level data, research, execution, and risk descriptions;
+- founder biographies, FAQ, diagrams, citation metadata, and issue templates;
+- cross-references to external identity surfaces; and
+- an announced move toward CC BY 4.0 for documentation.
 
-### Removed
-- All references to Apache Airflow / Cloud Composer as an orchestrator
-  (replaced by Cloud Scheduler + Pub/Sub + Firestore).
-- All references to LightGBM, quantile regression, specific model
-  families, feature counts, hold-duration windows, and drawdown
-  percentages (replaced by abstracted framings per IP-safety policy).
-- All references to MetaTrader 5 (MT5) and Compute Engine Windows Server
-  (no longer part of the execution architecture).
-- All references to `ccxt` (replaced by native protocol clients).
-- Named counterparty references (FTMO, BrightFunded, Hyperliquid)
-  collapsed to venue-class descriptions.
-- Specific cloud region disclosure (europe-west4) generalised to
-  "Google Cloud (EU region)."
-- Specific data-provider names (Glassnode, Binance) collapsed to
-  source-class descriptions (on-chain analytics, exchange microstructure).
-- Dedicated backtest-methodology page (content merged into the
-  regulatory section at a much shallower level to avoid providing a
-  reproduction specification for adversaries).
-- Operational cadence details (reconciliation frequency, watchdog
-  heartbeats, orphan-detection windows) that would have disclosed
-  attack-window information without marketing value.
+It also removed or generalized named technologies, providers, counterparties,
+infrastructure locations, model details, control values, and operational
+cadences from earlier public material.
 
-### Security
-- Added explicit carve-out in the licence clarifying that trade secrets,
-  algorithms, model parameters, and operational know-how are not licensed.
-- Removed descriptions of API-key scoping patterns that constituted
-  security-through-publication leakage.
-- Added non-solicitation banner in the repository-root README, front-loaded
-  so it is visible to anyone redistributing the documentation under CC BY
-  4.0.
+### Withdrawn v3.0 claims
 
-### Notes for downstream readers
-Where the V1 repository made specific technical claims that readers may
-have cached or cited, please refer instead to the corresponding V3 section
-below:
+- The description of an existing production system is withdrawn.
+- Model-led, live-execution, current-infrastructure, performance, legal-status,
+  and regulatory-readiness language is not current.
+- V3 diagrams and component descriptions are superseded by the single v4
+  **TARGET — not deployed** architecture.
+- Earlier licensing notices remain effective for the exact historical material
+  to which they applied.
 
-| V1 claim (withdrawn) | V3 replacement |
-| --- | --- |
-| Apache Airflow / Cloud Composer orchestrator | Cloud Scheduler + Pub/Sub + Firestore (see `docs/architecture.md`) |
-| LightGBM quantile regression | Systematic ensemble ML engine (see `docs/technology.md`) |
-| MT5 on Compute Engine for execution | Institutional-protocol brokers + self-custody venues (see `docs/execution.md`) |
-| `ccxt` library | Native protocol clients (see `docs/execution.md`) |
-| `europe-west4` region | Google Cloud (EU region) (see `docs/technology.md`) |
+## [1.0.0-archive] — 2025-01-03
 
----
-
-## [1.0.0-archive] — 2025-01-03 (superseded)
-
-Initial portfolio-showcase documentation. **Withdrawn.** Claims did not
-reflect the production system. Preserved only as a git tag
-(`v1.0.0-archive`) for historical reference. Do not cite.
+Archived initial documentation release. Its claims are withdrawn and it must
+not be treated as a current description. The exact historical entry and
+release remain available in Git history for provenance.

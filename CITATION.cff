@@ -1,38 +1,25 @@
 cff-version: 1.2.0
-message: "If you cite or reference this documentation, please use the metadata below."
-title: "Disuza Quantitative — Public Technical Reference"
+message: "This is an unreleased v4.0.0 candidate. If you reference it, identify it as an unreleased candidate."
+title: "Disuza Quantitative Public Technical Reference"
 abstract: >-
-  Living technical reference for Disuza Quantitative, a private
-  quantitative trading research laboratory based in Madrid, Spain.
-  Covers architecture, methodology (anti-overfit validation pipeline
-  per López de Prado: CPCV, Deflated Sharpe Ratio, Probability of
-  Backtest Overfitting), data pipelines, execution venues, risk
-  framework, and regulatory posture. Source code and model weights
-  are proprietary and not included in this repository.
-type: "misc"
+  Disuza Quantitative is a private, pre-deployment quantitative R&D initiative
+  building and validating rule-based systematic trading infrastructure. This
+  unreleased public-reference candidate distinguishes current, in-progress, and
+  target state. Forward-only market-data capture supports research collection;
+  it does not represent a live trading system, investment activity, investment
+  performance, legal registration, or regulatory authorization.
 authors:
   - name: "Disuza Quantitative"
     website: "https://disuza.com"
-    address: "Madrid, Spain"
 url: "https://github.com/DisuzaQuantitative/Disuza-Quantitative"
 repository-code: "https://github.com/DisuzaQuantitative/Disuza-Quantitative"
-identifiers:
-  - type: other
-    value: "https://www.wikidata.org/wiki/Q139491356"
-    description: "Wikidata entity"
 keywords:
-  - "quantitative trading"
-  - "systematic trading"
-  - "algorithmic trading"
-  - "rule-based trading"
-  - "anti-overfit methodology"
-  - "CPCV"
-  - "deflated sharpe ratio"
-  - "probability of backtest overfitting"
-  - "digital assets"
-  - "us index futures"
-  - "risk management"
-  - "financial technology"
+  - "quantitative research"
+  - "research governance"
+  - "pre-deployment"
+  - "systematic research"
+  - "validation"
+  - "auditability"
+  - "public documentation"
 license: "CC-BY-4.0"
-version: "3.1.0"
-date-released: "2026-05-22"
+version: "4.0.0"

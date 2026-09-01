@@ -2,146 +2,169 @@
 
 # Disuza Quantitative
 
-### Systematic Crypto Trading Research Laboratory
+### Public Technical Reference
 
-**Madrid, Spain · Founded 2025 · Version 3**
+Private pre-deployment quantitative R&D initiative
 
-[![Python](https://img.shields.io/badge/Python-3.12%2B-3776AB?style=flat&logo=python&logoColor=white)](https://python.org)
-[![Google Cloud](https://img.shields.io/badge/Google_Cloud-Production-4285F4?style=flat&logo=googlecloud&logoColor=white)](https://cloud.google.com)
-[![CC BY 4.0](https://img.shields.io/badge/License-CC_BY_4.0-lightgrey?style=flat)](LICENSE)
-[![Wikidata](https://img.shields.io/badge/Wikidata-Q139491356-006699?style=flat&logo=wikidata&logoColor=white)](https://www.wikidata.org/wiki/Q139491356)
-[![Last Commit](https://img.shields.io/github/last-commit/DisuzaQuantitative/Disuza-Quantitative?style=flat)](https://github.com/DisuzaQuantitative/Disuza-Quantitative/commits)
+Version 4.0.0 candidate · Unreleased · Last verified 2026-09-01
 
-**Living technical reference** — architecture, methodology, and regulatory posture.
-Source code and model weights remain proprietary.
+[![Pre-deployment R&D](https://img.shields.io/badge/status-Pre--deployment_R%26D-informational)](PUBLIC_FACTS.yml)
+[![License: CC BY 4.0](https://img.shields.io/badge/license-CC_BY_4.0-lightgrey.svg)](LICENSE)
+[![Last commit](https://img.shields.io/github/last-commit/DisuzaQuantitative/Disuza-Quantitative)](https://github.com/DisuzaQuantitative/Disuza-Quantitative/commits/main)
 
-[Website](https://disuza.com) · [Guest Portal](https://disuza.com/guest) · [LinkedIn](https://www.linkedin.com/company/disuza-quantitative/) · [LLM Context](https://disuza.com/llms.txt) · [FAQ](docs/faq.md)
+[Website](https://disuza.com) ·
+[LinkedIn](https://www.linkedin.com/company/disuza-quantitative/) ·
+[Public facts](PUBLIC_FACTS.yml) ·
+[Documentation](docs/README.md)
 
 </div>
 
 ---
 
-> **Non-solicitation notice.** This repository is informational documentation only.
-> Disuza Quantitative does not offer regulated investment services or solicit retail
-> or professional investor capital. No statement in this repository constitutes an
-> offer, invitation, or inducement to engage in any investment activity in any
-> jurisdiction. Statements about regulatory alignment are expressions of internal
-> posture, not representations of regulatory approval or licensed status. Before
-> engaging with Disuza Quantitative in any capacity, consult local counsel.
+> **Informational documentation only.** Nothing in this repository is
+> investment advice, an offer, a solicitation, or a representation of legal
+> registration, regulatory authorization, trading-system deployment, trading activity,
+> or investment performance.
 
----
+## CURRENT — what Disuza Quantitative is
 
-## What Disuza is
+Disuza Quantitative is a private, pre-deployment quantitative R&D initiative
+building and validating rule-based systematic trading infrastructure. Its
+present work concerns research governance, validation discipline, software
+design, and the controlled development of a systematic research stack.
 
-Disuza Quantitative is a private quantitative trading research laboratory engineering
-systematic execution algorithms for digital asset perpetual futures (BTC, ETH) and
-US equity index futures (NQ, ES). The engine is a rule-based systematic engine with
-a layered risk overlay that adjusts exposure in response to
-short-horizon regime shifts; machine learning is restricted to auxiliary roles
-(meta-labeling, dynamic position sizing, regime detection) per López de Prado's
-framing — never as the primary signal generator. The platform runs on Google Cloud
-and executes through prop-trading-programme APIs and self-custody perpetual
-venues under trade-only permissions.
+This repository is the initiative's public documentation surface. It does not
+contain a production trading platform, proprietary source code, model weights,
+credentials, private datasets, or a performance record.
 
-## What Disuza is NOT
+## Status vocabulary
 
-- Not a high-frequency trading firm.
-- Not a retail-facing signal-selling service.
-- Not a public hedge fund — access is closed and by invitation.
-- Not licensed at this time — operating in a pre-licensing phase, monitoring the
-  MiCA and FINMA regulatory landscapes as part of our pre-licensing preparation.
-  No statement herein constitutes a representation of regulatory compliance or
-  approval.
+Every architecture or capability statement in this repository must use one of
+these labels:
 
-## Architecture snapshot
-
-```mermaid
-graph LR
-  A[Multi-source ingestion<br/>exchange data · venue WS · macro · on-chain regime] -->|PIT pipelines| B[Feature store]
-  B --> C[Rule-based signal engine<br/>+ layered risk overlay]
-  C --> D[Signal router]
-  D -->|Pub/Sub| E[Execution]
-  E --> F[Prop-trading-programme APIs]
-  E --> G[Self-custody perpetual venues]
-  D -.->|broker-truth reconciliation| F
-  D -.->|broker-truth reconciliation| G
-  style A fill:#f3f3f3,stroke:#333
-  style C fill:#e8f4f8,stroke:#333
-  style E fill:#f0e8f8,stroke:#333
-```
-
-Full diagrams live in [`docs/diagrams/`](docs/diagrams/). Architecture walkthrough
-in [`docs/architecture.md`](docs/architecture.md).
-
-## Explore the documentation
-
-| Section | What you'll find |
+| Label | Meaning |
 | --- | --- |
-| [Overview](docs/overview.md) | What Disuza is, the thesis, the regulatory posture |
-| [Architecture](docs/architecture.md) | Data plane · compute plane · execution plane · persistence |
-| [Data pipeline](docs/data-pipeline.md) | Multi-source ingestion with point-in-time guarantees |
-| [Execution](docs/execution.md) | Venue classes, non-custodial execution, broker-truth reconciliation |
-| [Risk framework](docs/risk.md) | Tiered drawdown posture, non-custodial guarantees, audit trail |
-| [Regulatory](docs/regulatory.md) | MiCA and FINMA landscape, pre-licensing posture, disclosures |
-| [Technology](docs/technology.md) | Language, frameworks, orchestration, cloud, observability |
-| [Components](docs/components.md) | The services that make up the production platform |
-| [Operations](docs/operations.md) | Deployment, monitoring, alerting, reliability posture |
-| [Team](docs/team.md) | Yasmine Bendhiab and Fares Bendhiab |
-| [Skills](docs/skills.md) | Technical competencies applied to the platform |
-| [FAQ](docs/faq.md) | Questions about access, technology, regulation, and collaboration |
+| **CURRENT** | Publicly supportable state at the date shown in the document. |
+| **IN PROGRESS** | Work is being designed, implemented, or evaluated; completion is not claimed. |
+| **TARGET** | Intended future state; not a statement of present capability. |
 
-## Team
+The machine-readable source for these definitions and the repository's current
+positioning is [`PUBLIC_FACTS.yml`](PUBLIC_FACTS.yml).
 
-**Yasmine Bendhiab** — Co-Founder & CEO · Strategic Operations & Corporate Compliance
-Madrid, Spain · [LinkedIn](https://www.linkedin.com/in/yasmine-bendhiab-22379319a/)
+## Public status snapshot
 
-**Fares Bendhiab** — Co-Founder & CTO · Lead Architect of the Quantitative Infrastructure
-Bizerte, Tunisia · [LinkedIn](https://linkedin.com/in/fares-bendhiab-40866828a) · [GitHub](https://github.com/FaresDisusa)
+- **CURRENT** — a private quantitative R&D initiative, a documentation and
+  governance corpus, and research tooling under controlled development.
+- **CURRENT** — forward-only market-data capture and monitoring are operational
+  for research data collection. They do not place orders, operate accounts,
+  connect capital, or constitute a trading runtime.
+- **CURRENT** — a bounded execution-engine contract is qualified on
+  deterministic synthetic fixtures only. It has not processed market data and
+  does not qualify a strategy, an economic result, paper execution, live
+  execution, or deployment.
+- **IN PROGRESS** — validation controls, data and execution abstractions, risk
+  controls, and their supporting software are being developed and evaluated.
+- **TARGET** — an auditable, deployment-ready systematic research and execution
+  stack, subject to explicit qualification gates.
 
-## Regulatory snapshot
+Descriptions of a target architecture do not imply that its components are
+integrated, deployed, connected to capital, or operating in markets.
 
-- **Jurisdiction:** Kingdom of Spain, registered entity in Madrid.
-- **Phase:** Pre-licensing.
-- **Monitoring:** MiCA (EU Markets in Crypto-Assets Regulation) and FINMA (Swiss
-  Financial Market Supervisory Authority) regulatory landscapes.
-- **Simulated performance:** CFTC Rule 4.41 acknowledged. Any backtest results
-  referenced on the public guest portal are hypothetical historical simulations.
-- **Custody model:** Non-custodial — credentials scoped to trade-only operations
-  across both execution classes.
-- **Access model:** Closed-access, invitation-only. Not soliciting retail investors.
+## Programme research scope and method
 
-Detail in [`docs/regulatory.md`](docs/regulatory.md).
+- **CURRENT** — the programme research scope covers BTC and ETH perpetual
+  markets and NQ and ES index-futures markets.
+- **CURRENT** — optional CFD adaptations are evaluated as a separate research
+  lane.
+- **CURRENT** — the primary design horizon is approximately 30 minutes to
+  4 hours.
+- **CURRENT** — primary signal generation is rule-based. Machine learning may
+  be evaluated only in auxiliary roles and only after the related hard-rule
+  baseline qualifies out of sample.
+- **CURRENT** — the current synthetic engine route uses purged, embargoed,
+  anchored walk-forward evaluation and Deflated Sharpe Ratio (DSR).
+- **CURRENT** — Combinatorial Purged Cross-Validation (CPCV) and Probability of
+  Backtest Overfitting (PBO) are programme methods only where applicable; they
+  are not claimed for the current synthetic engine route.
+
+Programme research scope is not qualified engine coverage or current trading
+activity. The narrow engine contract does not establish coverage of the
+programme research universe or design horizon.
+
+These methods reduce avoidable research error. They do not establish economic
+value or future performance.
+
+## Explicit non-claims
+
+The following explicit non-claims apply:
+
+- No live or paper trading, production trading platform, customer-facing
+  trading service, order placement, account operation, custody, or
+  capital-management activity is represented.
+- No historical or expected return, validated alpha, or
+  investment-performance claim is made.
+- No investment service, investment advice, financial product, offer, or
+  solicitation is made.
+- No company-registration or financial-services-licence claim, regulatory
+  approval, or authorization is represented.
+
+Research methodology can reduce avoidable error; it cannot establish future
+performance.
+
+## Documentation map
+
+| Section | Scope |
+| --- | --- |
+| [Documentation index](docs/README.md) | Reading order and status conventions |
+| [Public status](docs/status.md) | Current work, controls in progress, and target direction |
+| [Overview](docs/overview.md) | Initiative scope and public boundaries |
+| [Research methodology](docs/research-methodology.md) | Rule-based policy and anti-overfit controls |
+| [Architecture](docs/architecture.md) | Current, in-progress, and target system views |
+| [Components](docs/components.md) | Component responsibilities and status |
+| [Data pipeline](docs/data-pipeline.md) | Data-quality and lineage design |
+| [Execution](docs/execution.md) | Execution-control design, not live execution |
+| [Risk](docs/risk.md) | Research and operational risk controls |
+| [Operations](docs/operations.md) | Pre-deployment operational readiness |
+| [Technology](docs/technology.md) | Tools used or evaluated in R&D |
+| [Regulatory](docs/regulatory.md) | Public disclaimers and non-claims |
+| [FAQ](docs/faq.md) | Short answers about scope and status |
+| [Team](docs/team.md) | Public project roles |
+| [Downstream alignment](docs/downstream-alignment-checklist.md) | Post-release checklist for surfaces excluded from v4.0.0 |
+
+## Repository boundaries
+
+The public repository intentionally stays at a documentation-safe level. It
+must not include secrets, private identifiers, detailed control thresholds,
+private infrastructure coordinates, proprietary algorithms, or unpublished
+research results. See [`CONTRIBUTING.md`](CONTRIBUTING.md) for the publication
+rules.
 
 ## Contact
 
-All inquiries (general, partnerships, careers): **[contact@disuza.com](mailto:contact@disuza.com)**
+General inquiries: [contact@disuza.com](mailto:contact@disuza.com).
 
-## Documentation licence
+## Licence
 
-This documentation is released under
-[Creative Commons Attribution 4.0 International (CC BY 4.0)](LICENSE) with
-explicit carve-outs for trademarks, source code, model weights, and operational
-know-how. See [`LICENSE`](LICENSE) for the full text and the no-endorsement
-clause required for adaptations.
+Unless a file says otherwise, the current public documentation is licensed
+under [Creative Commons Attribution 4.0 International](LICENSE). Historical
+licence grants remain valid for the exact material and versions to which they
+were originally applied; see [`NOTICE.md`](NOTICE.md).
 
 ---
 
 <div align="center">
 
-*Disuza Quantitative is a closed-access research laboratory. This repository
-contains architecture and methodology notes as a living public reference. Source
-code, model weights, and operational know-how are proprietary.*
+Disuza Quantitative · Public Technical Reference · v4.0.0 candidate
 
-**© 2025-2026 Disuza Quantitative · CC BY 4.0**
+Unreleased · Last verified: 2026-09-01
 
 </div>
 
 <!--
-  Machine-readable last-updated marker — preserved by markdown crawlers.
-  last_updated: 2026-05-22
-  version: 3.1.0
-  canonical: https://github.com/DisuzaQuantitative/Disuza-Quantitative
-  wikidata: https://www.wikidata.org/wiki/Q139491356
-  website: https://disuza.com
-  llm_context: https://disuza.com/llms-full.txt
+  status: CURRENT
+  lifecycle: pre-deployment
+  version: 4.0.0
+  release_status: unreleased
+  last_verified: 2026-09-01
+  canonical_repository: https://github.com/DisuzaQuantitative/Disuza-Quantitative
 -->

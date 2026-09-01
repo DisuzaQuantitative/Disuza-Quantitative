@@ -1,147 +1,88 @@
-# Regulatory Posture
+# Regulatory and Public-Claim Posture
 
-> Disuza operates in a pre-licensing phase. The statements below describe
-> internal posture and monitoring; they do not constitute representations of
-> regulatory approval or licensed status.
+> **Version 4.0.0 candidate · Unreleased · Last verified 2026-09-01**
 
-## Jurisdiction
+This page is informational. It is not legal advice, an offer, a solicitation,
+or a representation of regulatory approval.
 
-Disuza Quantitative is a private entity registered in Madrid, Kingdom of
-Spain. Operational activity is conducted from that jurisdiction. Documentation
-is released under Creative Commons Attribution 4.0 International (see
-[`LICENSE`](../LICENSE)), with explicit carve-outs for trademarks, source code,
-and operational know-how.
+## CURRENT — research initiative
 
-## Phase
+Disuza Quantitative is a private, pre-deployment research initiative led
+across Madrid, Spain, and Bizerte, Tunisia.
 
-The firm operates in a **pre-licensing** phase. It does not hold a
-regulated-investment-services licence in any jurisdiction, does not market
-investment services to retail clients, and does not solicit retail or
-professional investor capital.
+It does not currently offer an investment service through this repository,
+accept investor capital through this repository, or provide public trading
+signals.
 
-## Framework monitoring
+## CURRENT — non-solicitation
 
-Disuza tracks two regulatory landscapes as part of its pre-licensing
-preparation:
+Nothing in this repository is:
 
-- **MiCA** — EU Markets in Crypto-Assets Regulation. Relevant provisions
-  include the authorisation regime for Crypto-Asset Service Providers
-  (CASPs), the conduct-of-business requirements for client-facing
-  services, and the prudential requirements for entities that hold
-  client assets or execute client orders.
-- **FINMA** — Swiss Financial Market Supervisory Authority. Relevant
-  guidance includes the CASP-adjacent categorisations under FinIA and
-  FinSA, and the cross-border provisioning rules for services offered
-  into Switzerland.
+- an offer or invitation to invest;
+- a recommendation to buy or sell an instrument;
+- a promise of access to a trading platform;
+- a performance forecast;
+- a representation of licensed or approved status.
 
-These statements reflect internal posture — understanding of the
-landscape and preparation for eventual licensing. They do **not**
-constitute representations of compliance, authorisation, or approval
-by any supervisory authority.
+Anyone evaluating a future relationship must obtain independent legal,
+regulatory, tax, and financial advice in the relevant jurisdiction.
 
-## Counterparty relationships
+## CURRENT — performance claims
 
-Disuza's execution counterparties — prop-trading programmes and
-self-custody perpetual venues — operate under their own regulatory
-umbrellas in their own jurisdictions. Disuza's trading activity through
-those counterparties is conducted as the counterparty's authorised trader,
-under the counterparty's terms, and does not transfer regulatory
-responsibility to Disuza.
+Version 4 makes no current strategy-performance claim.
 
-## Performance claims and simulated results
+Research methods, architecture, or historical experimentation must not be
+interpreted as evidence of current or future returns. No representation is
+made that any account will achieve a profit or avoid a loss.
 
-Any backtest results referenced on the public guest portal at
-[disuza.com/guest](https://disuza.com/guest) are **hypothetical historical
-simulations** and do not represent actual trading outcomes. Disuza
-acknowledges **CFTC Rule 4.41** regarding simulated performance:
+Any future public performance material would require:
 
-> "HYPOTHETICAL OR SIMULATED PERFORMANCE RESULTS HAVE CERTAIN INHERENT
-> LIMITATIONS. UNLIKE AN ACTUAL PERFORMANCE RECORD, SIMULATED RESULTS DO
-> NOT REPRESENT ACTUAL TRADING. ALSO, SINCE THE TRADES HAVE NOT ACTUALLY
-> BEEN EXECUTED, THE RESULTS MAY HAVE UNDER- OR OVER-COMPENSATED FOR THE
-> IMPACT, IF ANY, OF CERTAIN MARKET FACTORS, SUCH AS LACK OF LIQUIDITY.
-> SIMULATED TRADING PROGRAMS IN GENERAL ARE ALSO SUBJECT TO THE FACT THAT
-> THEY ARE DESIGNED WITH THE BENEFIT OF HINDSIGHT. NO REPRESENTATION IS
-> BEING MADE THAT ANY ACCOUNT WILL OR IS LIKELY TO ACHIEVE PROFITS OR
-> LOSSES SIMILAR TO THOSE SHOWN."
+- a defined and verified evidence source;
+- clear separation of simulated and live results;
+- methodology and limitation disclosures;
+- review under the rules applicable to the audience and jurisdiction;
+- an explicit publication decision.
 
-Public performance figures are framed with a **past performance does not
-guarantee future results** disclaimer surfaced at the point of
-presentation, not only in a separate modal.
+## CURRENT — research methodology disclosure
 
-## Backtest methodology (high-level)
+The public methodology description is limited to governance principles:
+rule-based primary research, temporal separation, pre-registration, cumulative
+trial accounting, purged and embargoed anchored walk-forward evaluation, DSR,
+sanity checks, and reproducibility. CPCV and PBO remain programme methods only
+where applicable and are not claimed for the current synthetic engine route.
 
-At a level appropriate for public reference:
+This disclosure does not publish a strategy, a result, or a regulatory
+assurance.
 
-- Out-of-sample validation on held-out windows that the model has not
-  seen during training.
-- Point-in-time feature snapshots so the backtest sees the same data the
-  live engine would have seen at the same historical moment.
-- Conservative standard-error estimation for monthly return and
-  risk-adjusted-return metrics.
-- Deterministic replay: the same raw snapshots reproduce the same
-  backtest output end-to-end.
+## IN PROGRESS — control strengthening
 
-Detailed backtest parameters, validation windows, and metric definitions
-are operational and not part of the public reference.
+Research integrity, access, trial-accounting, and audit controls are being
+strengthened.
 
-## Anti-overfit validation pipeline
+The public consequence is conservative: no current result is described as a
+deployment qualification while this work remains in progress.
 
-Disuza's research methodology follows the discipline outlined in Marcos
-López de Prado's work on multiple-testing and out-of-sample robustness:
+## TARGET — future relationships
 
-- **Combinatorial Purged Cross-Validation (CPCV)** — preserves the
-  temporal structure of financial data while extracting many distinct
-  out-of-sample paths from a single dataset, controlling for the leakage
-  between adjacent train and test folds.
-- **Deflated Sharpe Ratio (DSR)** — adjusts the in-sample Sharpe estimate
-  for the number of trials conducted on the dataset; the cumulative trial
-  counter is preserved across the project lifetime.
-- **Probability of Backtest Overfitting (PBO)** — quantifies the
-  probability that the strategy ranked best in-sample will underperform
-  out-of-sample.
-- **Frozen temporal splits per asset class** — dev / validation / holdout
-  / forward windows are fixed before any hypothesis is tested; the
-  holdout and forward sets are never touched until validation gates pass.
-- **Pre-registered hypotheses** — every strategy under evaluation has a
-  registered hypothesis document committed before experimentation begins.
-- **Reproducibility script per validated result** — every cited backtest
-  number has a corresponding `reproduce_NNN.py` committed alongside.
+Potential future direct, programme-based, paper, or live activity would require
+separate qualification and legal review. A target execution or custody design
+does not create a current client relationship or service.
 
-Detailed validation thresholds (DSR minimums, PBO ceilings, CPCV
-parameters) are operational and not part of the public reference.
+## Privacy and counterparties
 
-## Custody model
-
-Disuza's relationship with any counterparty is structurally
-non-custodial:
-
-- For prop-trading-programme accounts, the prop firm holds the
-  capital and issues Disuza trade-only credentials.
-- For self-custody venues, Disuza uses agent wallets under signer
-  separation: the online trading key cannot move funds; withdrawal
-  requires an offline root signer.
-
-Disuza does not at any time hold, pool, or otherwise have discretionary
-access to client funds beyond trade-placement authority.
-
-## Non-solicitation posture
-
-Disuza does not solicit retail investor capital, does not market
-investment services to the public in any jurisdiction, and does not
-operate as a Collective Investment Scheme under any regulatory framework.
-Access to Disuza's live platform is closed and by invitation only.
+This public reference does not identify private accounts, counterparties,
+credential structures, operational jurisdictions, or legal arrangements.
+Those facts are disclosed only when necessary, authorised, and appropriate
+for the recipient.
 
 ## Document status
 
-This documentation is informational only. Statements about regulatory
-alignment describe internal posture and monitoring activity; they do not
-constitute representations of regulatory compliance, authorisation, or
-approval. Before engaging with Disuza Quantitative in any capacity,
-consult local counsel.
+This posture was last verified on 2026-09-01 for the unreleased v4.0.0 public
+documentation candidate. Laws, regulatory interpretations, and business
+circumstances can change; this page must be reviewed before any materially
+different public claim is made.
 
 ---
 
-*Disuza Quantitative — Living Technical Reference · Version 3.1 · Last Updated: 2026-05-22*
-
-<!-- last_updated: 2026-05-22 · version: 3.1.0 -->
+*Disuza Quantitative — Public Technical Reference · Version 4.0.0 candidate ·
+Unreleased · Last verified 2026-09-01*

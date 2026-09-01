@@ -1,0 +1,139 @@
+schema_version: 1
+document:
+  title: "Disuza Quantitative Public Technical Reference"
+  version: "4.0.0"
+  release_status: "unreleased"
+  last_verified: "2026-09-01"
+  canonical_repository: "https://github.com/DisuzaQuantitative/Disuza-Quantitative"
+
+initiative:
+  name: "Disuza Quantitative"
+  positioning: "Disuza Quantitative is a private, pre-deployment quantitative R&D initiative building and validating rule-based systematic trading infrastructure."
+  lifecycle: "pre-deployment"
+  operating_footprint: "Founder-led between Madrid, Spain, and Bizerte, Tunisia."
+  legal_registration_claim: "none"
+  regulatory_authorization_claim: "none"
+
+leadership:
+  model: "Two-founder private initiative."
+  co_founders:
+    - name: "Yasmine Bendhiab"
+      responsibility: "Business, legal, and administrative coordination; non-technical role."
+      location: "Madrid, Spain."
+    - name: "Fares Bendhiab"
+      responsibility: "Research architecture, quantitative engineering, and technical governance."
+      location: "Bizerte, Tunisia."
+
+status_vocabulary:
+  CURRENT: "Publicly supportable state at the document date."
+  "IN PROGRESS": "Work being designed, implemented, or evaluated; completion is not claimed."
+  TARGET: "Intended future state; not a statement of present capability."
+
+public_status:
+  CURRENT:
+    - "A private quantitative research and development initiative."
+    - "A public documentation and governance corpus."
+    - "Research tooling under controlled development."
+    - "Forward-only market-data capture and monitoring are operational for research data collection."
+    - "A bounded execution-engine contract is qualified on deterministic synthetic fixtures only."
+  "IN PROGRESS":
+    - "Validation controls and supporting research software."
+    - "Data, execution, risk, and operational abstractions."
+    - "Readiness evidence for future qualification decisions."
+  TARGET:
+    - "An auditable, deployment-ready systematic research and execution stack."
+    - "Promotion between lifecycle stages only after explicit qualification gates."
+
+capabilities:
+  CURRENT:
+    - "Python-based quantitative research tooling."
+    - "Rule-based strategy specification and evaluation."
+    - "Temporal data separation and point-in-time quality work."
+    - "Purged, embargoed, anchored walk-forward evaluation and Deflated Sharpe Ratio (DSR) on the current synthetic engine route."
+    - "Combinatorial Purged Cross-Validation (CPCV) and Probability of Backtest Overfitting (PBO) as programme methods only where applicable."
+    - "Hypothesis pre-registration, cumulative trial accounting, and reproducibility controls."
+    - "Cloud-supported batch research workflows."
+    - "Audit-oriented documentation and research governance."
+  "IN PROGRESS":
+    - "Stronger access-integrity and audit-evidence controls."
+    - "Data, risk, state, and execution abstractions."
+    - "Order-and-fill accounting and failure-handling controls."
+    - "Evidence packages for later paper-execution qualification."
+  TARGET:
+    - "An integrated, auditable systematic research and execution stack."
+    - "Qualified paper-execution and venue-adapter paths."
+    - "Reconciled runtime state and risk-reducing failure behaviour."
+    - "Explicit human promotion decisions between lifecycle stages."
+
+target_architecture:
+  status: "TARGET"
+  deployment: "not deployed"
+  components:
+    - "Governed research inputs."
+    - "Point-in-time dataset construction."
+    - "Rule-based candidate evaluation."
+    - "Validation and governance review."
+    - "Explicit promotion decision."
+    - "Paper-execution qualification."
+    - "Venue-adapter boundary."
+    - "Risk and state controls."
+    - "Order and fill reconciliation."
+    - "Audit evidence."
+
+research_scope:
+  core_markets:
+    - "BTC and ETH perpetual markets."
+    - "NQ and ES index-futures markets."
+  optional_research:
+    - "Optional CFD adaptations are evaluated as a separate research lane."
+  primary_horizon: "Approximately 30 minutes to 4 hours."
+  boundary: "Programme research scope only; not qualified engine coverage or current trading activity."
+
+research_data_capture:
+  status: "CURRENT"
+  scope: "Forward-only market-data capture and monitoring are operational for research data collection."
+  boundary: "They do not place orders, operate accounts, connect capital, or constitute a trading runtime."
+
+qualified_engine:
+  status: "CURRENT"
+  evidence: "A bounded execution-engine contract is qualified on deterministic synthetic fixtures only."
+  boundary: "It has not processed market data and does not qualify a strategy, an economic result, paper execution, live execution, or deployment."
+  scope_boundary: "Its narrow contract does not establish coverage of the programme research universe or design horizon."
+
+methodology:
+  primary_signal_policy: "Rule-based."
+  auxiliary_machine_learning: "Eligible only after the related hard-rule baseline qualifies out of sample."
+  public_methods:
+    - "Temporal separation."
+    - "Hypothesis pre-registration."
+    - "Cumulative trial accounting."
+    - "Purged, embargoed, anchored walk-forward evaluation and Deflated Sharpe Ratio (DSR) on the current synthetic engine route."
+    - "Combinatorial Purged Cross-Validation (CPCV) and Probability of Backtest Overfitting (PBO) as programme methods only where applicable."
+    - "Sanity checks and reproducibility controls."
+  limitation: "Research methods reduce avoidable error; they do not establish future performance."
+
+repository_scope:
+  included:
+    - "Public documentation."
+    - "High-level research, governance, and architecture descriptions."
+    - "Status-qualified descriptions of current, in-progress, and target work."
+  excluded:
+    - "Production trading source code."
+    - "Secrets, credentials, and private infrastructure identifiers."
+    - "Private datasets, model weights, and proprietary algorithms."
+    - "Unpublished research results and operational control thresholds."
+
+explicit_non_claims:
+  - "No live or paper trading, production trading platform, customer-facing trading service, order placement, account operation, custody, or capital-management activity is represented."
+  - "No historical or expected return, validated alpha, or investment-performance claim is made."
+  - "No investment service, investment advice, financial product, offer, or solicitation is made."
+  - "No company-registration or financial-services-licence claim, regulatory approval, or authorization is represented."
+
+licensing:
+  current_material: "CC-BY-4.0"
+  historical_grants: "Rights already granted under licences attached to earlier versions remain in effect for those exact versions."
+  notice: "NOTICE.md"
+
+contact:
+  website: "https://disuza.com"
+  email: "contact@disuza.com"
