@@ -55,9 +55,10 @@ by copying unsupported claims from an older public page.
 - [ ] Align page titles, descriptions, Open Graph fields, social cards,
       canonical URLs, robots metadata, and structured SEO data.
 
-## TARGET — independent acceptance
+## TARGET — acceptance
 
-- [ ] The non-author founder approves biography, contact, and licence wording.
+- [ ] Biography, contact, and licence wording match `PUBLIC_FACTS.yml` and
+      current source material.
 - [ ] Every surface is checked against `PUBLIC_FACTS.yml`.
 - [ ] Links, previews, and machine-readable metadata are verified after
       publication.

@@ -21,9 +21,9 @@ limited to public responsibilities and location.
 ## Biography boundary
 
 Employer history, education, certifications, regulatory expertise, and claims
-of deployed-platform experience are omitted from this release. Before merge,
-the non-author founder must explicitly confirm the names, responsibilities,
-locations, and public contact in this page.
+of deployed-platform experience are omitted from this release. Any change to
+the names, responsibilities, locations, or public contact in this page must be
+checked against `PUBLIC_FACTS.yml` and current source material.
 
 ## Contact
 

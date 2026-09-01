@@ -23,12 +23,13 @@
 - [ ] Markdown, links, anchors, CFF, Mermaid, and secret scanning pass.
 - [ ] I previewed the GitHub Markdown and the 1200×630 Open Graph image.
 
-## Release approval
+## Release boundary
 
-- [ ] The non-author founder explicitly approved the biographies and
-      responsibilities in `docs/team.md`.
-- [ ] The non-author founder explicitly approved `contact@disuza.com`.
-- [ ] The non-author founder explicitly approved CC BY 4.0 and `NOTICE.md`.
+- [ ] The maintainer checked biographies and responsibilities against current
+      source material.
+- [ ] The maintainer confirmed `contact@disuza.com` as the public contact.
+- [ ] The maintainer checked CC BY 4.0 and `NOTICE.md` against the intended
+      public licence boundary.
 - [ ] Candidate version and verification markers are current; any release date
       is added only when the release actually occurs.
 
